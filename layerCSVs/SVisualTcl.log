@@ -1,0 +1,22 @@
+###########################################
+# Sentaurus Visual O-2018.06.
+# Tcl log file.
+#------------------------------------------
+# Date: Mar 06, 2019. 01:09:31.
+# Version: 28.0.1030 (1.1030)
+# Mode: Interactive (GUI).
+# Mesa: enabled.
+# Hostname: SUNLAB-SIM.site.uottawa.ca.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 3.10.0-327.36.2.el7.x86_64.
+###########################################
+
+load_script_file /home/mwilkins/STDB/tmp/06-MJSC-JV.vis.cmd
+cd /home/mwilkins/STDB/tmp
+#-> 0
+remove_curves -plot Plot_C1_2 {Ev Ec Efn1 Efp1}
+#-> Ev Ec Efn1 Efp1
+create_curve -plot Plot_C1_2 -dataset {C1} -axisX Y -axisY OpticalGeneration
+#-> Curve_1
+exit 0
+ 

@@ -1,0 +1,103 @@
+<html><head><title>MatPar Documentation InP/BandStructure/Bandgap</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for InP/BandStructure/Bandgap</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#InP/BandStructure/Bandgap/Default.tcl"> Temperature dependent model from sdevice (Default.tcl)</a>
+  <li> <a href="#InP/BandStructure/Bandgap/Piprek.tcl"> Temperature dependent model (Varshni) from Piprek (Piprek.tcl)</a>
+  <li> <a href="#InP/BandStructure/Bandgap/Passler.tcl"> Temperature dependent model from Passler (Passler.tcl)</a>
+  <li> <a href="#InP/BandStructure/Bandgap/Levinshtein-RT.tcl"> room temperature model from Levinshtein (Levinshtein-RT.tcl)</a>
+  <li> <a href="#InP/BandStructure/Bandgap/Levinshtein.tcl"> Temperature dependent model from Levinshtein (Levinshtein.tcl)</a>
+</ul>
+<hr><p><a name="InP/BandStructure/Bandgap/Default.tcl" href="#top">[top]</a><b> Temperature dependent model from sdevice</b>
+<p><b>FILE:</b> <tt><a href="Default.tcl">Default.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent Bandgap is calculated using
+Eg(T)  =  Eg0 + alpha*Tpar^2/(Tpar + beta) - alpha*T/(T + beta)
+Temperature dependent electron affinity is calculated using
+Chi(T) = Chi(Tpar)- alpha*Tpar^2/(Tpar + beta) + alpha*T^2/(2*(T + beta)) + Bgn2Chi*Ebgn
+Ebgn   =  Bandgap narrowing [eV] depending on BGN model not set here!
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> Eg returns Eg(T) [eV]
+Chi returns Chi(T) with Ebgn = 0 [eV]
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> 
+Sentaurus Device User Guide
+<br><b>NOTES:</b> The value of Ebgn depends on the BGN model chosen. It is not taken into account and set to 0
+in the calculation of the parameter Bandgap::Chi.
+<hr><p><a name="InP/BandStructure/Bandgap/Piprek.tcl" href="#top">[top]</a><b> Temperature dependent model (Varshni) from Piprek</b>
+<p><b>FILE:</b> <tt><a href="Piprek.tcl">Piprek.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent Bandgap is calculated using
+Eg(T)  =  Eg0 + alpha*Tpar^2/(Tpar + beta) - alpha*T/(T + beta)
+Temperature dependent electron affinity is calculated using
+Chi(T) = Chi(Tpar)- alpha*Tpar^2/(Tpar + beta) + alpha*T^2/(2*(T + beta)) + Bgn2Chi*Ebgn
+Ebgn   =  Bandgap narrowing [eV] depending on BGN model not set here!
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> Eg returns Eg(T) [eV]
+Chi returns Chi(T) with Ebgn = 0 [eV]
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> 
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+<br><b>NOTES:</b> The value of Ebgn depends on the BGN model chosen. It is not taken into account and set to 0
+in the calculation of the parameter Bandgap::Chi.
+<hr><p><a name="InP/BandStructure/Bandgap/Passler.tcl" href="#top">[top]</a><b> Temperature dependent model from Passler</b>
+<p><b>FILE:</b> <tt><a href="Passler.tcl">Passler.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent Bandgap is calculated using
+Eg(T) = Eg(0) - ($a*$theta/2)*((1+(2*temp/theta)^(1/p))^(1/p)-1)
+where,
+Eg(T) =  Bandgap [eV] at temperature, temp [K]
+Eg(0) =  Bandgap at 0K [eV]
+p     =  Passler parameter [1]
+a     =  Passler parameter [eV/K]
+Temperature dependent electron affinity is calculated using
+Chi(T) = Chi(Tpar)- alpha*Tpar^2/(Tpar + beta) + alpha*T^2/(2*(T + beta)) + Bgn2Chi*Ebgn
+Ebgn   =  Bandgap narrowing [eV] depending on BGN model not set here!
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> Eg returns Eg(T) [eV]
+Chi returns Chi(T) with Ebgn = 0 [eV]
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> R. Passler, "Parameter sets due to fittings of the temperature dependencies of fundamental bandgaps in semiconductors", Phys. Stat. Sol.(b), vol. 216, pp. 975-1007, 1999
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+<br><b>NOTES:</b> The Passler model is implemented by expressing Varshni parameters in terms of Passler parameters.
+The value of Ebgn depends on the BGN model chosen. It is not taken into account and set to 0 in the calculation of the parameter Bandgap::Chi.
+The value of Chi0 is the sdevice default value.
+<hr><p><a name="InP/BandStructure/Bandgap/Levinshtein-RT.tcl" href="#top">[top]</a><b> room temperature model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein-RT.tcl">Levinshtein-RT.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent bandgap is calculated using
+Eg(T)  =  Eg0 + alpha*Tpar^2/(Tpar + beta) - alpha*T/(T + beta)
+Temperature dependent electron affinity is calculated using
+Chi(T) = Chi(Tpar)- alpha*Tpar^2/(Tpar + beta) + alpha*T^2/(2*(T + beta)) + Bgn2Chi*Ebgn
+Ebgn   =  Bandgap narrowing [eV] depending on BGN model not set here!
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> Eg returns Eg(T) [eV]
+Chi returns Chi(T) with Ebgn = 0 [eV]
+<br><b>VALIDITY:</b>  this model is valid only for T=300K
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol I"
+M. Levinshtein, S. Rumyantsev, M. Shur, World Scientific, 1996
+<br><b>NOTES:</b> The value of Ebgn depends on the BGN model chosen. It is not taken into account and set to 0
+in the calculation of the parameter Bandgap::Chi.
+<hr><p><a name="InP/BandStructure/Bandgap/Levinshtein.tcl" href="#top">[top]</a><b> Temperature dependent model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent Bandgap is calculated using
+Eg(T)  =  Eg0 + alpha*Tpar^2/(Tpar + beta) - alpha*T/(T + beta)
+Temperature dependent electron affinity is calculated using
+Chi(T) = Chi(Tpar)- alpha*Tpar^2/(Tpar + beta) + alpha*T^2/(2*(T + beta)) + Bgn2Chi*Ebgn
+Ebgn   =  Bandgap narrowing [eV] depending on BGN model not set here!
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> Eg returns Eg(T) [eV]
+Chi returns Chi(T) with Ebgn = 0 [eV]
+<br><b>VALIDITY:</b>  this model is valid for T = 0 K to 1000 K
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol I"
+M. Levinshtein, S. Rumyantsev, M. Shur, World Scientific, 1996
+<br><b>NOTES:</b> The value of Ebgn depends on the BGN model chosen. It is not taken into account and set to 0
+in the calculation of the parameter Bandgap::Chi.

@@ -1,0 +1,19 @@
+###########################################
+# Sentaurus Visual J-2014.09.
+# Tcl log file.
+#------------------------------------------
+# Date: Jun 16, 2015. 17:19:07.
+# Version: 23.0.6 (1.6)
+# Mode: Interactive (GUI).
+# Hostname: hinzer01.
+# Machine: Linux, x86_64, amd64.
+# Kernel: 2.6.32-358.6.1.el6.x86_64.
+###########################################
+
+load_script_file /home/infofa/h/users/mwilkins/vis_tmp.cmd
+cd /home/infofa/h/users/mwilkins
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+#-> 0
+zoom_plot -plot P1 -window {-0.0499808 -0.0110943 3.45421 0.0094234}
+exit 0

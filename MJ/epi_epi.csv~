@@ -1,0 +1,208 @@
+#***************************************************************
+# Epi command file for
+# multilayered structure generation
+#***************************************************************
+
+#include "../layerCSVs/epi_GlobalSection.csv"
+
+#if "@ARC@" == "yes"
+ arc1, MgF, 	MgF.par, 	0.10,	, ,	(mbox 0.005 1.2 both)
+ arc2, TiOx, TiOx.par, 0.06,	,	,	(mbox 0.005 1.2 both)
+#endif
+
+#if "@cap@" == "yes"
+ cap2,	   InGaAs,   In53GaAs.tcl,	0.1,	5e18,	0.53,	(mbox 0.002 1.2 both)
+#endif
+
+etchstop,  InAlAs,   In30AlAs.tcl,	0.01,	2e18,	0.30,	(mbox 0.002 1.2 both)
+
+#if @segments@ >= 10
+ #set scn 10
+ #if @segments@ == 10
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_10@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_10@ / 2.0 >@
+ #endif
+ #set t_base @< @t_10@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 9
+ #set scn 9
+ #if @segments@ == 9
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_9@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_9@ / 2.0 >@
+ #endif
+ #set t_base @< @t_9@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 8
+ #set scn 8
+ #if @segments@ == 8
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_8@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_8@ / 2.0 >@
+ #endif
+ #set t_base @< @t_8@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 7
+ #set scn 7
+ #if @segments@ == 7
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_7@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_7@ / 2.0 >@
+ #endif
+ #set t_base @< @t_7@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 6
+ #set scn 6
+ #if @segments@ == 6
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_6@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_6@ / 2.0 >@
+ #endif
+ #set t_base @< @t_6@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 5
+ #set scn 5
+ #if @segments@ == 5
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_5@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_5@ / 2.0 >@
+ #endif
+ #set t_base @< @t_5@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 4
+ #set scn 4
+ #if @segments@ == 4
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_4@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_4@ / 2.0 >@
+ #endif
+ #set t_base @< @t_4@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 3
+ #set scn 3
+ #if @segments@ == 3
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_3@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_3@ / 2.0 >@
+ #endif
+ #set t_base @< @t_3@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#if @segments@ >= 2
+ #set scn 2
+ #if @segments@ == 2
+  #set t_fsf 0.4
+ #else 
+  #set t_fsf 0.05
+ #endif
+ #if @t_2@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_2@ / 2.0 >@
+ #endif
+ #set t_base @< @t_2@ - @t_em@ >@
+ #include "../layerCSVs/Subcell.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+#set scn 1
+#if @segments@ == 1
+ #set t_fsf @< 0.4*0.97 >@
+#else 
+ #set t_fsf 0.05
+#endif
+ #if @t_1@ > 0.2
+  #set t_em 0.1
+ #else
+  #set t_em @< @t_1@ / 2.0 >@
+ #endif
+ #set t_base @< (@t_1@ - @t_em@ - 0.5)*1.0 >@
+#include "../layerCSVs/Subcell.csv"
+
+#set d_cap1_mod @< @d_cap1@*1 >@
+cap1,	   InGaAs,   In53GaAs.tcl,	@d_cap1_mod@,	-2e19,	0.53,	(mbox 0.002 1.2 both)
+#if "@buffer@" == "Quat"
+ buffer,   InAlGaAs_InP,   InAlGaAs_InP.tcl,	0.1,	@p_buffer@,	0.748,	(mbox 0.002 1.2 both)
+#elif "@buffer@" == "IGA"
+ #set d_buf @< 0.1*1 >@
+ buffer,   InGaAs,   In53GaAs.tcl,	@d_buf@,	@p_buffer@,	0.53,	(mbox 0.002 1.2 both)
+#elif "@buffer@" == "IAA"
+ buffer,   InAlAs,   In52AlAs.tcl,	0.1,	@p_buffer@,	0.52,	(mbox 0.002 1.2 both)
+#endif
+
+#if "@sub@" == "yes"
+ substrate, InP,     InP.tcl,		625, 	@p_sub@,	,	(mbox 0.005 1.2 both)
+#else
+ substrate, InP,     InP.tcl,		1.0, 	@p_sub@,	,	(mbox 0.005 1.2 both)
+#endif
+
+###########################################################################
+
+# Material and Interface section
+#include "../layerCSVs/epi_Material_Interface_Section.csv"
+
+

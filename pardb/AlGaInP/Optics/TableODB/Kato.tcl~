@@ -1,0 +1,157 @@
+#----------------------------------------------------------------------#
+# $Id:$
+#----------------------------------------------------------------------#
+#! MODEL: x-dependent Room temperature model from Sopra (Kato et al)
+#! MATERIAL: AlGaInP
+#! PROPERTY: Complex Refractive Index 
+#! EXPRESSION: 
+#! Room temperature values of wavelength, refractive index and extinction coefficient are created using 
+#! Sopra database for (AlxGa1-x)50In50P
+#! CALCULATED PARAMETER:
+#! llist, nlist and klist return wavelength [um], absorption coefficient [cm^-1], refractive index and extinction coefficient respectively. 
+#! VALIDITY:
+#!     For (AlxGa1-x)50In50P with x values of 0.0 (GaInP) to 1.0 (AlInP)
+#! NOTES:
+#!  Data calculated on the fly by MDF fit to measured data. 
+#   Publication cited by SOPRA: 
+#! REFERENCE: H.KATO,S. ADACHI, H.NAKANISHI, K. OHTSUKA. 
+#!            Optical Properties of (AlxGa1-x)0.5In0.5P Quaternary alloys
+#!            Japan J. Appl. Phys. Vol 33 (1994) pp. 186-192.
+#! HISTORY:
+#! Created by Matt Wilkins, June 14 2013
+
+package require math::complexnumbers
+
+namespace eval AlGaInP::TableODB {                
+
+
+	proc init {} {
+		variable Elist
+		variable eps1_E0list
+		variable eps2_E0list
+		variable eps1_E1list
+		variable eps2_E1list
+		variable eps1_E1exlist
+		variable eps2_E1exlist
+		variable eps1_E2list
+		variable eps2_E2list
+		variable eps1list
+		variable eps2list
+                variable llist
+		variable nlist
+		variable klist
+		
+
+                # Check that mole fraction exists
+		if {![info exists ::xMole]} {
+			puts stderr "AlGaInP TableODB Kato: xmole fraction not defined"
+			exit 1
+		}
+
+		# mole-fraction specific parameters
+		set E0    [expr 1.89  + 0.64*$::xMole]
+		set A     [expr 4.27  + 6.45*$::xMole]
+		set Gam0  [expr 0.059 - 0.031*$::xMole]
+		set E1    [expr 3.28 + 0.33*$::xMole + 0.13*$::xMole*$::xMole]
+		set B1    [expr 5.02 + 0.88*$::xMole - 1.95*$::xMole*$::xMole]
+		set B1x   [expr 2.39 + 0.15*$::xMole + 0.50*$::xMole*$::xMole]
+		set Gam1  [expr 0.30 + 0.12*$::xMole - 0.06*$::xMole*$::xMole]
+		set E2    [expr 4.78 - 0.05*$::xMole + 0.06*$::xMole*$::xMole]
+		set C     [expr 2.03 - 1.89*$::xMole + 1.37*$::xMole*$::xMole]
+		set Gam2  [expr 0.178 - 0.105*$::xMole + 0.085*$::xMole*$::xMole]
+		set epsinf [expr 0.56 - 0.68*$::xMole + 0.33*$::xMole*$::xMole]
+
+		# min wavelength (um)
+		set lmin 0.2
+		# max wavelength (um)
+		set lmax 2.0 
+		# interval (um)
+		set lint 0.002 
+		
+		set llist {}
+		set Elist {}
+		set nlist {}
+		set klist {}
+		set eps1_E0list {}
+		set eps2_E0list {}
+		set eps1_E1list {}
+		set eps2_E1list {}
+		set eps1_E1exlist {}
+		set eps2_E1exlist {}
+		set eps1_E2list {}
+		set eps2_E2list {}
+		set eps1list {}
+		set eps2list {}
+		
+		set lcurrent $lmin
+		while { $lcurrent <= $lmax } {
+				# photon energy
+				set E [expr 1.2398/$lcurrent]
+				set n 0
+				set k 0
+
+				set Chi0  [::math::complexnumbers::complex [expr $E/$E0] [expr $Gam0/$E0]]
+				set Chi1d [::math::complexnumbers::complex [expr $E/$E1] [expr $Gam1/$E1]]
+				set Chi2  [expr $E/$E2]
+
+				# Calculate E0 contribution to eps				
+				set t2 [::math::complexnumbers::pow [::math::complexnumbers::+ [::math::complexnumbers::complex 1.0 0.0] $Chi0] [::math::complexnumbers::complex 0.5 0.0]]
+				set t3 [math::complexnumbers::pow [::math::complexnumbers::- [math::complexnumbers::complex 1.0 0.0] $Chi0] [::math::complexnumbers::complex 0.5 0.0]]				
+				set f2 [math::complexnumbers::- [math::complexnumbers::- [math::complexnumbers::complex 2.0 0.0] $t2] $t3]   
+				set f_Chi0 [math::complexnumbers::* [math::complexnumbers::pow $Chi0 [math::complexnumbers::complex -2.0 0.0]] $f2]
+				set eps_E0 [math::complexnumbers::* [math::complexnumbers::complex [expr $A*pow($E0, -1.5)] 0.0] $f_Chi0]
+
+				# E1
+				set f2 [math::complexnumbers::log [math::complexnumbers::- [math::complexnumbers::complex 1.0 0.0] [math::complexnumbers::* $Chi1d $Chi1d]] ]
+				set eps_E1 [math::complexnumbers::* [math::complexnumbers::* [math::complexnumbers::complex [expr -$B1] 0.0 ] [math::complexnumbers::pow $Chi1d [math::complexnumbers::complex -2.0 0.0] ] ] $f2 ]
+				 
+				# E1 exciton
+				set eps_E1ex [math::complexnumbers::/ [math::complexnumbers::complex $B1x 0.0] [math::complexnumbers::complex [expr $E1 - $E] [expr -$Gam1] ] ]
+				
+				# E2
+				set t1 [expr 1.0 - pow( $Chi2, 2.0)]
+				set eps_E2 [math::complexnumbers::/ [math::complexnumbers::complex $C 0.0] [math::complexnumbers::complex $t1 [expr -$Chi2*$Gam2]]]
+ 
+				
+				puts "$E $eps_E0"
+				lappend llist $lcurrent				
+				lappend Elist $E
+				lappend nlist $n
+				lappend klist $k
+				lappend eps1_E0list [::math::complexnumbers::real $eps_E0]
+				lappend eps2_E0list [::math::complexnumbers::imag $eps_E0] 				
+				lappend eps1_E1list [::math::complexnumbers::real $eps_E1]
+				lappend eps2_E1list [::math::complexnumbers::imag $eps_E1] 
+				lappend eps1_E1exlist [::math::complexnumbers::real $eps_E1ex]
+				lappend eps2_E1exlist [::math::complexnumbers::imag $eps_E1ex] 				
+				lappend eps1_E2list [::math::complexnumbers::real $eps_E2]
+				lappend eps2_E2list [::math::complexnumbers::imag $eps_E2]
+
+				set eps [math::complexnumbers::complex 0.0 0.0 ]
+				set eps [math::complexnumbers::+ $eps $eps_E0]				
+				set eps [math::complexnumbers::+ $eps $eps_E1]
+				set eps [math::complexnumbers::+ $eps $eps_E1ex]
+				set eps [math::complexnumbers::+ $eps $eps_E2]
+
+				lappend eps1 [::math::complexnumbers::real $eps]
+				lappend eps2 [::math::complexnumbers::imag $eps]
+				
+				set t1  [expr sqrt( sqrt([expr $eps1*$eps1 + $eps2*$eps2 ])) ]
+				
+				set n [expr sqrt([expr ( $t1 + $eps1 ) /2.0 ]) ]
+				set k [expr sqrt([expr ( $t1 - $eps1 ) /2.0 ]) ]
+				
+				lappend eps1list [::math::complexnumbers::real $eps]
+				lappend eps2list [::math::complexnumbers::imag $eps]
+
+				lappend nlist $n
+				lappend klist $k				
+				set lcurrent [expr $lcurrent + $lint]
+			
+		}
+
+		proc print {} {printPar::TableODBSection} 
+	}
+
+}
+AlGaInP::TableODB::init

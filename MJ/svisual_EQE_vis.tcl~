@@ -1,0 +1,131 @@
+#setdep @node|EQE@
+
+# use maximum floating point precision
+set tcl_precision 17
+
+# make full Tcl library available
+set tcl_library "${::env(SENTAURUS)}/../tcad/current/lib/tcl8.6"
+source [file join [info library] init.tcl]
+source ../lib/PhysicalConstants.tcl
+
+# load the interpolation package
+package require math::interpolate
+package require math::calculus
+
+set eqedataset n@node|EQE@_des
+
+
+if { [info exists QEplot ] == 0 } {
+
+set QEplot [create_plot -name P1 -1d]
+set_axis_prop -plot P1 -axis x -title "Wavelength (<greek>m</greek>m)" -range {@wstart@ @wend@} -title_font_size 20 -scale_font_size 20
+set_axis_prop -plot P1 -axis y -title "Quantum Efficiency"  -range [list 0.0 1.0] -title_font_size 20 -scale_font_size 20
+set_axis_prop -plot P1 -axis y2 -title "Intensity"  -range [list 0.0 1.6] -title_font_size 20 -scale_font_size 20
+set_legend_prop -location bottom_left -label_font_size 20
+
+}
+
+proc getColor {} {
+	if { [info exists ::colorindex] == 0} { set ::colorindex -1 }
+	#set plot_colors [list "#348abd" "#7a68a6" "#a60628" "#467821" "#cf4457" "#188487" "#e24a33" "#687a68" black blue red magenta cyan ]
+	set plot_colors [list "#348abd" "#a60628" "#7a68a6" "#467821" "#000080"]
+
+
+	if { $::colorindex < [expr [ llength $plot_colors] -1] } {
+		incr ::colorindex
+	} else {
+		set ::colorindex -1 
+	}
+	return [lindex $plot_colors $::colorindex]
+}
+
+## load reference data.
+##set ref_ds [load_file ../spectra/gaussian_@spectrum@.csv]
+##create_curve -name Laser  -dataset $ref_ds -axisX wl -axisY2 I
+##set_curve_prop Laser -label "Laser"
+set ref_ds [load_file ../reference/@Sample@_ref.csv]
+create_curve -name Ref_EQE  -dataset $ref_ds -axisX wl -axisY EQE
+set_curve_prop Ref_EQE -label "Ref EQE" 
+create_curve -name Ref_IQE  -dataset $ref_ds -axisX wl -axisY IQE
+set_curve_prop Ref_IQE -label "Ref IQE" 
+create_curve -name Ref_RS  -dataset $ref_ds -axisX wl -axisY RS
+set_curve_prop Ref_RS -label "Ref RS" 
+
+
+# load dataset
+set ds [load_file ${eqedataset}.plt]
+
+# create J-V curve
+set wlname "Device=,File=CommandFile/Physics,DefaultRegionPhysics,ModelParameter=Optics/Excitation/Wavelength"
+set iname "Device=,File=CommandFile/Physics,DefaultRegionPhysics,ModelParameter=Optics/Excitation/Intensity"
+create_curve -name wl -dataset $ds -axisX $wlname -axisY $wlname
+
+create_curve -name R1_@node@  -dataset $ds -axisX $wlname -axisY "LayerStack(W1) R_Total"
+create_curve -name T_@node@  -dataset $ds -axisX $wlname -axisY "LayerStack(W1) T_Total"
+
+create_curve -name J_cathode  -dataset $ds -axisX $wlname -axisY "cathode TotalCurrent"
+
+
+create_curve -name J1 -function "<J_cathode>"
+
+create_curve -name R_@node@ -function "@FT@*<R1_@node@>+(1-@FT@)"
+create_curve -name EQE_@node@ -function "($::h*$::c/$::q)*<J1>*@FT@/(<wl>*1e-6)"
+create_curve -name IQE_@node@ -function "<EQE_@node@>/(1-<R_@node@>)"
+
+set color [getColor]
+set_curve_prop EQE_@node@ -label "EQE" -show_markers -markers_type circle -color $color
+set_curve_prop IQE_@node@ -label "IQE" -show_markers -markers_type cross -color $color -line_style dash
+
+set_curve_prop R_@node@ -label "Reflectivity" -show_markers -markers_type plus -color darkMagenta
+#set_curve_prop T_@node@ -label "Transmissivity" -show_markers -markers_type plus -color olive
+
+
+##set coeffs [::math::interpolate::prepare-cubic-splines [get_curve_data Laser -axisX] [get_curve_data Laser -##axisY]]
+##set wl_list [get_curve_data EQE_@node@ -axisX]
+##set EQE_list [get_curve_data EQE_@node@ -axisY]
+##set Jsc_eqe 0
+##set dwl [expr (@wend@-@wstart@)/@wsteps@]*1e-6
+##foreach lambda $wl_list eqe $EQE_list {
+##	set Ep [expr $lambda*1e-6*$h*$c]
+##	set I [::math::interpolate::interp-cubic-splines $coeffs $lambda]
+##	set b [expr $I*$dwl/$Ep]
+##	set J [expr $b*$eqe*$q*1e-4]
+##	set Jsc_eqe [expr $Jsc_eqe + $J]
+##	puts "$lambda $Ep $I $b $J"
+##}
+##puts "DOE: Jsc_QE [format %0.4f $Jsc_eqe]"
+
+##set coeffs [::math::interpolate::prepare-cubic-splines [get_curve_data Laser -axisX] [get_curve_data Laser -axisY]]
+##set wl_list [get_curve_data J1 -axisX]
+##set J_list [get_curve_data J1 -axisY]
+##set Jsc_eqe 0
+##set dwl [expr (@wend@-@wstart@)/@wsteps@]*1e3
+##foreach lambda $wl_list j $J_list {
+##	set I [::math::interpolate::interp-cubic-splines $coeffs $lambda]
+##	set I_new [expr $I*$dwl]
+##	set J [expr $I_new*$j*1e-4]
+##	set Jsc_eqe [expr $Jsc_eqe + $J]
+##	puts "$lambda $I $I_new $J"
+##}
+##puts "DOE: Jsc_QE [format %0.4f $Jsc_eqe]"
+
+
+###create_variable -name Jsc_QE -dataset $ds -function "integr(<q_bs_EQE>)"
+###set Jsc_QE   [::math::integrate q_bs_EQE]
+
+
+###export_curves -plot P1 -filename EQE/EQE_@sample@_@d_cap@_@d_fsf@_@back_mat@_n@node@.csv {R_@node@ T_@node@ EQE_@node@ IQE_@node@} -overwrite
+export_curves -plot P1 -filename EQE/EQE_@t_1@_SRH@tau_SRH@_n@node@.csv {R_@node@ T_@node@ EQE_@node@ IQE_@node@} -overwrite
+
+remove_curves [ list J1 wl J_cathode R1_@node@ T_@node@]
+
+set_axis_prop -plot P1 -axis y -range [list 0.0 1.0]
+set_axis_prop -plot P1 -axis x -range [list @wstart@ @wend@]
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+# Copyright (C) 1994-2011 Synopsys Inc.
+# swbtree vcurrent, Sun Jun 30 17:51:20 2013
+
+# --- simulation flow
+AbsorptionSpectra inspect "" {} { commands Absorption_ins.cmd}
+Mobility inspect "" {}
+DiffusionLength inspect "" {}
+InGaAsAbsorp inspect "" {}
+# --- variables
+# --- scenarios and parameter specs
+# --- simulation tree
+0 1 0 {} {default}
+1 2 1 {} {default}
+2 3 2 {} {default}
+3 4 3 {} {default}

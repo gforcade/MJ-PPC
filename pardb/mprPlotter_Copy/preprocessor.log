@@ -1,0 +1,72 @@
+
+****************************************************************************
+***                       Sentaurus Workbench spp                        ***
+***                          Version S-2021.06                           ***
+***                      (2.7041644, x86_64, Linux)                      ***
+***                                                                      ***
+***                Copyright (c) 1994-2021 Synopsys, Inc.                ***
+***                                                                      ***
+***  This software and the associated documentation are confidential     ***
+***  and proprietary to Synopsys, Inc.  Your use or disclosure of this   ***
+***  software is subject to the terms and conditions of a written        ***
+***  license agreement between you, or your company, and Synopsys, Inc.  ***
+****************************************************************************
+
+spp is running on host 'dyson.rdc.uolocal' by user 'gforc034'
+Binary: '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/spp'
+Command line options: '-verbose -i -e 3 /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy'
+Project organization 'Traditional'
+Some relevant environment variables:
+	STROOT=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/..
+	STRELEASE=current
+	STROOT_LIB=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib
+	STDB=/raidB/gforc034/STDB
+	DATEX=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib/datexcodes.txt
+	DISPLAY=localhost:10.0
+
+Preprocessing project '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy'
+Loading global tool database '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib/glib2/tooldb.tcl'
+Loading user's tool database '/raidB/gforc034/STDB/tooldb_gforc034'
+Application mode: traditional
+spp will run in Global-per-node mode
+INITIALIZING PREPROCESSOR:
+Loading project tree '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/gtree.dat'
+Loading project variables '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/gvars.dat'
+--Get files to preprocess...
+  -->/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EgVsT_ins.cmd
+  -->/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EbgnVsN_ins.cmd
+  -->/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EgVsxMole_ins.cmd
+  -->/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/muVsNtemp_ins.cmd
+  -->/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/nkVslambda_ins.cmd
+--Create file handlers...
+--Read the toolflow...
+--Analyze tool-file dependencies...
+--Read all nodes to preprocess...
+--Group nodes into experiments...
+--Get all variables...
+--Get all parameters...
+PREPROCESSOR SUCCESSFULLY INITIALIZED.
+PREPROCESSING STEP 1:
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EgVsT_ins.cmd
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EbgnVsN_ins.cmd
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EgVsxMole_ins.cmd
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/muVsNtemp_ins.cmd
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/nkVslambda_ins.cmd
+PREPROCESSING STEP 2:
+---------------------------------------
+Preprocessing file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/EgVsxMole_ins.cmd for node 3
++++Preprocessed file written to /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter_Copy/pp3_ins.cmd
+  -Parameter substitution: '@commands@' has been replaced by 'pp3_ins.cmd'
+
+cmd_line:-f pp3_ins.cmd
+  -Parameter substitution: '@stdout@' has been replaced by 'n3_ins.out'
+
+  -Parameter substitution: '@node@' has been replaced by '3'
+
+post_tcl_cmd: extract_vars "$nodedir" n3_ins.out 3 
+Writing 'gexec.cmd'
+saving variables
+PREPROCESSING FINISHED, Fri Apr 15 12:44:15 2022
+STATUS: Ok
+Processing time = 0 s
+

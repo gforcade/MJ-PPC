@@ -1,0 +1,22 @@
+<html><head><title>MatPar Documentation AlInP/BandStructure/eDOSMass</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for AlInP/BandStructure/eDOSMass</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#AlInP/BandStructure/eDOSMass/Default.tcl"> Temperature dependent model from Levinshtein (Default.tcl)</a>
+</ul>
+<hr><p><a name="AlInP/BandStructure/eDOSMass/Default.tcl" href="#top">[top]</a><b> Temperature dependent model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Default.tcl">Default.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+The electron DOS effective mass is used to calcualate the electron DOS using
+Nc = 2*(2*pi*kB*T*mn*m0/h^2)^(3/2)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+mm returns mn/m0 [1]
+<br><b>VALIDITY:</b>  This model is valid only for x=0.5
+<br><b>REFERENCE:</b><br> 
+Gergoe's Material Parameter Database
+<br><b>NOTES:</b> Electron DOS effective mass is used to calculate temperature dependent electron DOS.
+Formula 1 is used to calculate the electron DOS and DOS mass.

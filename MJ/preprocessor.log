@@ -1,0 +1,37 @@
+
+****************************************************************************
+***                       Sentaurus Workbench spp                        ***
+***                          Version S-2021.06                           ***
+***                      (2.7041644, x86_64, Linux)                      ***
+***                                                                      ***
+***                Copyright (c) 1994-2021 Synopsys, Inc.                ***
+***                                                                      ***
+***  This software and the associated documentation are confidential     ***
+***  and proprietary to Synopsys, Inc.  Your use or disclosure of this   ***
+***  software is subject to the terms and conditions of a written        ***
+***  license agreement between you, or your company, and Synopsys, Inc.  ***
+****************************************************************************
+
+spp is running on host 'dyson.rdc.uolocal' by user 'pwilson3'
+Binary: '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/spp'
+Command line options: '-verbose -i -onlytcl /raidB/pwilson3/STDB/AIIR-Power/1550nm_PPC_Sentaurus/MJ'
+Project organization 'Hierarchical'
+Some relevant environment variables:
+	STROOT=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/..
+	STRELEASE=current
+	STROOT_LIB=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib
+	STDB=/raidB/pwilson3/STDB
+	DATEX=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib/datexcodes.txt
+	DISPLAY=localhost:14.0
+
+Preprocessing project '/raidB/pwilson3/STDB/AIIR-Power/1550nm_PPC_Sentaurus/MJ'
+Loading global tool database '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib/glib2/tooldb.tcl'
+Application mode: hierarchical
+spp will run in Global mode
+INITIALIZING PREPROCESSOR:
+Loading project tool database '/raidB/pwilson3/STDB/AIIR-Power/1550nm_PPC_Sentaurus/MJ/gtooldb.tcl'
+Reading epi/matpar utility SWB set-up...
+Loading project tree '/raidB/pwilson3/STDB/AIIR-Power/1550nm_PPC_Sentaurus/MJ/gtree.dat'
+Loading project variables '/raidB/pwilson3/STDB/AIIR-Power/1550nm_PPC_Sentaurus/MJ/gvars.dat'
+ERROR: impossible to determine the tool flow
+Init_Standard failed

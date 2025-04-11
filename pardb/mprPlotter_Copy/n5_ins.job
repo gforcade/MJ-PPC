@@ -1,0 +1,57 @@
+
+****************************************************************************
+***                       Sentaurus Workbench gjob                       ***
+***                          Version I-2013.12                           ***
+***                            (1.6, RHEL64)                             ***
+***                                                                      ***
+***                Copyright (c) 1994-2013 Synopsys, Inc.                ***
+***                                                                      ***
+***  This software and the associated documentation are confidential     ***
+***  and proprietary to Synopsys, Inc.  Your use or disclosure of this   ***
+***  software is subject to the terms and conditions of a written        ***
+***  license agreement between you, or your company, and Synopsys, Inc.  ***
+****************************************************************************
+
+gjob is running on host 'hinzer01.site.uottawa.ca' by user 'mwilkins'
+Binary 'gjob'
+Command line options '-verbose -nice 19 -job 5 -swb_pid 19435 -gsub_pid 1088 -gsub_host hinzer01.site.uottawa.ca -gsub_port 41913 /h/mwilkins/STDB/dn4JCell/pardb/mprPlotter'
+Current directory '/.automount/infofa/h/users/mwilkins'
+Some relevant environment variables:
+	STROOT=/CMC/tools/synopsys/sentaurus_vI-2013.12/bin/..
+	STRELEASE=current
+	STROOT_LIB=/CMC/tools/synopsys/sentaurus_vI-2013.12/bin/../tcad/current/lib
+	STDB=/.automount/infofa/h/users/mwilkins/STDB
+	DATEX=/CMC/tools/synopsys/sentaurus_vI-2013.12/bin/../tcad/current/lib/datexcodes.txt
+	DISPLAY=:0.0
+
+Project '/h/mwilkins/STDB/dn4JCell/pardb/mprPlotter'
+Loading global tool database '/CMC/tools/synopsys/sentaurus_vI-2013.12/bin/../tcad/current/lib/glib2/tooldb.tcl'
+Loading user's tool database '/.automount/infofa/h/users/mwilkins/STDB/tooldb_mwilkins'
+Loading preferences '/.automount/infofa/h/users/mwilkins/STDB/gpref2_mwilkins.I-2013.12'...
+INITIALIZING PREPROCESSOR:
+Loading project tree '/h/mwilkins/STDB/dn4JCell/pardb/mprPlotter/gtree.dat'
+Loading jobs and dependence graph '"/h/mwilkins/STDB/dn4JCell/pardb/mprPlotter/gexec.cmd"'
+Loading project variables '/h/mwilkins/STDB/dn4JCell/pardb/mprPlotter/gvars.dat'
+--Get files to preprocess...
+--Create file handlers...
+--Read the toolflow...
+--Analyze tool-file dependencies...
+--Read all nodes to preprocess...
+--Group nodes into experiments...
+--Get all variables...
+--Get all parameters...
+PREPROCESSOR SUCCESSFULLY INITIALIZED.
+PREPROCESSING STEP 1:
+Reading file /h/mwilkins/STDB/dn4JCell/pardb/mprPlotter/nkVslambda_ins.cmd
+PREPROCESSING STEP 2:
+Preprocessing file /h/mwilkins/STDB/dn4JCell/pardb/mprPlotter/nkVslambda_ins.cmd fornode 5
++++Preprocessing results written to /h/mwilkins/STDB/dn4JCell/pardb/mprPlotter/pp5_ins.cmd
+Start Simulation section
+16:02:27 Sep 16 2014     job 5 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp5_ins.cmd"
+16:02:45 Sep 16 2014 +++ job 5 <inspect> done: exit(0)
+End Simulation section
+Start Epilogue section
+16:02:45 Sep 16 2014 *** job 5 pre/post execution: eval " gjob::find_extracted_vars "/h/mwilkins/STDB/dn4JCell/pardb/mprPlotter" n5_ins.out 5 "
+End Epilogue section
+Job succeeded
+gjob exits with status 0

@@ -1,0 +1,13 @@
+
+##########################################################################
+#___________________
+# TD physics
+#___________________
+
+Physics (RegionInterface = "td@<scn-1>@_pplus/td@<scn-1>@_nplus") {
+Recombination(
+  eBarrierTunneling ( Band2Band=Full TwoBand  Transmission) 
+  hBarrierTunneling ( Band2Band=Full TwoBand  Transmission)
+) }
+
+##########################################################################

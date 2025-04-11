@@ -1,0 +1,16 @@
+
+###########################################################################
+#----------------------------------,,,,,,
+# Material and Interface section,,,,,,
+#----------------------------------,,,,,,
+# materialwise parameter file definition,,,,,,
+,InAlGaAs_InP,InAlGaAs_InP.tcl,,1e18,0.205,	
+,InGaAs,In53GaAs.tcl,,-1e18,0.53,
+,InAlAs,In52AlAs.tcl,,-1e18,0.52,
+,InP,InP.tcl,,-1e18,,
+,TiOx,TiOx.par,,,,
+,MgF,MgF.par,,,,
+,Gold,Gold.par,,,,
+,Indium,Indium.par,,,,
+,Al2O3,Al2O3.par,,,
+,InAlGaAs_InP/InAlGaAs_InP, InAlGaAs_InP_InAlGaAs_InP.par,,,,

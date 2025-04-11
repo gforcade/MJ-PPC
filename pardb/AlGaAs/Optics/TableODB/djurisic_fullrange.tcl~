@@ -1,0 +1,245 @@
+#----------------------------------------------------------------------#
+# $Id:$
+#----------------------------------------------------------------------#
+#! MODEL: x-dependent Room temperature model from Sopra (Kato et al)
+#! MATERIAL: AlGaAs
+#! PROPERTY: Complex Refractive Index 
+#! EXPRESSION: 
+#! Room temperature values of wavelength, refractive index and extinction coefficient are created using 
+#! Djurisic's MDF fit
+#! CALCULATED PARAMETER:
+#! llist, nlist and klist return wavelength [um], absorption coefficient [cm^-1], refractive index and extinction coefficient respectively. 
+#! VALIDITY:
+#!     For (AlxGa1-x)As with x values of 0.0  to 1.0.  Fit is poor around the direct/indirect crossover.
+#! NOTES:
+#!  Data calculated on the fly by MDF fit to measured data. 
+
+#! HISTORY:
+#! Created by Matt Wilkins, June 29 2013
+
+package require math::complexnumbers
+puts "start namespace"
+namespace eval AlGaAs::TableODB {                
+
+
+	proc init {} {
+		puts "define vars"
+		variable Elist
+
+		variable eps1_E1list
+		variable eps2_E1list
+		variable eps1_E2list
+		variable eps2_E2list
+		variable eps1_E3list
+		variable eps2_E3list
+		variable eps1_E4list
+		variable eps2_E4list
+
+		variable eps1list
+		variable eps2list
+                variable llist
+		variable nlist
+		variable klist
+		puts "djurusic_fullrange"
+
+                # Check that mole fraction exists
+		if {![info exists ::xMole]} {
+			puts stderr "AlGaAs TableODB djurisic_fullrange: xmole fraction not defined"
+			exit 1
+		}
+
+		set x $::xMole
+
+		# mole-fraction specific parameters
+		puts "calculate mole deopendent params"
+		set E0    [expr 1.410  + 1.583*$x +( 0.2242-1.4235*$x)*$x*(1.0-$x)]
+		set E0_D0 [expr 1.746  + 1.455*$x +( 0.1931-1.2160*$x)*$x*(1.0-$x)]
+		set E1    [expr 2.926  + 0.962*$x +(-0.2124-0.7850*$x)*$x*(1.0-$x)]
+		set E1_D1 [expr 3.170  + 0.917*$x +(-0.0734-0.9393*$x)*$x*(1.0-$x)]
+
+		set epsinf [expr 1.347*(1.0-$x)  + 0.02*$x   + (-0.568  +4.210*$x)*$x*(1.0-$x) ]
+		set A      [expr 3.06*(1.0-$x)   + 14.210*$x + (-0.398  +4.763*$x)*$x*(1.0-$x) ]
+		set G0     [expr 0.0001*(1.0-$x) + 0.0107*$x + (-0.0187 +0.3057*$x)*$x*(1.0-$x) ]
+		set alpha0 [expr 3.960*(1.0-$x)  + 1.617*$x  + ( 3.974  -5.413*$x)*$x*(1.0-$x) ]
+
+		set B1     [expr 6.099*(1.0-$x)  + 4.381*$x  + ( -4.718 -2.510*$x)*$x*(1.0-$x) ]
+		set B1s    [expr 0.001*(1.0-$x)  + 0.103*$x  + (  4.447 +0.208*$x)*$x*(1.0-$x) ]
+		set B1x    [expr 1.185*(1.0-$x)  + 0.639*$x  + (  0.436 +0.426*$x)*$x*(1.0-$x) ]
+		set B2x    [expr 0.473*(1.0-$x)  + 0.770*$x  + ( -1.971 +3.384*$x)*$x*(1.0-$x) ]
+
+		set G1     [expr 0.194*(1.0-$x)  + 0.125*$x  + ( -2.426 +8.601*$x)*$x*(1.0-$x) ]
+		set alpha1 [expr 0.018*(1.0-$x)  + 0.012*$x  + ( 0.0035 +0.310*$x)*$x*(1.0-$x) ]
+
+		set f2     [expr 4.318*(1.0-$x)  + 0.326*$x  + ( 4.201  +6.719*$x)*$x*(1.0-$x) ]
+		set G2     [expr 0.496*(1.0-$x)  + 0.597*$x  + ( -0.282 -0.139*$x)*$x*(1.0-$x) ]
+		set alpha2 [expr 0.014*(1.0-$x)  + 0.281*$x  + ( -0.275 -0.569*$x)*$x*(1.0-$x) ]
+		set E2     [expr 4.529*(1.0-$x)  + 4.660*$x  + ( 0.302  +0.241*$x)*$x*(1.0-$x) ]
+
+		set f3     [expr 4.924*(1.0-$x)  + 5.483*$x  + ( -0.005  -0.337*$x)*$x*(1.0-$x) ]
+		set G3     [expr 0.800*(1.0-$x)  + 0.434*$x  + (  0.572  -0.553*$x)*$x*(1.0-$x) ]
+		set alpha3 [expr 0.032*(1.0-$x)  + 0.052*$x  + ( -0.300  +0.411*$x)*$x*(1.0-$x) ]
+		set E3     [expr 4.746*(1.0-$x)  + 4.710*$x  + ( -0.007  -0.565*$x)*$x*(1.0-$x) ]
+
+		set f4     [expr 3.529*(1.0-$x)  + 4.672*$x  + ( -6.226  +0.643*$x)*$x*(1.0-$x) ]
+		set G4     [expr 0.302*(1.0-$x)  + 0.414*$x  + ( -0.414  +1.136*$x)*$x*(1.0-$x) ]
+		set alpha4 [expr 0.004*(1.0-$x)  + 0.023*$x  + ( -0.08   +0.435*$x)*$x*(1.0-$x) ]
+		set E4     [expr 4.860*(1.0-$x)  + 4.976*$x  + ( -0.229  +0.081*$x)*$x*(1.0-$x) ]
+
+		puts "Es $E0 $E1 $E2 $E3 $E4"
+		puts "E0_D0 $E0_D0 E1_D1 $E1_D1"
+
+		puts "fs 0 0 $f2 $f3 $f4"
+		puts "alphas $alpha1 $alpha2 $alpha3 $alpha4"
+
+
+		# min wavelength (um)
+		set lmin 0.2
+		# max wavelength (um)
+		set lmax 3.0 
+		# interval (um)
+		set lint 0.002 
+		
+		set llist {}
+		set Elist {}
+		set nlist {}
+		set klist {}
+		set eps1_E1list {}
+		set eps2_E1list {}
+		set eps1_E2list {}
+		set eps2_E2list {}
+		set eps1_E3list {}
+		set eps2_E3list {}
+		set eps1_E4list {}
+		set eps2_E4list {}
+
+		set eps1list {}
+		set eps2list {}
+		
+		set lcurrent $lmin
+		while { $lcurrent <= $lmax } {
+				# photon energy
+				set E [expr 1.2398/$lcurrent]
+				set n 0
+				set k 0
+
+				# apply adjustable broadening
+				set temp [expr -$alpha0*pow(($E-$E0)/$G0 , 2) ]
+				if {$temp > -200 } {
+				set G0p [expr $G0*exp($temp) ]  } else {
+				set G0p 0.0  }
+
+				set G1p [expr $G1*exp(-$alpha1*pow(($E-$E1)/$G1 , 2)) ]
+				set G1_D1p [expr $G1*exp(-$alpha1*pow(($E-$E1_D1)/$G1 , 2)) ]
+				set G2p [expr $G2*exp(-$alpha2*pow(($E-$E2)/$G2 , 2)) ]
+				set G3p [expr $G3*exp(-$alpha3*pow(($E-$E3)/$G3 , 2)) ]
+				set G4p [expr $G4*exp(-$alpha4*pow(($E-$E4)/$G4 , 2)) ]
+
+				# equations (3) and (4)
+
+				set Chi0   [::math::complexnumbers::complex [expr $E/$E0] [expr $G0p/$E0]]
+				set Chi0s  [::math::complexnumbers::complex [expr $E/$E0_D0] [expr $G0p/$E0_D0]]
+
+				set Chi1   [::math::complexnumbers::complex [expr $E/$E1] [expr $G1p/$E1]]
+				set Chi1s  [::math::complexnumbers::complex [expr $E/$E1_D1] [expr $G1_D1p/$E1_D1]]
+
+
+				# Calculate E0 contribution to eps				
+				# eqn (2)
+				# sqrt(1+y)
+				set t2 [::math::complexnumbers::pow [::math::complexnumbers::+ [::math::complexnumbers::complex 1.0 0.0] $Chi0] [::math::complexnumbers::complex 0.5 0.0]]
+				# sqrt(1-y)
+				set t3 [::math::complexnumbers::pow [::math::complexnumbers::- [::math::complexnumbers::complex 1.0 0.0] $Chi0] [::math::complexnumbers::complex 0.5 0.0 ]]
+					# choose correct result of sqrt(1-y)
+				if { [::math::complexnumbers::imag $t3] > 0.0 } {
+					set t3 [::math::complexnumbers::- [math::complexnumbers::complex 0.0 0.0] -$t3] }			
+				set fac2 [::math::complexnumbers::- [::math::complexnumbers::- [::math::complexnumbers::complex 2.0 0.0] $t2] $t3]   
+				set f_Chi0 [::math::complexnumbers::* [::math::complexnumbers::pow $Chi0 [::math::complexnumbers::complex -2.0 0.0]] $fac2]
+
+				set t2 [::math::complexnumbers::sqrt [::math::complexnumbers::+ [::math::complexnumbers::complex 1.0 0.0] $Chi0s]]
+				set t3 [::math::complexnumbers::sqrt [::math::complexnumbers::- [::math::complexnumbers::complex 1.0 0.0] $Chi0s] ]
+				if { [::math::complexnumbers::imag $t3] > 0.0 } {
+					set t3 [::math::complexnumbers::- [math::complexnumbers::complex 0.0 0.0] -$t3] }			
+				set fac2 [::math::complexnumbers::- [math::complexnumbers::- [::math::complexnumbers::complex 2.0 0.0] $t2] $t3]
+				set f_Chi0s [::math::complexnumbers::* [::math::complexnumbers::pow $Chi0s [::math::complexnumbers::complex -2.0 0.0]] $fac2]
+
+				set t4 [::math::complexnumbers::* [::math::complexnumbers::complex [expr 0.5*pow($E0/$E0_D0 , 1.5)] 0.0 ] $f_Chi0s]
+
+				# epsI, E0 and E0_D0
+				set epsI [::math::complexnumbers::* [::math::complexnumbers::complex [expr $A*pow($E0, -1.5)] 0.0] [::math::complexnumbers::+ $f_Chi0 $t4 ]]
+
+				# epsII
+
+				set ln1 [::math::complexnumbers::log [::math::complexnumbers::- [::math::complexnumbers::complex 1.0 0.0] [::math::complexnumbers::* $Chi1 $Chi1 ] ]]
+				set ln1s [::math::complexnumbers::log [::math::complexnumbers::- [::math::complexnumbers::complex 1.0 0.0] [::math::complexnumbers::* $Chi1s $Chi1s ] ]]
+
+				set t1 [::math::complexnumbers::* [::math::complexnumbers::complex [expr -$B1] 0.0] [::math::complexnumbers::/  $ln1 [::math::complexnumbers::* $Chi1 $Chi1 ]]]
+				set t1s [::math::complexnumbers::* [::math::complexnumbers::complex [expr -$B1s] 0.0] [::math::complexnumbers::/  $ln1s [::math::complexnumbers::* $Chi1s $Chi1s ]]]
+
+				set epsII [::math::complexnumbers::+ $t1 $t1s ]
+
+
+				# epsIII
+				set fB1x [::math::complexnumbers::/ [math::complexnumbers::complex $B1x 0.0] [::math::complexnumbers::complex [expr $E1 - $E] [expr -$G1p] ]]
+				set fB2x [::math::complexnumbers::/ [math::complexnumbers::complex $B2x 0.0] [::math::complexnumbers::complex [expr $E1_D1 - $E] [expr -$G1_D1p] ]]
+				set fB1x_fB2x [::math::complexnumbers::+ $fB1x $fB2x ]
+				set mag 1.0
+				set n   1.0
+				set epsIII [::math::complexnumbers::complex 0.0 0.0]
+				while { $mag > 1e-4 } {
+					set f1 [::math::complexnumbers::complex [expr 1.0/pow([expr 2.0*$n-1.0], 3.0) ] 0.0]
+					set newterm [::math::complexnumbers::* $f1 $fB1x_fB2x ]
+				 	set epsIII [::math::complexnumbers::+ $epsIII $newterm ]
+					set mag [::math::complexnumbers::mod $newterm ]
+					set n [expr $n + 1.0]
+				}
+
+
+				set epsIV_2 [::math::complexnumbers::/ [::math::complexnumbers::complex [expr pow($f2, 2.0)] 0.0] [::math::complexnumbers::complex [expr pow($E2, 2.0) - pow($E, 2.0)] [expr -$E*$G2p] ]]
+				set epsIV_3 [::math::complexnumbers::/ [::math::complexnumbers::complex [expr pow($f3, 2.0)] 0.0] [::math::complexnumbers::complex [expr pow($E3, 2.0) - pow($E, 2.0)] [expr -$E*$G3p] ]]
+				set epsIV_4 [::math::complexnumbers::/ [::math::complexnumbers::complex [expr pow($f4, 2.0)] 0.0] [::math::complexnumbers::complex [expr pow($E4, 2.0) - pow($E, 2.0)] [expr -$E*$G4p] ]]
+
+
+				lappend llist $lcurrent				
+				lappend Elist $E
+
+				lappend eps1_E1list [::math::complexnumbers::real $epsI]
+				lappend eps2_E1list [::math::complexnumbers::imag $epsI] 				
+				lappend eps1_E2list [::math::complexnumbers::real $epsII]
+				lappend eps2_E2list [::math::complexnumbers::imag $epsII] 
+
+				lappend eps1_E3list [::math::complexnumbers::real $epsIII]
+				lappend eps2_E3list [::math::complexnumbers::imag $epsIII] 
+
+				set eps [::math::complexnumbers::complex $epsinf 0.0 ]
+				set eps [::math::complexnumbers::+ $eps $epsI  ]				
+				set eps [::math::complexnumbers::+ $eps $epsII ]
+				set eps [::math::complexnumbers::+ $eps $epsIII ]
+				set eps [::math::complexnumbers::+ $eps $epsIV_2 ]
+				set eps [::math::complexnumbers::+ $eps $epsIV_3 ]
+				set eps [::math::complexnumbers::+ $eps $epsIV_4 ]
+
+
+				set eps1 [::math::complexnumbers::real $eps]
+				set eps2 [::math::complexnumbers::imag $eps]
+				
+				set t2 [expr $eps1*$eps1 + $eps2*$eps2 ]
+				set t1  [expr sqrt($t2) ]
+
+				set n [expr sqrt([expr ( $t1 + $eps1 ) /2.0 ]) ]
+				set k [expr sqrt([expr ( $t1 - $eps1 ) /2.0 ]) ]
+				
+				lappend eps1list $eps1
+				lappend eps2list $eps2
+
+
+				lappend nlist $n
+				if { $E > $E0 } {
+					lappend klist $k } else {
+					lappend klist 0.0 }
+				set lcurrent [expr $lcurrent + $lint]
+			
+		}
+}
+proc print {} {printPar::TableODBSection} 
+}
+AlGaAs::TableODB::init

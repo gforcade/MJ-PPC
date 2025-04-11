@@ -1,0 +1,37 @@
+#- $Id: MatPar_mpr.cmd,v 1.4 2007/11/29 10:35:50 letay Exp $
+#setdep @sde@
+# global user variables for e.g. material processing
+set temp @temp@
+
+set substrate InP
+puts stderr "substrate=$substrate"
+
+#if "@sub@" == "yes"
+ set back_mat Gold
+#else
+ set back_mat InP
+#endif
+puts "DOE: back_mat $back_mat"
+
+# load the layer variables. The epi tool saves the layer data typically in ./n@node|epi@_epi.tcl
+# layer data can be accessed through 
+source "@pwd@/n@node|epi@_epi.tcl"
+
+# generate snippets to be inserted in SDevice cmd file
+# set FID [open "n@node@_S.cmd" w ]
+# foreach key [getLayerKeyList "region,*,region" "qw*"] {
+#	loadLayerVariables $key
+#	puts $FID "Physics(Region=\"$region\") \{Active\}"
+#	} 
+# close $FID
+
+# configure parameters for mpr.tcl library to generate parameter files
+# Specify output parameter file name
+set parameterOutputFile n@node@_mpr.par
+
+## set parameter database directory for this particular project.
+set ::pardb "../pardb"
+
+# Convert SWB variables to Tcl variables which can be referenced as $gparam(<parameter name>)
+# e.g. $gparam(model)
+exportParams @node@

@@ -1,0 +1,36 @@
+
+SpectralConversion
+{ * Spectral Conversion Model
+  * No default model, user has to define.
+  * All wavelength parameters should be in nanometers.
+  * Choice of Analytic or NumericalTable selected in Physics section of region
+  *
+  * ConversionEfficiency = float     * ratio of absorbed photons that are reemitted.
+  * AbsorptionScaling = float        * scale absorption
+  * EmissionScaling = float          * scale emission
+  * Analytic (
+  *   AbsorptionProfile = (
+  *      Gaussian(lambda0 sigma peakvalue dc_offset lambda_range0 lambda_range1)
+  *      Lorentzian(lambda0 width peakvalue dc_offset lambda_range0 lambda_range1)
+  *      ...
+  *   )
+  *   EmissionProfile = (
+  *      Gaussian(lambda0 sigma peakvalue dc_offset lambda_range0 lambda_range1)
+  *      Lorentzian(lambda0 width peakvalue dc_offset lambda_range0 lambda_range1)
+  *      ...
+  *   )
+  * )
+  * NumericalTable (
+  *   AbsorptionProfile = (
+  *      lambda0 value0
+  *      lambda1 value1
+  *      ...
+  *   )
+  *   EmissionProfile = (
+  *      lambda0 value0
+  *      lambda1 value1
+  *      ...
+  *   )
+
+  ConversionEfficiency = 1.0
+}

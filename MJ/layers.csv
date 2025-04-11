@@ -1,0 +1,22 @@
+arc1, ARC 1, 0
+arc2, ARC 2, 0
+topfsf, FSF, 0
+topem, Emitter, 0
+topbase, Base, 0
+topbsf, BSF, -5
+topphighTD, TJ $\mathit{p++}$, -2.5
+topnhighTD, TJ $\mathit{n++}$, 2.5
+mid1fsf, FSF, 5
+mid1em, Emitter, 0
+mid1base, Base, 0
+mid1bsf, BSF, -5
+midphighTD, TJ $\mathit{p++}$, -2.5
+midnhighTD, TJ $\mathit{n++}$, 2.5
+mid2fsf, Emitter, 2.5
+mid2in, Intrinsic, 0
+mid2bsf, Base, -2.5
+botphighTD, TD $\mathit{p++}$, -2.5
+botnhighTD, TD $\mathit{n++}$, 2.5
+botfsf, FSF, 2.5
+botem, Emitter, 0
+

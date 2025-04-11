@@ -1,0 +1,100 @@
+*------------------------------------------------------------
+* Simulate Optical Generation Profile of  a triple-junction GaInP/GaAs/InGaAs solar cell
+* ------------------------------------------------------------
+
+#setdep @node|MatPar@
+
+File{
+*-Input
+   PMIPath = "../pmi"
+   Grid    = "@tdr@"
+   Parameters ="@mprpar@"
+
+* These spectra are based on data from ASTM G173 and are scaled such that
+* they integrate to 1000 W/m2 when integrated from 0 to 4000 nm.  However,
+* data from 2000 to 4000 nm has been omitted from the Sentaurus input files.
+#if "@spectrum@"  == "am1.5g"   
+   IlluminationSpectrum = "../spectra/am15gWm2-long.txt"
+#elif "@spectrum@"  == "am1.5d"
+   IlluminationSpectrum = "../spectra/am15dWm2-long.txt"
+#elif "@spectrum@"  == "am0"
+   IlluminationSpectrum = "../spectra/am0Wm2-long.txt"  
+#else
+    IlluminationSpectrum = "../spectra/gaussian_@spectrum@.txt"
+#endif
+
+*-Output
+   Plot    = "@tdrdat@"
+   SpectralPlot = "n@node@_spec_des.tdr"
+   Current = "@plot@"
+   Output  = "@log@"
+   OpticalGenerationOutput = "n@node@_OptGen_des.tdr"
+}
+
+Physics {
+
+  Optics (
+	OpticalGeneration(
+	    QuantumYield = 1 
+	#if [string compare @dimension@ "2d" ] == 0
+	    ComputeFromSpectrum(KeepSpectralData Scaling = 1.0)
+	#else
+            * In 1D simulations, reduce intensity by gridline shading factor.
+	    ComputeFromSpectrum(KeepSpectralData Scaling = @<(wtot-wfrontc)/wtot>@)
+	#endif
+	) * end OpticalGeneration
+
+        Excitation (
+              Theta = 0
+              Polarization = 0.5
+	      Window("W1") (
+		#if [string compare @dimension@ "2d"] == 0
+			* In 2D simulations, limit illumination window to the area not shaded by gridline.     
+			Origin = (@wfrontc@, -1.0)
+			Line (Dx = @<wtot-wfrontc>@)
+		#elif [string compare @dimension@ "1d"] == 0            
+			Origin = (0.0, -1.0)
+			Line (Dx = @wtot@)
+		#endif
+		OriginAnchor=West                       
+	     )
+        ) * end Excitation
+
+	ComplexRefractiveIndex( WavelengthDep )
+	OpticalSolver(
+*                OptBeam(LayerStackExtraction(WindowName="W1" WindowPosition=Center) )
+#if 1
+	        TMM (
+        		NodesPerWavelength = 20
+			LayerStackExtraction(
+		        	WindowName="W1"
+				WindowPosition = Center
+				* Define the material below the layer stack to be gold. (provides a back reflection)
+				Medium( Location=bottom Material=@back_mat@) 
+			)	
+	            )  *end TMM
+#endif
+	) *end OpticalSolver
+    ) * end Optics  
+} 
+
+
+Plot {
+  xMoleFraction Doping DonorConcentration AcceptorConcentration 
+  EffectiveIntrinsicDensity IntrinsicDensity
+  BandGap ElectronAffinity
+  eLifetime hLifetime 
+  eMobility hMobility eVelocity hVelocity
+  
+  OpticalIntensity
+  OpticalGeneration
+  AbsorbedPhotonDensity
+}
+
+Math{
+  ExitOnFailure
+}
+
+Solve{
+  Optics
+}

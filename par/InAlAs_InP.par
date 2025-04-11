@@ -1,0 +1,27 @@
+BarrierTunneling  
+{ * Non Local Barrier Tunneling 
+  * G(r) = g*A*T/kB*F(r)*Pt(r)*ln[(1+exp((E(r)-Es)/kB/T))/(1+exp((E(r)-Em)/kB/T))]
+  * where: 
+  *     Pt(r) is WKB approximation for the tunneling probability 
+  *     g = As/A, As is the Richardson constant for carriers in semiconductor
+  *     A is the Richardson constant for free electrons 
+  *     F(r) is the electric field 
+  *     E(r) is carrier energy 
+  *     Es is carrier quasi fermi energy in semiconductor
+  *     Em is carrier fermi energy in metal 
+*	g	= 0.068 ,	0.62	# [1]
+*	g	= 0.21 ,	0.4	# [1]
+	g	= 2 ,	4		# [1]  ## the degeneracy of both electrons and holes
+*	mt	= 0.065 ,	0.3	# [1]
+*	mt	= 0.05 ,	0.14	# [1]
+*	mt	= 0.07 ,	0.6	# [1]  ## ~equal to the me and mh of both materials
+
+}
+
+
+ThermionicEmission {
+        Formula=1
+	A = 2, 2  # [1]
+	B = 4, 4  # [1]
+	C = 1, 1  # [1]
+}

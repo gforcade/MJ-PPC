@@ -1,0 +1,60 @@
+<html><head><title>MatPar Documentation GaAs/Optics/RefractiveIndex</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for GaAs/Optics/RefractiveIndex</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#GaAs/Optics/RefractiveIndex/Default.tcl"> Temperature dependent model from sdevice (Default.tcl)</a>
+  <li> <a href="#GaAs/Optics/RefractiveIndex/Levinshtein.tcl"> Temperature dependent model from Madelung (Levinshtein.tcl)</a>
+  <li> <a href="#GaAs/Optics/RefractiveIndex/Madelung.tcl"> Temperature dependent model from Madelung (Madelung.tcl)</a>
+  <li> <a href="#GaAs/Optics/RefractiveIndex/Piprek.tcl"> Temperature dependent model from Madelung (Piprek.tcl)</a>
+</ul>
+<hr><p><a name="GaAs/Optics/RefractiveIndex/Default.tcl" href="#top">[top]</a><b> Temperature dependent model from sdevice</b>
+<p><b>FILE:</b> <tt><a href="Default.tcl">Default.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+The temperature dependent refractive index is calculated using
+refractiveindex(T) = refractiveindex(Tpar) * (1 + alpha * (T-Tpar))
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+refractive index
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> Sentaurus Device User Guide
+<hr><p><a name="GaAs/Optics/RefractiveIndex/Levinshtein.tcl" href="#top">[top]</a><b> Temperature dependent model from Madelung</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+The temperature dependent refractive index is calculated using
+refractiveindex(T) = refractiveindex(Tpar)*(1+alpha*(T-Tpar))
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+refractive index
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol I"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1996
+<br><b>NOTES:</b>  
+<hr><p><a name="GaAs/Optics/RefractiveIndex/Madelung.tcl" href="#top">[top]</a><b> Temperature dependent model from Madelung</b>
+<p><b>FILE:</b> <tt><a href="Madelung.tcl">Madelung.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+The temperature dependent refractive index is calculated using
+refractiveindex(T) = refractiveindex(Tpar)*(1+alpha*(T-Tpar))
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+refractive index
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> "Semiconductors: Data Handbook", O. Madelung, Springer-Verlag, 2004
+<br><b>NOTES:</b>  
+<hr><p><a name="GaAs/Optics/RefractiveIndex/Piprek.tcl" href="#top">[top]</a><b> Temperature dependent model from Madelung</b>
+<p><b>FILE:</b> <tt><a href="Piprek.tcl">Piprek.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+The temperature dependent refractive index is calculated using
+refractiveindex(T) = refractiveindex(Tpar)*(1+alpha*(T-Tpar))
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+refractive index
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> 
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+<br><b>NOTES:</b>  

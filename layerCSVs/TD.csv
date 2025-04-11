@@ -1,0 +1,15 @@
+
+##########################################################################
+#___________________
+# Tunnel diode
+#___________________
+
+#layer,		mat,		params,			thick,	doping,		x_frac,	mesh
+
+#if "@buffer_mat@" == "InP"
+sc@scn@_buffer,	InP,	InP.tcl,	@buffer_t@,	@buffer_dop@,	,	(mbox 0.001 1.21 both)
+#endif
+td@<scn-1>@_pplus,	InAlAs,	In52AlAs.tcl,	0.02,	-3.6e19,	0.52,	(mbox 0.001 1.2 both)
+td@<scn-1>@_nplus,	InP,	InP.tcl,	0.02,	3.6e19,		,	(mbox 0.001 1.2 both)
+
+##########################################################################

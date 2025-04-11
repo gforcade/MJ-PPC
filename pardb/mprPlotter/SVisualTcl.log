@@ -1,0 +1,18 @@
+###########################################
+# Sentaurus Visual S-2021.06.
+# Tcl log file.
+#------------------------------------------
+# Date: Apr. 19, 2022. 12:37:11.
+# Version: 32.2.7041644 (2.7041644)
+# Mode: Interactive (GUI).
+# Mesa: enabled.
+# Hostname: dyson.rdc.uolocal.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 3.10.0-1062.12.1.el7.x86_64.
+###########################################
+
+load_script_file /raidA/gforc034/STDB/tmp/mprPlotter.vis.cmd
+cd /raidA/gforc034/STDB/tmp
+#-> 0
+exit 0
+ 

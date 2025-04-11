@@ -1,0 +1,136 @@
+#----------------------------------------------------------------------#
+# MW.tcl,v 1 2011/12/8 
+#----------------------------------------------------------------------#
+#! MODEL:
+#! MATERIAL: GaAs
+#! PROPERTY: SRH Recombination 
+#! EXPRESSION: 
+#! Temperature and doping dependent minority carrier lifetime is calculated using,
+#! tau = taumin + ( taumax - taumin ) / ( 1 + ( N/Nref )^gamma)
+#! where,
+#! tau(T) = tau * ( (T/300)^Talpha )  
+#! or
+#! tau(T) = tau * exp( Tcoeff * ((T/300)-1) )
+#! CALCULATED PARAMETER: 
+#! taumin_i, taumax_i, Nref_i, gamma_i, Talpha_i, Tcoeff_i, Etrap, 
+#! where i is n for electron lifetime or p for hole lifetime.
+#! VALIDITY: 
+#! NOTES:
+#! SDEVICE: 
+#! REFERENCE: 
+#! "Parameters for Modeling Multi-Junction Solar Cells v0.1"
+#! M. Wilkins, SUNLab Dec. 2011
+#! HISTORY:
+#! Created on 2011/12/08 by M. Wilkins
+#! Should be used in compination with MW parameters for Radiative and Auger recombination, and
+#! Recombination( Radiative Auger SRH(DopingDependence) )
+
+
+namespace eval InGaAs::Scharfetter {
+    proc init {} {
+#	puts "Sotoodeh parameters"
+# Mobility Parameters from Sotoodeh      
+        variable mumax_n 14000.0
+        variable mumax_p 320.0
+        variable mumin_n 300.0
+        variable mumin_p 10.0
+        variable Nref_n 1.3e17
+        variable Nref_p 4.9e17
+        variable lambda_n 0.48
+        variable lambda_p 0.403
+        variable theta1_n 1.59
+        variable theta1_p 1.59
+        variable theta2_n 3.68
+        variable theta2_p 0
+
+# sdevice parameters (for Arora model) calculated from Sotoodeh parameters
+	variable Ar_mumin_n $mumin_n
+	variable Ar_mumin_p $mumin_p
+	variable Ar_alm_n 0.0
+	variable Ar_alm_p 0.0
+
+	variable Ar_mud_n [expr {$mumax_n* pow(300.0/$::temp, $theta1_n)-$mumin_n}]
+	variable Ar_mud_p [expr {$mumax_p* pow(300.0/$::temp, $theta1_p)-$mumin_p}]
+	variable Ar_ald_n 0.0
+	variable Ar_ald_p 0.0
+
+       	variable Ar_N0_n $Nref_n
+	variable Ar_N0_p $Nref_p
+	variable Ar_alN_n $theta2_n
+	variable Ar_alN_p $theta2_p
+
+	variable Ar_a_n $lambda_n
+	variable Ar_a_p $lambda_p
+	variable Ar_ala_n 0.0
+	variable Ar_ala_p 0.0
+
+# Mobility calculation using Arora model and sdevice parameters
+	set muminA_n [expr {$Ar_mumin_n*pow($::temp/300.0, $Ar_alm_n)}]
+	set muminA_p [expr {$Ar_mumin_p*pow($::temp/300.0, $Ar_alm_p)}]
+	set mudA_n [expr {$Ar_mud_n*pow($::temp/300.0, $Ar_ald_n)}]
+	set mudA_p [expr {$Ar_mud_p*pow($::temp/300.0, $Ar_ald_p)}]
+	set N00_n [expr {$Ar_N0_n*pow($::temp/300.0, $Ar_alN_n)}]
+	set N00_p [expr {$Ar_N0_p*pow($::temp/300.0, $Ar_alN_p)}]
+	set AA_n [expr {$Ar_a_n*pow($::temp/300.0, $Ar_ala_n)}]
+	set AA_p [expr {$Ar_a_p*pow($::temp/300.0, $Ar_ala_p)}]
+
+       	variable mu_dop_n 
+	variable mu_dop_p
+	set mu_dop_n [expr {$muminA_n + $mudA_n/(1.0 + pow(abs($::doping)/$N00_n,$AA_n))}]
+	set mu_dop_p [expr {$muminA_p + $mudA_p/(1.0 + pow(abs($::doping)/$N00_p,$AA_p))}]
+
+#	puts "Calculate tau_TDD"
+# Diffusion coefficient and TDD lifetime
+	variable D_n
+        variable D_p
+	variable tau_TDD_n
+	variable tau_TDD_p
+
+	set D_n [expr {$mu_dop_n*$::kB*$::temp/$::q}]
+	set D_p [expr {$mu_dop_p*$::kB*$::temp/$::q}]
+	set tau_TDD_n [expr {4.0/(pow($::pi,3.0)*$D_n*$::TDD)}]
+	set tau_TDD_p [expr {4.0/(pow($::pi,3.0)*$D_p*$::TDD)}]
+
+# Base SRH parameters (no Threading dislocations)
+    	variable Nref_n0 1.0e18
+        variable Nref_p0 1.0e18
+    
+    	variable taumax_n0 1.0e-7
+        variable taumax_p0 1.0e-8
+
+#	puts "Calculate SRH parameters"
+# Actual SRH parameters (modified for threading dislocations)
+	variable taumax_p
+	variable taumax_n
+	variable Nref_n
+	variable Nref_p
+
+	set taumax_n [expr {$taumax_n0*$tau_TDD_n/($tau_TDD_n + $taumax_n0)}]
+	set taumax_p [expr {$taumax_p0*$tau_TDD_p/($tau_TDD_p + $taumax_p0)}]
+
+	variable gamma_n 1.0
+        variable gamma_p 1.0
+
+	set Nref_n [expr {$Nref_n0/pow($tau_TDD_n/($taumax_n0 + $tau_TDD_n),(1/$gamma_n))}]
+	set Nref_p [expr {$Nref_p0/pow($tau_TDD_p/($taumax_p0 + $tau_TDD_p),(1/$gamma_p))}]
+
+    	variable Talpha_n 0.0
+        variable Talpha_p 0.0
+
+    	variable Tcoeff_n 0.0
+        variable Tcoeff_p 0.0
+
+    	variable Etrap 0.0	
+
+	variable taumin_n 0.0
+	variable taumin_p 0.0
+
+	variable tau_srh_n
+	variable tau_srh_p
+
+	set tau_srh_n [expr {$taumin_n + ($taumax_n - $taumin_n)/(1+ pow(abs($::doping)/$Nref_n,$gamma_n))}]
+	set tau_srh_p [expr {$taumin_p + ($taumax_p - $taumin_p)/(1+ pow(abs($::doping)/$Nref_p,$gamma_p))}]
+   }
+    proc print {} {printPar::ScharfetterSection}    
+}
+InGaAs::Scharfetter::init

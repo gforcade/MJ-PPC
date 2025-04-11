@@ -1,0 +1,20 @@
+###########################################
+# Sentaurus Visual S-2021.06.
+# Tcl log file.
+#------------------------------------------
+# Date: Jul. 05, 2023. 17:09:41.
+# Version: 32.2.7041644 (2.7041644)
+# Mode: Interactive (GUI).
+# Mesa: enabled.
+# Hostname: dyson.rdc.uolocal.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 3.10.0-1062.12.1.el7.x86_64.
+###########################################
+
+load_script_file /raidA/gforc034/STDB/tmp/MJ.vis.cmd
+cd /raidA/gforc034/STDB/tmp
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+#!-> Error: load_script_file: '/raidA/gforc034/STDB/tmp/MJ.vis.cmd': Error: load_script_file: '/raidC/gforc034/STDB/AirPower/1550_PPC/MJ/results/nodes/3236/pp3236_vis.cmd': Error: Curve 'GenRad1_3236' couldn't be created.. (line 154).. (line 17).
+exit 0
+ 

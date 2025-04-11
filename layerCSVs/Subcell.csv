@@ -1,0 +1,12 @@
+##########################################################################,,,,,,
+#___________________,,,,,,
+# PT Subcell,,,,,,
+#___________________,,,,,,
+
+#layer,"		mat","		params","			thick","		doping,	x_frac","	mesh"
+
+sc@scn@_fsf,	InP,	InP.tcl,	@t_fsf@,	@dop_fsf@,	,	(mbox 0.05 5.0 both)
+sc@scn@_em,	InGaAs,	In53GaAs.tcl,	@t_em@,		@dop_em@,	0.53,	(mbox 0.001 1.01 both)
+sc@scn@_base,	InAlAs,	In52AlAs.tcl,	@t_base@,	@dop_base@,	0.52,	(mbox 0.05 5.0 both)
+
+##########################################################################,,,,,,

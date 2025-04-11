@@ -1,0 +1,337 @@
+# Read in output from LCMatrix and generate a plot of the coupling matrix.
+# Also output a table matrix.csv with coupling factors between layers.
+
+import csv
+import matplotlib
+#matplotlib.use('Svg')
+matplotlib.rcParams['font.size'] = 7.0
+matplotlib.rcParams['axes.linewidth'] = 0.25
+if 'xtick.major.width' in matplotlib.rcParams.keys():
+	matplotlib.rcParams['xtick.major.width'] = 0.25
+	matplotlib.rcParams['xtick.major.size'] = 3
+	matplotlib.rcParams['ytick.major.width'] = 0.25
+	matplotlib.rcParams['ytick.major.size'] = 3
+
+matplotlib.rcParams['xtick.direction']= 'out'
+matplotlib.rcParams['ytick.direction'] = 'out'
+# Nature Phtonics 2-column figure width = 183 mm
+matplotlib.rcParams['figure.figsize'] = [3.5 ,4.2]
+matplotlib.rcParams['figure.dpi'] = 150
+matplotlib.rcParams['savefig.dpi'] = 300
+#matplotlib.rcParams['patch.antialiased'] = False
+matplotlib.rcParams['patch.edgecolor'] = 'none'
+
+from scipy.integrate import trapz
+import matplotlib.pyplot as plt
+import matplotlib.tri as tri
+import matplotlib.patches as patches
+import numpy as np
+import math
+import os, sys
+
+from matplotlib.collections import Collection
+from matplotlib.artist import allow_rasterization
+
+class ListCollection(Collection):
+     def __init__(self, collections, **kwargs):
+         Collection.__init__(self, **kwargs)
+         self.set_collections(collections)
+     def set_collections(self, collections):
+         self._collections = collections
+     def append_collections(self, collections):
+         for c in collections:
+           self._collections.append(c)
+     def get_collections(self):
+         return self._collections
+     @allow_rasterization
+     def draw(self, renderer):
+         for _c in self._collections:
+             _c.draw(renderer)
+
+def insert(c):
+    collections = c.collections
+
+    for _c in collections:
+        _c.set_lw(0.)
+        _c.set_antialiased(False)
+        _c.remove()
+    cc.append_collections(collections)
+    return cc
+
+cc = ListCollection([], rasterized=True)
+
+LC_node = 95
+wtot = 2.
+
+xmin = 0.1 + 0.06
+xmax = 0.7
+xw = 0.375
+
+# generate a series of color levels for the contour plot.  Add a zero level to capture everything less than the range of interest.
+levels = np.logspace(-2, 1, num=50)
+levels = np.concatenate((np.array([0]), levels))
+
+cmap = plt.cm.get_cmap(name='YlGnBu_r', lut=None)
+#cmap = plt.cm.get_cmap(name='pink', lut=None)
+p1 = plt.figure(1)
+
+
+#ax1 = plt.subplot2grid((12, 12), (0, 10), rowspan=10, colspan=2)
+gs1 = matplotlib.gridspec.GridSpec(15,12)
+gs1.update(left=0.1, right=0.87, top=0.90, hspace=0.23, bottom=0.04)
+ax2 = plt.subplot( gs1[0:12,0:11])
+ax3 = plt.subplot( gs1[13,3:8])
+ax2.set_aspect('equal')
+
+cs = None
+xs = []
+ys = []
+zs = []
+xs2 = []
+ys2 = []
+zs2 = []
+a  = []
+
+large_values = []
+neg_values = []
+
+norm = matplotlib.colors.LogNorm(vmin=1e-2, vmax=10, clip=False)
+#norm = matplotlib.colors.NoNorm()
+def plot_tri():
+   global cs
+   if len(xs) >3:
+       tri1 = tri.Triangulation(xs, ys)
+#       ax2.tricontour(tri1, zs, levels=levels, cmap=cmap) 
+       cs = ax2.tricontourf(tri1, np.maximum(np.array(zs), np.zeros(np.array(zs).shape)), cmap=cmap, levels=levels, linewidth=0.25, norm=norm)
+       insert(cs)
+    #   ax2.triplot(tri1, linewidth=0.2)
+   if len(xs2) > 3:
+       tri2 = tri.Triangulation(xs2, ys2)
+       cs = ax2.tricontourf(tri2, np.maximum(np.array(zs2), np.zeros(np.array(zs2).shape)), cmap=cmap, levels=levels, linewidth=0.25, norm=norm)
+       insert(cs)
+     #  ax2.triplot(tri2, linewidth=0.2)
+
+print(os.path.dirname(__file__))
+with open(os.path.dirname(__file__) + '/../' + 'MJ' + '/results/nodes/' + str(LC_node) + '/n' + str(LC_node) + '_LC.csv') as infile:
+    inreader = csv.reader(infile)
+
+    maxz = 0.
+    layer_combos = []
+    layers = []
+    thicknesses = []
+    materials= []
+    yB1 = []
+    P1 = []
+    yB2 = []
+    P2 = []
+    yB3 = []
+    P3 = []
+
+    for r in inreader:
+        if len(r) == 0 or r[0][0] == '#':
+            pass
+        elif r[0] == 'Brad':
+           # build a list of layers
+           layers.append(r[1])
+           thicknesses.append(float(r[4]))
+           materials.append(r[2])
+        elif len(r)==3 and float(r[2]) != np.inf and np.isnan( float(r[2]) ) == False:
+           yA = float(r[0])
+           yB = float(r[1])
+           P = float(r[2])
+           # we have a valid coupling value.
+           if yA >= yB:
+              ys.append(yA)
+              xs.append(yB)
+              if P < 0 and P > -1e-10:
+                 zs.append(0.)
+              else:
+                 zs.append(P)
+           if yA <= yB:
+              ys2.append(yA)
+              xs2.append(yB)
+              if P < 0 and P > -1e-10:
+                 zs2.append(0.)
+              else:
+                 zs2.append(P)
+           a.append(P)
+
+           # Data for profile
+           if yA == 0.39959375000000003:
+                 yB1.append(yB)
+                 P1.append(P)
+           # Data for profile
+           if yA == 0.7880234375:
+                 yB2.append(yB)
+                 P2.append(P)
+           if yA == 5.3343125:
+                 yB3.append(yB)
+                 P3.append(P)
+	   # track whether we have extremely large or small values
+           if P < 0:
+                 neg_values.append(P)
+    if P > 10:
+      large_values.append(P)
+      print('large value', yA, yB, P)
+
+    elif len(r) == 6 and r[0] == '**':
+              # we have a new layer combo.
+              layer_combos.append( (int(r[1]), r[2], int(r[3]), r[4], float(r[5]) ))
+
+              if len(xs) > 0 or len(xs2) > 0:
+                 # save results of previous rows.
+
+                 xs = np.array(xs)
+                 ys = np.array(ys)
+                 xs2 = np.array(xs2)
+                 ys2 = np.array(ys2)
+                 plot_tri()
+                 xs = []
+                 ys = []
+                 zs = []
+                 xs2 = []
+                 ys2 = []
+                 zs2 = []
+
+    if len(xs) > 0 or len(xs2) > 0:
+#       print '   ', max(zs), min(zs)
+       xs = np.array(xs)
+       ys = np.array(ys)
+       xs2 = np.array(xs2)
+       ys2 = np.array(ys2)
+       plot_tri()
+
+num_layers = len(layers)
+coupling_matrix = np.zeros((num_layers, num_layers))
+thicknesses = np.array(thicknesses)
+for combo in layer_combos:
+     coupling_matrix[combo[0], combo[2]] = combo[4]
+
+with open('matrix.csv', 'wb') as matrixfile:
+   writer = csv.writer(matrixfile)
+   print('Writing Coupling Matrix to matrix.csv')
+   writer.writerow(['Coupling Matrix'])
+   writer.writerow([' ']+layers)
+   writer.writerow(['thickness']+thicknesses.tolist() )
+   for i in xrange(num_layers):
+      writer.writerow( [ layers[i]] + coupling_matrix[i,:].tolist())
+
+cbar = p1.colorbar(cs, cax=ax3, orientation='horizontal', ticks=[1e-3, 1e-2, 1e-1, 1, 10], format=matplotlib.ticker.LogFormatterMathtext(10, labelOnlyBase=True))
+cbar.solids.set_edgecolor("face")
+cbar.solids.set_linewidth(0.25)
+cbar.solids.set_antialiased(True)
+ax3.set_xlabel(r'Coupling Factor $K_\mathrm{BA}$ (\textmu$\mathrm{m^{-1}}$)', labelpad=1)
+
+
+
+
+a = np.array(a)
+logmax = math.ceil( math.log10(a.max()) )
+
+bins = range(-7,int(logmax)+1)
+
+for i in xrange(len(bins)):
+   bins[i] = math.pow(10. , bins[i] )
+
+(hist, bins) = np.histogram(a, bins=bins)    
+
+
+p2 = plt.figure(2)
+ax4 = p2.add_subplot(1,1,1)
+
+
+ax4.plot(yB1, np.array(P1)*wtot, '-+')
+print('integrated at y1', trapz(np.array(P1)*wtot, x=yB1))
+
+ax4.plot(yB2, np.array(P2)*wtot, '-+')
+ax4.plot(yB3, np.array(P3)*wtot, '-+')
+ax4.set_xlabel(r'Re-Absorption location $\mathit{z_B}$ (\textmu m)', labelpad=1)
+ax4.set_ylabel(r'Re-Absorption density (\textmu$\mathrm{m^{-1}}$)', labelpad=1)
+
+ytops = []
+ybots = []
+ymids = []
+
+matcolordict = {'GaAs' : 0, 'AlGaAs': 1, 'GaInP': 2, 'InGaAsN':3, 'Germanium':4, 'Gold': 5, 'AlOx':0, 'TiOx':1, 'MQW_eff': 3}
+colors = matplotlib.rcParams['axes.color_cycle']
+print(thicknesses)
+# identify top, middle and bottom of each layer
+
+textoffsets = [0, 0, -3, 0, 0, 0,
+               0, 0, 0, 0, 0, 0,0 ]
+
+lnames = ['ARC','',
+          'MQW1', '',
+          ]
+
+lnames2 = lnames
+
+llayers = [[0,1],[2],
+           [3],[4],
+          ]
+
+lcolors = [0,2,0,2,0,2,0,2,0,2,0,2]
+
+
+y = 0.
+for i in range(len(llayers)):
+   llist = llayers[i]
+   thickness = 0.
+   for j in xrange(len(llist)):
+    thickness += thicknesses[llist[j]]
+   ytops.append(y)
+   y+= thickness
+   ybots.append(y)
+   ymids.append((ytops[i] + ybots[i])/2.)
+
+   if ybots[i] > xmin and ytops[i] < xmax:
+     if ytops[i] < xmin:
+          ytops[i] = xmin
+          ymids[i] = (ytops[i]+ybots[i])/2.
+     if ybots[i] > xmax:
+          ybots[i] = xmax
+          ymids[i] = (ytops[i]+ybots[i])/2.
+
+#for i in range(len(llayers)):
+     color_index = lcolors[i]
+     color = matplotlib.rcParams['axes.color_cycle'][color_index]
+     if textoffsets[i] != 0:
+          xoffset = 12
+     else:
+          xoffset = 9
+
+     # patch and annotation at top of figure
+     ax2.add_patch(patches.Rectangle((ytops[i], xmin-0.15), ybots[i]- ytops[i], 0.15, linewidth=0.25, facecolor=color, alpha=0.6,clip_on=False))
+     # patch and annotation at right of figure
+     ax2.add_patch(patches.Rectangle((xmax, ytops[i]), xw, ybots[i]- ytops[i], linewidth=0.25, facecolor=color, alpha=0.6, clip_on=False))
+     if lnames[i] != '':
+          ax2.annotate(lnames2[i], (ymids[i], xmin -0.15), xytext = (textoffsets[i],xoffset), 
+               ha='center',va='bottom', textcoords='offset points', arrowprops=dict(arrowstyle='-', color='k',  lw=0.25), rotation='vertical', fontsize=7.0, annotation_clip=False)
+          ax2.annotate(lnames[i], (xmax +xw, ymids[i]), xytext = (xoffset,-textoffsets[i]), 
+               ha='left',va='center', textcoords='offset points', arrowprops=dict(arrowstyle='-', color='k', lw=0.25), fontsize=7.0, annotation_clip=False)
+ax2.add_patch(patches.Rectangle((xmin, xmin-0.15), xmax-xmin, 0.15, linewidth=0.25, facecolor='none', edgecolor='k', clip_on=False))
+ax2.add_patch(patches.Rectangle((xmax, xmin), xw, xmax-xmin, linewidth=0.25, facecolor='none', edgecolor='k', clip_on=False))
+#ax2.add_patch(patches.Rectangle((xmax, xmin-0.15), xw, 0.15, linewidth=0.25, facecolor='white'))
+ax2.get_yaxis().set_ticks([0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0])
+ax2.get_xaxis().set_ticks([0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0])
+
+ax2.set_xlim(xmin, xmax)
+ax2.set_ylim(xmin, xmax)
+
+ax2.set_ylabel(r'Emission location $\mathit{z_A}$ (\textmu m)', labelpad=1)
+ax2.set_xlabel(r'Re-absorption location $\mathit{z_B}$ (\textmu m)', labelpad=1)
+ax2.invert_yaxis()
+
+ax2.get_xaxis().set_ticks_position('bottom')
+ax2.get_yaxis().set_ticks_position('left')
+
+ax2.add_artist(cc)
+
+p1.text(0.05,0.88, r'(c)')
+
+#ax3.get_xaxis().set_ticks([0., 0.2, 0.4, 0.6, 0.8, 1.0])
+# p1.savefig('matrix.png')
+# p1.savefig('matrix.svg')
+#print 'saving vector format'
+#p1.savefig('matrix.pdf')
+plt.show()

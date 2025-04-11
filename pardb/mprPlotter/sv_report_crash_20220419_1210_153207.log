@@ -1,0 +1,33 @@
+###########################################
+# Sentaurus Visual S-2021.06.
+# Tcl log file.
+#------------------------------------------
+# Date: Apr. 19, 2022. 12:10:23.
+# Version: 32.2.7041644 (2.7041644)
+# Mode: Interactive (GUI).
+# Mesa: enabled.
+# Hostname: dyson.rdc.uolocal.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 3.10.0-1062.12.1.el7.x86_64.
+###########################################
+
+load_script_file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/n6_vis.tcl
+cd /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter
+#-> 0
+
+The program was unexpectedly terminated.
+Signal SIGTERM caught: Termination signal.
+
+Stack Dump:
+ 0# MakoSignals::app_sigaction(int, siginfo_t*, void*) in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/svisual_bin/svisual_exec
+ 1# 0x00002BA67E728630 in /lib64/libpthread.so.0
+ 2# __poll in /lib64/libc.so.6
+ 3# 0x00002BA687BA13FC in /lib64/libglib-2.0.so.0
+ 4# g_main_context_iteration in /lib64/libglib-2.0.so.0
+ 5# QEventDispatcherGlib::processEvents(QFlags<QEventLoop::ProcessEventsFlag>) in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/lib/libQt5Core.so.5
+ 6# QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>) in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/lib/libQt5Core.so.5
+ 7# QCoreApplication::exec() in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/lib/libQt5Core.so.5
+ 8# RunMako(int, char**) in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/svisual_bin/svisual_exec
+ 9# main in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/svisual_bin/svisual_exec
+10# __libc_start_main in /lib64/libc.so.6
+11# 0x00000000010ED904 in /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/svisual_bin/svisual_exec

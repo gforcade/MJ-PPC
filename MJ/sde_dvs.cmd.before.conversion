@@ -1,0 +1,44 @@
+#setdep @node|epi@ 
+
+;;----------------------------------------------------------------------
+(display "Creating  structure") (newline)
+(sde:clear)
+;;----------------------------------------------------------------------
+(display "  Reading in epi layer system") (newline)
+(load "n@node|epi@_epi.scm")
+
+
+;----------------------------------------------------------------------
+; general structure parameters
+;; wtot - width of the device [um]
+(define wtot @wtot@)
+(define wfrontc @wfrontc@)
+(define node "@node@")
+
+#if "@cap@" == "yes"
+ (define Ytopcell Y0_cap2)
+#else
+ (define Ytopcell Y0_etchstop)
+#endif
+
+;;----------------------------------------------------------------------
+(display "  cathode") (newline)
+(sdegeo:define-contact-set "cathode" 4  (color:rgb 0 1 0 ) "##" )
+(sdegeo:set-current-contact-set "cathode")
+(sdegeo:define-2d-contact (find-edge-id (position (/ wtot 2) Ytopcell 0)) "cathode")
+
+;;----------------------------------------------------------------------
+(display "  anode") (newline)
+(sdegeo:define-contact-set "anode" 4  (color:rgb 1 0 0 ) "##" )
+(sdegeo:set-current-contact-set "anode")
+(sdegeo:define-2d-contact (find-edge-id (position (/ wtot 2) Ybot 0)) "anode")
+
+;;----------------------------------------------------------------------
+(display "Saving BND and meshing electrical structure") (newline)
+(sde:build-mesh "snmesh" "" (string-append "n" node "_msh") )
+
+(display "... done.") (newline)
+
+
+
+

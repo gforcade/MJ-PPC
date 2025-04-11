@@ -1,0 +1,47 @@
+<html><head><title>MatPar Documentation GaInP/Permittivity/Epsilon</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for GaInP/Permittivity/Epsilon</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#GaInP/Permittivity/Epsilon/Levinshtein-RT.tcl"> Room temperature model from Levinshtein (Levinshtein-RT.tcl)</a>
+  <li> <a href="#GaInP/Permittivity/Epsilon/Default.tcl"> Room temperature model from Levinshtein (Default.tcl)</a>
+  <li> <a href="#GaInP/Permittivity/Epsilon/Piprek.tcl"> Room temperature model from Piprek (Piprek.tcl)</a>
+</ul>
+<hr><p><a name="GaInP/Permittivity/Epsilon/Levinshtein-RT.tcl" href="#top">[top]</a><b> Room temperature model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein-RT.tcl">Levinshtein-RT.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is given by
+epsilon = 12.5-1.4x
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol II"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1999
+<hr><p><a name="GaInP/Permittivity/Epsilon/Default.tcl" href="#top">[top]</a><b> Room temperature model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Default.tcl">Default.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is given by
+epsilon = 12.4-2.2x
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> 
+Sentaurus Device User Guide
+<hr><p><a name="GaInP/Permittivity/Epsilon/Piprek.tcl" href="#top">[top]</a><b> Room temperature model from Piprek</b>
+<p><b>FILE:</b> <tt><a href="Piprek.tcl">Piprek.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is given by
+epsilon = constant
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> 
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+</body></html>

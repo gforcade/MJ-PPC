@@ -1,0 +1,85 @@
+!(
+#-------------------------------
+# Variable Definition section
+#-------------------------------
+set material InGaAs         ; # Specify material name
+#set VBO [expr {0.4*(1.247*0.3+1.5*(1.0-$::xMole)-0.4*(1.0-$::xMole)*(1.0-$::xMole))}]
+#puts stderr "InGaAsN::VBO=$VBO for mole fraction $::xMole"
+#Ref: Levinshtein
+    
+#-----------------------------------------------------
+# Input Validation and Header Printing section
+#-----------------------------------------------------
+# Validate variables and print header section in par file
+
+source ../lib/printPar.tcl
+printPar::header
+
+#---------------------------------
+# Parameter Initialization section
+#---------------------------------
+# Initialize parameters
+
+initProperty $material BandStructure Bandgap Piprek_rev
+
+initProperty $material Mobility ConstantMobility Sotoodeh
+initProperty $material Mobility DopingDependence Sotoodeh 
+
+
+initProperty $material Optics ComplexRefractiveIndex Horiba_DeltaPsi2
+
+initProperty $material Recombination Auger Levinshtein
+initProperty $material Recombination RadiativeRecombination MW
+initProperty $material Recombination Scharfetter Levinshtein
+
+#---------------------------
+# Parameter Printing section
+#---------------------------
+# print parameter sections in par file
+
+${material}::Bandgap::print
+
+${material}::ConstantMobility::print
+${material}::DopingDependence::print
+
+${material}::ComplexRefractiveIndex::print
+
+${material}::Auger::print
+${material}::RadiativeRecombination::print
+${material}::Scharfetter::print
+
+)!
+
+
+
+Epsilon
+{ *  Ratio of the permittivities of material and vacuum
+  * epsilon() = epsilon
+  # Valid on for In53GaAs.
+  # Reference: Ioffe
+	epsilon	= 13.9
+}
+
+eDOSMass
+{
+Formula = 2
+* me/m0 = (Nc300/2.540e19)^2/3
+* Nc(T) = Nc300 * (T/300)^3/2
+  # Valid on for In53GaAs.
+  # Reference: Ioffe
+    Nc300	= 2.1e+17	# [cm-3]
+}
+
+* Reference: 
+hDOSMass
+{
+Formula = 2
+* mh/m0 = (Nv300/2.540e19)^2/3
+* Nv(T) = Nv300 * (T/300)^3/2
+  # Valid on for In53GaAs.
+  # Reference: Ioffe
+   	Nv300	= 7.7e+18	# [cm-3] #
+} 
+
+
+

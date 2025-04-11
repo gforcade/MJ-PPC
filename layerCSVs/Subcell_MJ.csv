@@ -1,0 +1,15 @@
+##########################################################################
+#___________________
+# PT Subcell
+#___________________
+
+#layer,		mat,		params,			thick,		doping,	x_frac,	mesh
+
+#if @scn@ != @numSegments@
+sc@scn@_fsf,	InP,	InP.tcl,	@t_fsf@,	@dop_fsf@,	,	(mbox 0.02 2.0 both)
+#endif
+sc@scn@_em,	InGaAs,	In53GaAs.tcl,	@t_em@,		@dop_em@,	0.53,	(mbox 0.01 1.01 both)
+sc@scn@_base,	InP,	InP.tcl,	@t_fsf@,	@dop_fsf@,	,	(mbox 0.01 1.001 both)
+## sc@scn@_buffer,	InP,	InP.tcl,	@t_buffer@,	@dop_buffer@,	,	(mbox 0.001 1.01 both)
+
+##########################################################################

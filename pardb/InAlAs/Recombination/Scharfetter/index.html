@@ -1,0 +1,43 @@
+<html><head><title>MatPar Documentation InGaAs/Recombination/Scharfetter</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for InGaAs/Recombination/Scharfetter</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#InGaAs/Recombination/Scharfetter/Default.tcl"> Temperature and Doping dependent model from sdevice (Default.tcl)</a>
+  <li> <a href="#InGaAs/Recombination/Scharfetter/Levinshtein.tcl"> Temperature and Doping dependent model from sdevice (Levinshtein.tcl)</a>
+</ul>
+<hr><p><a name="InGaAs/Recombination/Scharfetter/Default.tcl" href="#top">[top]</a><b> Temperature and Doping dependent model from sdevice</b>
+<p><b>FILE:</b> <tt><a href="Default.tcl">Default.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature and doping dependent minority carrier lifetime is calculated using,
+tau = taumin + ( taumax - taumin ) / ( 1 + ( N/Nref )^gamma)
+where,
+tau(T) = tau * ( (T/300)^Talpha )
+or
+tau(T) = tau * exp( Tcoeff * ((T/300)-1) )
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> taumin_i, taumax_i, Nref_i, gamma_i, Talpha_i, Tcoeff_i, Etrap,
+where i is n for n-type or p for p-type
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> 
+Sentaurus Device User Guide
+<hr><p><a name="InGaAs/Recombination/Scharfetter/Levinshtein.tcl" href="#top">[top]</a><b> Temperature and Doping dependent model from sdevice</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature and doping dependent minority carrier lifetime is calculated using,
+tau = taumin + ( taumax - taumin ) / ( 1 + ( N/Nref )^gamma)
+where,
+tau(T) = tau * ( (T/300)^Talpha )
+or
+tau(T) = tau * exp( Tcoeff * ((T/300)-1) )
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> taumin_i, taumax_i, Nref_i, gamma_i, Talpha_i, Tcoeff_i, Etrap,
+where i is n for n-type or p for p-type
+<br><b>VALIDITY:</b> 
+This model is valid for Ga0.47In0.53As and and doping concentration of 1e18 cm^-3
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol II"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1999
+</body></html>

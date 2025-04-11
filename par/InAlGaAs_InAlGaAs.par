@@ -1,0 +1,21 @@
+
+SurfaceRecombination {
+    S0 = @Sb@ , @Sb@ * [cm/s]
+    Sref = 0 * [1]
+  }
+
+BarrierTunneling  
+{ * Non Local Barrier Tunneling 
+  * G(r) = g*A*T/kB*F(r)*Pt(r)*ln[(1+exp((E(r)-Es)/kB/T))/(1+exp((E(r)-Em)/kB/T))]
+  * where: 
+  *     Pt(r) is WKB approximation for the tunneling probability 
+  *     g = As/A, As is the Richardson constant for carriers in semiconductor
+  *     A is the Richardson constant for free electrons 
+  *     F(r) is the electric field 
+  *     E(r) is carrier energy 
+  *     Es is carrier quasi fermi energy in semiconductor
+  *     Em is carrier fermi energy in metal 
+	g	= 0.42 ,	0.8	# [1]
+        mt	= 0.05 ,	0.14
+}
+

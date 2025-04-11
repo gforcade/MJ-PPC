@@ -1,0 +1,22 @@
+<html><head><title>MatPar Documentation GaInP/BandStructure/eDOSMass</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for GaInP/BandStructure/eDOSMass</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#GaInP/BandStructure/eDOSMass/Levinshtein.tcl"> Temperature dependent model from Levinshtein (Levinshtein.tcl)</a>
+</ul>
+<hr><p><a name="GaInP/BandStructure/eDOSMass/Levinshtein.tcl" href="#top">[top]</a><b> Temperature dependent model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent electron DOS is used to calculate the electron DOS mass using
+mn/m0 = (Nc/2)^(2/3) * (h^2/2*pi*kB*T*mn*m0)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+mm returns mn/m0 [1]
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol I"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1996
+<br><b>NOTES:</b> 
+Formula 1 is used to calculate the electron DOS and DOS mass.

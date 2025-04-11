@@ -1,0 +1,23 @@
+<html><head><title>MatPar Documentation GaInP/Mobility/ConstantMobility</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for GaInP/Mobility/ConstantMobility</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#GaInP/Mobility/ConstantMobility/Sotoodeh.tcl"> Temperature dependent model from Sotoodeh (Sotoodeh.tcl)</a>
+</ul>
+<hr><p><a name="GaInP/Mobility/ConstantMobility/Sotoodeh.tcl" href="#top">[top]</a><b> Temperature dependent model from Sotoodeh</b>
+<p><b>FILE:</b> <tt><a href="Sotoodeh.tcl">Sotoodeh.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent mobility is calculated using
+mu_const = mumax (T/T0)^(-Exponent)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+mu_const_n and mu_const_p returns temperature dependent mobility for n and p type carriers respectively.
+<br><b>VALIDITY:</b> 
+This model is valid for x=0.51
+<br><b>REFERENCE:</b><br> M.Sotoodeh, A.H.Khalid, and A.A.Rezazadeh, "Empirical low-field mobility model for III-V compounds applicable in device simulation codes,"
+Journal of Applied Physics, vol. 87, no. 6, pp.2890-2900, 2000
+<br><b>NOTES:</b> This model is temperature dependent and doping concentration independent.
+The mobility value is the low doping mobility value from the doping dependent Sotoodeh model

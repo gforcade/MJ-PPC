@@ -1,0 +1,14 @@
+# Copyright (C) 1994-2019 Synopsys Inc.
+# swbtree vcurrent
+
+# --- simulation flow
+EgVsxMole inspect "" {}
+svisual svisual "" {}
+svisual targetFile "Lumb_BSR.csv" {Lumb_BSR.csv Lumb_BSR.csv}
+# --- variables
+# --- scenarios and parameter specs
+scenario default targetFile ""
+# --- simulation tree
+0 3 0 {} {default} 0
+1 7 3 {} {default} 0
+2 6 7 {Lumb_BSR.csv} {default} 0

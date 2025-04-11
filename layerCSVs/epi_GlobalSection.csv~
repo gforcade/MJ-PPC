@@ -1,0 +1,19 @@
+#--------------------------------------
+# Global section
+#--------------------------------------
+$global Ytop 0.0,,,,,,
+$global Xmin=0.0, Xmax=@wtot@,,,,,
+$global wtot=@wtot@,,,,,,
+
+#if "@dimension@" == "2d"
+  $global dXmin=@<wtot/20.0>@, dXmax=@<wtot/10.0>@
+#else
+  $global dXmin=@<wtot/2.0>@, dXmax=@<wtot/2.0>@
+#endif
+
+$global dYmax=0.1
+
+$global generate=tdr,,,,,,
+$global parFileMask=./npar/n(node)_(material)_(xMole)_(yMole).par,,,,,,
+
+

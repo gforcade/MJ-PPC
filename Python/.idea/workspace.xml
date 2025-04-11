@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c4d126b5-ac5f-4460-b7de-211df189d294" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/10J_moonshot_round2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/10J_moonshot_round3.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/datexcodes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi.job" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi.scm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi.sta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi.tcl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_bnd.tdr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_bnd_msh.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_bnd_msh.tdr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_gen.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_gen.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_gen.scm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_msh.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_epi_msh.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/n4677_local.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4677/pp4677_epi.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/datexcodes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_bnd.tdr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.job" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.sta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_dvs.tcb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_local.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_msh.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_msh.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/n4681_msh.tdr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/pp4681_dvs.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4681/pp4681_dvs.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/datexcodes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/n4690_local.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/n4690_mpr.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/n4690_mpr.job" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/n4690_mpr.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/n4690_mpr.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/n4690_mpr.sta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_Gold.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.105_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.117_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.125_0.53_1.9e18.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.132_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.152_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.178_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.215_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.273_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.373_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InGaAs_0.593_0.53_5e16.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InP_0.02_3.6e19.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InP_0.2_3e18.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InP_0.2_5.0e+18.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_InP_0.8_5e18.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_MgF_0.14.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/npar/n4690_TaO_0.14.par" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/4690/pp4690_mpr.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/LCMatrix_pyt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/LC_10J_moonshot_round2_run_messages.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/LC_10J_moonshot_round3_run_messages.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_bnd.tdr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.job" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.sta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_dvs.tcb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_local.err" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_msh.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_msh.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/n4681_msh.tdr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/pp4681_dvs.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr/4681_Jph_sde/pp4681_dvs.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/Round3/epi_sde_mpr_2.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../10J_moonshot_LC_Robs_Files/epi_sde_mpr.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../2J_C5247_prelim_EQE.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_102345_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_143902_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_147733_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_2624_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_306660_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_309754_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_310506_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/n_tclResults_43176_dyson.rdc.uolocal" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MJ/preprocessor.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Brad_PR.py.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Curve_compare.py.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LC_Efficiency.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/matrix_handler.py.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/matrix_plotter.py.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python_JV_JVran.py.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TD/.database.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TD/.status.orig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../layerCSVs/Subcell_MJ.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.database" beforeDir="false" afterPath="$PROJECT_DIR$/../.database" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MJ/.database" beforeDir="false" afterPath="$PROJECT_DIR$/../MJ/.database" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MJ/.status" beforeDir="false" afterPath="$PROJECT_DIR$/../MJ/.status" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MJ/JV_des.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../MJ/JV_des.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MJ/LCMatrix_pyt.py" beforeDir="false" afterPath="$PROJECT_DIR$/../MJ/LCMatrix_pyt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MJ/gexec.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../MJ/gexec.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MJ/pyCollector_pyt.py" beforeDir="false" afterPath="$PROJECT_DIR$/../MJ/pyCollector_pyt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/epi_cmd_LC.pyx" beforeDir="false" afterPath="$PROJECT_DIR$/epi_cmd_LC.pyx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matrix_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/matrix_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/matrix_plotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/matrix_plotter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tdr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tdr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmm/tmm_core_mw.c" beforeDir="false" afterPath="$PROJECT_DIR$/tmm/tmm_core_mw.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmm/tmm_core_mw.pyx" beforeDir="false" afterPath="$PROJECT_DIR$/tmm/tmm_core_mw.pyx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layerCSVs/Subcell_homo.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../layerCSVs/Subcell_homo.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/sdevicePhysics.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/sdevicePhysics.cmd" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2ObWagW1WHwo4SB1ddpu4IjmjKH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager" selected="Python.LCMatrix_get_data">
+    <configuration name="LCMatrix_get_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LCMatrix_get_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="Python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.LCMatrix_get_data" />
+      <item itemvalue="Python.Unnamed" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.LCMatrix_get_data" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c4d126b5-ac5f-4460-b7de-211df189d294" name="Default Changelist" comment="" />
+      <created>1681829826336</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681829826336</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2343" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1681830051502">
+      <screen x="0" y="0" width="3840" height="1080" />
+    </state>
+    <state x="2343" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.3840.1080@0.0.3840.1080" timestamp="1681830051502" />
+    <state width="1896" height="276" key="GridCell.Tab.0.bottom" timestamp="1681832063107">
+      <screen x="0" y="0" width="3840" height="1080" />
+    </state>
+    <state width="1896" height="276" key="GridCell.Tab.0.bottom/0.0.3840.1080@0.0.3840.1080" timestamp="1681832063107" />
+    <state width="1896" height="276" key="GridCell.Tab.0.center" timestamp="1681832063097">
+      <screen x="0" y="0" width="3840" height="1080" />
+    </state>
+    <state width="1896" height="276" key="GridCell.Tab.0.center/0.0.3840.1080@0.0.3840.1080" timestamp="1681832063097" />
+    <state width="1896" height="276" key="GridCell.Tab.0.left" timestamp="1681832063091">
+      <screen x="0" y="0" width="3840" height="1080" />
+    </state>
+    <state width="1896" height="276" key="GridCell.Tab.0.left/0.0.3840.1080@0.0.3840.1080" timestamp="1681832063091" />
+    <state width="1896" height="276" key="GridCell.Tab.0.right" timestamp="1681832063102">
+      <screen x="0" y="0" width="3840" height="1080" />
+    </state>
+    <state width="1896" height="276" key="GridCell.Tab.0.right/0.0.3840.1080@0.0.3840.1080" timestamp="1681832063102" />
+    <state x="1237" y="384" key="com.intellij.ide.util.TipDialog" timestamp="1682001137382">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2538" y="384" key="com.intellij.ide.util.TipDialog/0.0.3840.1080@0.0.3840.1080" timestamp="1681829837614" />
+    <state x="1237" y="384" key="com.intellij.ide.util.TipDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1682001137382" />
+  </component>
+</project>

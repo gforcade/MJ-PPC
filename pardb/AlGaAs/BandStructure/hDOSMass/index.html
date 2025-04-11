@@ -1,0 +1,41 @@
+<html><head><title>MatPar Documentation AlGaAs/BandStructure/hDOSMass</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for AlGaAs/BandStructure/hDOSMass</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#AlGaAs/BandStructure/hDOSMass/Levinshtein.tcl"> Temperature dependent model from Levinshtein (Levinshtein.tcl)</a>
+  <li> <a href="#AlGaAs/BandStructure/hDOSMass/Piprek.tcl"> Temperature dependent model from Piprek (Piprek.tcl)</a>
+</ul>
+<hr><p><a name="AlGaAs/BandStructure/hDOSMass/Levinshtein.tcl" href="#top">[top]</a><b> Temperature dependent model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Temperature dependent hole DOS is calculated using
+Nv=4.82e15*T^(3/2)*(0.51+0.25*x)^(3/2)
+and temperature dependent hole DOS mass is calculated using
+mh/m0 = (h^2/(2*pi*kB*T*m0))*(Nv/2)^2
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+mm returns mh/m0 [1]
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol II"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1999
+<br><b>NOTES:</b> 
+Formula 1 is used to calculate the hole DOS
+<hr><p><a name="AlGaAs/BandStructure/hDOSMass/Piprek.tcl" href="#top">[top]</a><b> Temperature dependent model from Piprek</b>
+<p><b>FILE:</b> <tt><a href="Piprek.tcl">Piprek.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Room Temperature hole DOS mass is calculated using the light hole and heavy hole mass
+mh/m0 = ((mlh)^(3/2)+(mhh)^(3/2))^(2/3)
+and the DOS is calculated using
+Nv = 2*(2*pi*kB*T*mh*m0/h^2)^(3/2)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+mm returns mh/m0 [1]
+<br><b>VALIDITY:</b>  This model is valid at all temperatures under the assumption of temperature independent effective mass
+<br><b>REFERENCE:</b><br> 
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+<br><b>NOTES:</b> 
+Formula 1 is used to calculate the room temperature hole DOS mass

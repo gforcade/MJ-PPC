@@ -1,0 +1,12 @@
+
+##########################################################################
+#___________________
+# TD math meshing
+#___________________
+
+NonLocal (
+    RegionInterface = "td@<scn-1>@_pplus/td@<scn-1>@_nplus"
+    Length=5e-7           # [cm] distance to anchor point
+    Permeation = 5e-7    # [cm] length by which nonlocal mesh lines are extended across the interface or contact
+  )
+##########################################################################

@@ -1,0 +1,27 @@
+###########################################
+# Sentaurus Visual L-2016.03-SP2.
+# Tcl log file.
+#------------------------------------------
+# Date: Jan 26, 2020. 16:09:31.
+# Version: 25.0.17 (1.17)
+# Mode: Interactive (GUI).
+# Hostname: hinzer-02.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 2.6.32-358.6.1.el6.x86_64.
+###########################################
+
+load_script_file /home/infofa/h/users/mbeat052/vis_tmp.cmd
+cd /home/infofa/h/users/mbeat052
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+#-> 0
+set_legend_prop -plot P1 -position {-0.0773861 0.430962}
+#-> 0
+zoom_plot -plot P1 -window {-0.00876291 0.0106154 0.0156643 0.0384176}
+zoom_plot -plot P1 -window {-0.00165177 0.0271643 0.003266 0.0310888}
+zoom_plot -plot P1 -window {-0.000102978 0.0290331 0.000257315 0.0293268}
+exit 0

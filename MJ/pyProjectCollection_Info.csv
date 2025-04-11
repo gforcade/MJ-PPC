@@ -1,0 +1,13 @@
+#Sentaurus Project Info File
+Project directory:,/raidB/gforc034/STDB/AirPower/1550_PPC/MJ
+Hostname:,dyson.rdc.uolocal
+User:,gforc034
+Sentaurus Version:,sentaurus_vS_2021.06
+Simulation Start Time:,20220428_080144
+File Creation Time:,20220428_082244
+
+Tool Flow
+epi,sde,MatPar,EQE-L,svisual_EQE-L,optics,JV,svisual_1D,svisual_JV,pyCollector
+
+experiment-inputs,wtot,t_cap,seg10_em_t,seg9_em_t,seg8_em_t,seg7_em_t,seg6_em_t,seg5_em_t,seg4_em_t,seg3_em_t,seg2_em_t,seg1_em_t,t_substrate,segments,gradient,wfrontc,temp,back_mat,AS,Eg,E_bgn,C_rad,tau_SRH_e,tau_SRH_h,Sb,PR,wstart,wend,wsteps,intensity,spectrum,concentration,xcut,experiment-outputs,Jsc,QE,Voc,FF,Eff
+1.0,70.0,0.05,0.1479,0.165,0.1864,0.2143,0.2521,0.3061,0.3896,0.5365,0.8672,2.5457,1.0,10.0,off,9.0,300.0,InP,off,0.867,0.0,1e-10,2.5e-07,1e-08,0.0,on,1.25,1.75,10.0,1.0,1.55,10.0,70.0,1.0,0.69475,55.5801,4.9653,85.4588,29.48014

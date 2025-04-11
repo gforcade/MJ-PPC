@@ -1,0 +1,13 @@
+
+ThermionicEmission {
+	A = 2, 2  # [1]
+	B = 4, 4  # [1]
+	C = 1, 1  # [1]
+}	
+
+SurfaceRecombination {
+    S0 = @InGaAs_S@, @InGaAs_S@ * [cm/s]
+    Sref = 0 * [1]
+  }
+
+

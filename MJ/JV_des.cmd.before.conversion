@@ -1,0 +1,150 @@
+*------------------------------------------------------------
+* Simulate J-V characteristics 
+* ------------------------------------------------------------
+
+#setdep @node|optics@
+
+File{
+*-Input
+   PMIpath = "../pmi"
+   Grid    = "@tdr@"
+   Parameters ="@mprpar@"
+   OpticalGenerationInput = "n@node|optics@_OptGen_des.tdr"
+*-Output
+   Plot    = "@tdrdat@"
+   Current = "@plot@"
+   Output  = "@log@"
+}
+
+
+Electrode{
+  { Name="cathode"  Voltage=0 }
+  { Name="anode"  Voltage=0 }
+}  
+
+Physics {
+  Temperature = @temp@
+  AreaFactor = @< 1e8/wtot >@ * to get current in A/cm^2
+
+  * Use Fermi-Dirac (rather than Maxwell-Boltzmann) statistics
+  Fermi
+
+  * Allow thermionic emission across (and tunneling through) small potential barriers, and
+  * create double mesh vertices at material interfaces to model abrupt band offsets.
+  ThermionicEmission
+  HeteroInterface
+
+  EffectiveIntrinsicDensity(NoFermi NoBandgapNarrowing)  
+
+  Recombination(
+    SRH(DopingDep)
+    Radiative
+  )
+
+  Mobility(DopingDependence)
+
+
+
+#if @concentration@ > 0
+  Optics (
+    OpticalGeneration( 
+	ReadFromFile( DatasetName = OpticalGeneration )
+	TimeDependence ( WaveTime = (0.9, 10) WaveTSlope = 1.1 Scaling = @concentration@ )
+	Scaling = @concentration@  
+    ) *end of OpticalGeneration
+    ComplexRefractiveIndex (
+      WavelengthDep
+    ) *end of ComplexRefractiveIndex
+  ) * Optics
+#endif
+
+} 
+
+Physics (Material = "InAlGaAs_InP") {EffectiveIntrinsicDensity(BandGapNarrowing (BennettWilson))}
+Physics (Material = "InP") {EffectiveIntrinsicDensity(BandGapNarrowing (TableBGN))}
+Physics (RegionInterface = "sc1_base/sc1_bsf") {Recombination(SurfaceSRH)}
+Physics (RegionInterface = "sc1_fsf/sc1_em") {Recombination(SurfaceSRH)}
+
+*----------------------------------------------------
+
+Plot {
+  xMoleFraction Doping DonorConcentration AcceptorConcentration 
+  eEffectiveStateDensity hEffectiveStateDensity EffectiveIntrinsicDensity IntrinsicDensity
+  eDensity hDensity SpaceCharge DielectricConstant
+  eQuasiFermiPotential hQuasiFermiPotential BandGap EffectiveBandGap ConductionBandEnergy ValenceBandEnergy ElectronAffinity
+  eQuasiFermiEnergy hQuasiFermiEnergy
+  ElectricField ElectricField/vector ElectrostaticPotential
+  eLifetime hLifetime SRH Auger TotalRecombination SurfaceRecombination RadiativeRecombination
+  eCurrent/Vector hCurrent/Vector current/vector
+  eMobility hMobility eVelocity hVelocity
+  SRH Auger TotalRecombination SurfaceRecombination RadiativeRecombination
+  PMIeNonLocalRecombination
+  OpticalGeneration OpticalIntensity AbsorbedPhotonDensity
+
+}
+
+CurrentPlot {
+  SRH(Integrate( Semiconductor))
+  SRH(Integrate( Region="sc1_em"))
+  SRH(Integrate( Region="sc1_base"))
+  RadiativeRecombination(Integrate(Semiconductor))
+  AugerRecombination(Integrate(Semiconductor))
+  OpticalGeneration(Integrate(Material="InAlGaAs_InP"))
+  OpticalGeneration(Integrate(Region="sc1_em" Region="sc1_base"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc1_bsf/buffer"))
+  hQuasiFermiPotential(Average(RegionInterface="buffer/substrate"))
+
+  SurfaceRecombination(Integrate(RegionInterface = "sc1_base/sc1_bsf")
+		       Integrate(RegionInterface = "sc1_fsf/sc1_em")
+		       Integrate(MaterialInterface="InAlGaAs_InP/InGaAs")
+                       Integrate(MaterialInterface="InAlGaAs_InP/InP"))
+}
+
+Math{
+  Transient=BE
+  Extrapolate 
+  Derivatives   
+  RelErrControl 
+  Iterations=25
+  Notdamped=1000
+  Method=ParDiSo
+  ExtendedPrecision(128)
+  Digits=10    
+  ErrRef(electron) = 1E0
+  ErrRef(hole) = 1E0
+  TransientDigits=7            
+  TransientErrRef(electron) = 1E0
+  TransientErrRef(hole) = 1E0
+  -MetalConductivity
+  ExitOnFailure
+*  CNormPrint
+  BreakCriteria {
+    Current (Contact = "cathode" minval = -1)
+   
+  }
+  Number_of_Threads = maximum
+
+}
+
+Solve{
+		NewCurrentPrefix = "tmp_"
+		Coupled(Digits=12){Poisson}
+                Plot( FilePrefix = "n@node@BnddgmPoisson" )
+		Transient ( 
+		  InitialStep=1e-3 MaxStep =0.01 MinStep = 1e-10 Increment=1.5
+		  InitialTime=0 FinalTime=1
+		){ Coupled (Iterations=35) {Poisson Electron Hole  } } 
+		NewCurrentPrefix = "" 
+		* fast voltage controlled ramping
+                Plot( FilePrefix = "n@node@BnddgmJsc"  )
+		Quasistationary ( 
+		  InitialStep=1e-3 MaxStep =0.002 MinStep = 1e-10 Increment=2 DoZero
+		  Goal{ voltage = 1 Name="anode" }
+		){ Coupled {Poisson Electron Hole  } 
+		 } 
+
+  System("rm -f tmp*") *remove the plot we dont need anymore. 
+}
+
+

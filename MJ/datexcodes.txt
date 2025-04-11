@@ -1,0 +1,79 @@
+DATEX2.1
+Datacode
+"$Id"
+"User defined Data codes for semiconductor process and device simulation"
+
+Materials {
+
+ InAlGaAs_InP { 
+  label = "InAlGaAs_InP"
+  group = Semiconductor
+  color = #b030f0
+ }
+
+ InGaAlAs { 
+  label = "InGaAlAs"
+  group = Semiconductor
+  color = #b030f0
+ }
+
+
+ GaInPAs { 
+  label = "GaInPAs"
+  group = Semiconductor
+  color = #b030f0
+ }
+
+
+ InGaAsN { 
+  label = "InGaAsN"
+  group = Semiconductor
+  color = #b03060
+ }
+
+ AlGaInP { 
+  label = "AlGaInP"
+  group = Semiconductor
+  color = #d6a600
+ } 
+
+ Al2O3 { 
+  label = "Al2O3"
+  group = Insulator
+  color = #d6a666
+ }
+
+ ZnS { 
+  label = "ZnS"
+  group = Insulator
+  color = #d6a666
+ }
+
+ MgF { 
+  label = "MgF"
+  group = Insulator
+  color = #d6a666
+ }
+
+ TiOx { 
+  label = "TiOx"
+  group = Insulator
+  color = #d6a666
+  alter1  = TiO
+ } 
+
+ Indium { 
+  label = "Indium"
+  group = Conductor
+  color = #eeee00
+ }
+
+ TaO { 
+  label = "TaO"
+  group = Insulator
+  color = #eeee00
+ }
+
+
+}
+

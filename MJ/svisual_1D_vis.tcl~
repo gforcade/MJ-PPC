@@ -1,0 +1,43 @@
+#setdep @node|sdevice@
+
+
+# make full Tcl library available
+set tcl_library "${::env(SENTAURUS)}/../tcad/current/lib/tcl8.6"
+source [file join [info library] init.tcl]
+
+set dataset n@node|sdevice@BnddgmJsc_des
+
+load_file ${dataset}.tdr
+set plot0 [create_plot -dataset ${dataset}]
+
+# Make 1D cut and remove 2D plot
+create_cutline -name C1 -plot $plot0 -type x -at @ycut@
+# remove_plots $plot0
+set plot1 [create_plot -1d -dataset C1]
+
+set_axis_prop  -axis y -title "various units"
+set_axis_prop  -axis x -title "Y Position (<greek>m</greek>m)"
+
+# Make Band Diagram
+set plot3 [create_plot -1d -dataset C1]
+select_plots $plot3
+
+create_curve -name "Ev" -dataset C1 -axisX "Y" -axisY "ValenceBandEnergy"
+create_curve -name "Ec" -dataset C1 -axisX "Y" -axisY "ConductionBandEnergy"
+create_curve -name "Efn1" -dataset C1 -axisX "Y" -axisY "eQuasiFermiPotential"
+create_curve -name "Efp1" -dataset C1 -axisX "Y" -axisY "hQuasiFermiPotential"
+create_curve -name "Efn" -function "-<Efn1>"
+create_curve -name "Efp" -function "-<Efp1>"
+
+set_curve_prop "Ev" -label "E<sub>V</sub>" -color "black" -line_width 2
+set_curve_prop "Ec" -label "E<sub>C</sub>" -color "black" -line_width 2
+set_curve_prop "Efn" -label "E<sub>FN</sub>" -color "red" -line_width 2 -line_style "dash"
+set_curve_prop "Efp" -label "E<sub>FP</sub>" -color "blue" -line_width 2  -line_style "dash"
+set_curve_prop "Efn1" -hide
+set_curve_prop "Efp1" -hide
+
+
+set_axis_prop -axis y -title "Energy (eV)"
+set_axis_prop -axis x -title "Y Position (<greek>m</greek>m)"
+
+export_variables -dataset C1 -filename BandDiag/n@node@_1ddata.csv -overwrite

@@ -1,0 +1,59 @@
+
+##########################################################################
+#___________________
+# PT Subcell
+#___________________
+
+
+#if @numSegments@ > 1
+	#include "ThGradient.csv"
+#else
+	#seth em_xMole_i @em_xMole@ 
+#endif
+
+### Layer deposition
+
+#layer,		mat,		params,			thick,		doping,	x_frac,	mesh
+
+sc@scn@_fsf,	InP,	InP.tcl,	@t_fsf@,	@dop_fsf@,	,	(mbox 0.001 2.2 both)
+## use InGaAs if mole fraction is negative. To use lattice mismatched values.
+#if @em_xMole_i@ < 0.0
+#seth em_xMole_i [expr -@em_xMole_i@]
+sc@scn@_em,	InGaAs,	In53GaAs.tcl,	@t_em@,		@dop_em@,	@em_xMole_i@,	(mbox 0.001 1.21 both)
+#if @t_em2@ > 0.0
+sc@scn@_em2,	InGaAs,	In53GaAs.tcl,	@t_em2@,	@dop_em2@,	@em_xMole_i@,	(mbox 0.001 1.21 both)
+#endif
+#else
+sc@scn@_em,	GaInPAs,	GaInPAs.tcl,	@t_em@,		@dop_em@,	@em_xMole_i@,	(mbox 0.001 1.21 both)
+#if @t_em2@ > 0.0
+sc@scn@_em2,	GaInPAs,	GaInPAs.tcl,	@t_em2@,	@dop_em2@,	@em_xMole_i@,	(mbox 0.001 1.21 both)
+#endif
+#endif
+
+
+## material gradient between absorber and BSF layers
+#if @EmBaGrad_t@ > 0.0
+!( 
+set layerDensity 1000.0
+set numLayers [expr int(@EmBaGrad_t@*$layerDensity)]
+set t_layer [expr @EmBaGrad_t@/$numLayers]
+
+for { set i $numLayers} { $i > 0.0 } {incr i -1 } {
+set Mole [expr 1.0/($numLayers * 2.0) + 1.0/$numLayers * ($i - 1.0)]
+if { "@Mat_base@" == "InAlAs" } {
+puts "sc@scn@_grad${i}_bsf,	InGaAlAs,	InGaAlAs.tcl,	$t_layer,	@dop_base@,	$Mole,	(mbox 0.001 2.2 both)"
+} else {
+puts "sc@scn@_grad${i}_bsf,	GaInPAs,	GaInPAs.tcl,	$t_layer,	@dop_base@,	$Mole,	(mbox 0.001 2.2 both)"
+}
+}
+)!
+#endif
+
+
+#if "@Mat_base@" == "InAlAs"
+sc@scn@_base,	InAlAs,	In52AlAs.tcl,	@t_base@,	@dop_base@,	0.52,	(mbox 0.001 2.2 both)
+#elseif "@Mat_base@" == "InP"
+sc@scn@_base,	InP,	InP.tcl,	@t_base@,	@dop_base@,	,	(mbox 0.001 2.21 both)
+#endif
+
+##########################################################################

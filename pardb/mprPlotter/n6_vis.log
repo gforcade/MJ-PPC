@@ -1,0 +1,36 @@
+###########################################
+# Sentaurus Visual S-2021.06.
+# Tcl log file.
+#------------------------------------------
+# Date: Apr. 19, 2022. 12:36:49.
+# Version: 32.2.7041644 (2.7041644)
+# Mode: Batch.
+# Hostname: dyson.rdc.uolocal.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 3.10.0-1062.12.1.el7.x86_64.
+###########################################
+
+load_script_file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/n6_vis.tcl
+cd /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter
+  create_plot -1d
+  select_plots {Plot_1}
+#--> Plot_1
+#--> Plot_1
+  load_file Lumb_BSR.csv -name TargDataset
+#--> TargDataset
+  create_curve -axisX x -axisY y -dataset {TargDataset} -name Targ -plot Plot_1
+#--> Targ
+  set_curve_prop {Targ} -plot Plot_1 -label Targ -color #0000ff -hide_line -show_markers -markers_size 10 -markers_type diamondf
+#--> 0
+  load_file SimData.csv -name SimDataset
+#--> SimDataset
+  create_curve -axisX x -axisY y -dataset {SimDataset} -name Sim -plot Plot_1
+#--> Sim
+  set_curve_prop {Sim} -plot Plot_1 -label Sim -color #ff0000 -show_line -hide_markers -line_style solid -line_width 3
+#--> 0
+  set_axis_prop -plot Plot_1 -axis x -title Variable -title_font_size 16 -scale_font_size 14 -type log
+#--> 0
+  set_axis_prop -plot Plot_1 -axis y -title Output -title_font_size 16 -scale_font_size 14 -min 0 -max 1
+#--> 0
+#-> 0
+ 

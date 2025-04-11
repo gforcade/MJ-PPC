@@ -1,0 +1,6 @@
+12:36:21 Apr 19 2022 <mprPlotter> submitted to the batch system
+12:36:21 Apr 19 2022     job 3 <inspect> started on host 'dyson.rdc.uolocal': "inspect -batch -f pp3_ins.cmd"
+12:36:44 Apr 19 2022 +++ job 3 <inspect> done: exit(0)
+12:36:46 Apr 19 2022     job 6 <svisual> started on host 'dyson.rdc.uolocal': "svisual -b n6_vis.tcl"
+12:36:50 Apr 19 2022 +++ job 6 <svisual> done: exit(0)
+12:36:53 Apr 19 2022 <mprPlotter> done (32 sec)

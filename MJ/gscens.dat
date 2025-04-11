@@ -1,0 +1,5 @@
+# --- scenarios properties
+scenario default static expression ""
+scenario initial static expression ""
+scenario objective_evaluation static expression ""
+scenario stage_1 static expression ""

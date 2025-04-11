@@ -1,0 +1,154 @@
+##compare measurementes to simulation
+# 
+# Use RMSD or RMSRE to compare between data
+#  Use interp to interpolate between 2 datasets and provide y data with same x values
+#
+#
+
+
+import numpy as np
+from scipy import interpolate
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+class dataDetails:
+	def __init__(self, skiprows, delimiter, ycolumn, um):
+		self.skiprows	= skiprows
+		self.delimiter	= delimiter
+		self.ycolumn	= ycolumn
+		self.um		= um
+
+def MD(Data,Details):
+	#function to do root mean square difference
+	return np.mean(Data[0] - Data[1])
+
+def MRD(Data,Details):
+	#function to do root mean square difference
+	if Details['swap'] == True:
+		return np.mean((Data[0] - Data[1])/Data[1])
+	else:
+		return np.mean((Data[0] - Data[1])/Data[0])
+
+
+
+def RMSD(Data,Details):
+	#function to do root mean square difference
+	return np.sqrt(np.mean((Data[0] - Data[1])**2))
+
+def RMSRE(Data,Details):
+	## function to find the root mean square relative difference
+	if Details['log'] == True:
+		Data = np.log10(Data)
+	if Details['swap'] == False:
+		return np.sqrt(np.mean(((Data[0] - Data[1])/Data[0])**2))
+	else:
+		return np.sqrt(np.mean(((Data[1] - Data[0])/Data[1])**2))
+
+def RMSREM(Data,Details):
+	## function to find the root mean square relative difference, relative to its mean
+	if Details['log'] == True:
+		Data = np.log10(Data)
+	return np.sqrt(np.mean(((Data[0] - Data[1])/(Data[0]+Data[1])*2.0)**2.0))
+
+
+def plotData(data1,data2,plotDet):
+	print("** Plotting data that is being compared **")
+	plt.rcParams.update({'font.size': 20})
+	plt.plot(data1[0],data1[1], "o", label="Measured")
+	plt.plot(data2[0],data2[1],label="Simulated")
+	plt.legend(fontsize=18)
+	plt.xlabel(plotDet['xlabel'])
+	plt.ylabel(plotDet['ylabel'])
+	plt.yscale(plotDet['yscale'])
+	plt.tight_layout()
+	plt.savefig(plotDet['plotName']+'.png')
+
+def interp(data1,data2,plotDet):
+	#interpolate the data2 to match data1, and provide both y data in 2 columns
+	if plotDet['plt'] == True:
+		if plotDet['dataSwap']:
+			plotData(data2,data1,plotDet)
+		else:
+			plotData(data1,data2,plotDet)
+	data = np.array([data1[1],data1[1]])
+<<<<<<< HEAD
+	f = interpolate.interp1d(data2[0], data2[1],bounds_error=False)
+	data[1] = f(data1[0])
+	#delete out of bounds data (extrapolated data)
+	data = data[:,~np.isnan(data[1])]
+=======
+	f = interpolate.interp1d(data2[0], data2[1])
+	data[1] = f(data1[0])
+	#delete out of bounds data (extrapolated data)
+	data = np.delete(data,np.isnan(data[1]),1)
+>>>>>>> pwilson3_dev
+	return data
+
+def grabData(fileName,dataDetails):
+	##grab the data
+	with open(fileName) as fid:
+		lastLine = fid.tell()
+		line = fid.readline()
+		while line != '':
+			if is_float(line.split(dataDetails.delimiter)[0]):
+				fid.seek(lastLine)
+				break 
+			lastLine = fid.tell()
+			line = fid.readline()
+		data = np.loadtxt(fid, unpack=True, skiprows=dataDetails.skiprows,delimiter=dataDetails.delimiter)
+		Data = np.array([data[0]*dataDetails.um,data[dataDetails.ycolumn]])
+		Data[1] = abs(Data[1])
+		return Data
+
+class IVParams:
+	def __init__(self,Jsc,Voc,FF,Pmax):
+		self.Jsc = Jsc
+		self.Voc = Voc
+		self.FF = FF
+		self.Pmax = Pmax
+
+
+def grabIVParams(fileName):
+	## grabs the Isc, Pmax, Voc, FF
+	with open(fileName) as fid:
+		for line in fid:
+			spltLine = line.split('\t')
+			if spltLine[0] == '#Jsc':
+				Jsc = float(spltLine[1])
+			if spltLine[0] == '#Voc':
+				Voc = float(spltLine[1])
+			if spltLine[0] == '#FF':
+				FF = float(spltLine[1])
+			if spltLine[0] == '#Pmax':
+				Pmax = float(spltLine[1])
+				break
+	return IVParams(Jsc,Voc,FF,Pmax)
+
+	
+
+
+def is_float(element):
+	try:
+		float(element)
+		return True
+	except ValueError:
+		return False
+
+def dataManip(simFileName,simSkip,targFileName,targSkip):
+	##grab the data
+	simData = grabData(simFileName,simSkip)
+	targetData = grabData(targFileName,targSkip)
+	#interpolate such that Data[0] = targetData 
+	return interp(targetData, simData)
+	
+
+
+
+
+if __name__=='__main__':
+	import sys
+	import numpy as np
+	Brad_PR(*sys.argv[1:])
+
+

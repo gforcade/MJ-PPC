@@ -1,0 +1,176 @@
+17:51:25 Jun 30 2013 <mprPlotter-MJSC> submitted to the batch system
+17:51:26 Jun 30 2013     job 1 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp1_ins.cmd"
+17:51:31 Jun 30 2013 --- job 1 <inspect> exited abnormally: exit()
+17:51:33 Jun 30 2013 <mprPlotter-MJSC> failed
+17:55:15 Jun 30 2013 <mprPlotter-MJSC> submitted to the batch system
+17:55:16 Jun 30 2013     job 1 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp1_ins.cmd"
+17:55:21 Jun 30 2013 --- job 1 <inspect> exited abnormally: exit()
+17:55:23 Jun 30 2013 <mprPlotter-MJSC> failed
+17:58:17 Jun 30 2013 <mprPlotter-MJSC> submitted to the batch system
+17:58:17 Jun 30 2013     job 1 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp1_ins.cmd"
+17:59:52 Jun 30 2013 +++ job 1 <inspect> done: exit(0)
+17:59:54 Jun 30 2013 <mprPlotter-MJSC> done (97 sec)
+18:00:07 Jun 30 2013 <mprPlotter-MJSC> submitted to the batch system
+18:00:08 Jun 30 2013     job 1 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp1_ins.cmd"
+18:00:21 Jun 30 2013 +++ job 1 <inspect> done: exit(0)
+18:00:23 Jun 30 2013 <mprPlotter-MJSC> done (16 sec)
+19:52:48 Jun 30 2013 <mprPlotter-MJSC> submitted to the batch system
+19:52:49 Jun 30 2013     job 1 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp1_ins.cmd"
+19:53:10 Jun 30 2013 +++ job 1 <inspect> done: exit(0)
+19:53:13 Jun 30 2013 <mprPlotter-MJSC> done (25 sec)
+14:36:04 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:36:05 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:36:26 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:36:28 Jul 04 2013 <mprPlotter-MJSC> done (24 sec)
+14:47:34 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:47:34 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:47:43 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:47:46 Jul 04 2013 <mprPlotter-MJSC> done (12 sec)
+14:48:16 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:48:17 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:49:10 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:49:12 Jul 04 2013 <mprPlotter-MJSC> done (56 sec)
+14:49:18 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:49:18 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:49:28 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:49:30 Jul 04 2013 <mprPlotter-MJSC> done (12 sec)
+14:49:39 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:49:40 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:49:48 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:49:50 Jul 04 2013 <mprPlotter-MJSC> done (11 sec)
+14:51:34 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:51:35 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:51:52 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:51:54 Jul 04 2013 <mprPlotter-MJSC> done (20 sec)
+14:52:19 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:52:20 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:52:30 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:52:32 Jul 04 2013 <mprPlotter-MJSC> done (13 sec)
+14:54:56 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:54:57 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:55:22 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:55:24 Jul 04 2013 <mprPlotter-MJSC> done (28 sec)
+14:55:47 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:55:48 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:55:56 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:55:58 Jul 04 2013 <mprPlotter-MJSC> done (11 sec)
+14:56:14 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:56:15 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:56:26 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:56:28 Jul 04 2013 <mprPlotter-MJSC> done (14 sec)
+14:56:57 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:56:58 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:57:09 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:57:11 Jul 04 2013 <mprPlotter-MJSC> done (14 sec)
+14:57:19 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:57:20 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:57:36 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:57:38 Jul 04 2013 <mprPlotter-MJSC> done (19 sec)
+14:58:42 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:58:42 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:59:03 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:59:05 Jul 04 2013 <mprPlotter-MJSC> done (23 sec)
+14:59:30 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+14:59:30 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+14:59:40 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+14:59:42 Jul 04 2013 <mprPlotter-MJSC> done (12 sec)
+15:00:37 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:00:38 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:00:46 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:00:48 Jul 04 2013 <mprPlotter-MJSC> done (11 sec)
+15:02:48 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:02:48 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:03:02 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:03:05 Jul 04 2013 <mprPlotter-MJSC> done (17 sec)
+15:03:56 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:03:57 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:04:12 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:04:14 Jul 04 2013 <mprPlotter-MJSC> done (18 sec)
+15:04:59 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:05:00 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:05:23 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:05:25 Jul 04 2013 <mprPlotter-MJSC> done (26 sec)
+15:05:50 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:05:51 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:06:09 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:06:11 Jul 04 2013 <mprPlotter-MJSC> done (21 sec)
+15:07:07 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:07:08 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:07:17 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:07:19 Jul 04 2013 <mprPlotter-MJSC> done (12 sec)
+15:09:14 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:09:14 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:09:22 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:09:24 Jul 04 2013 <mprPlotter-MJSC> done (10 sec)
+15:15:51 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:15:52 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:16:02 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:16:04 Jul 04 2013 <mprPlotter-MJSC> done (13 sec)
+15:16:09 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:16:09 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:16:20 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:16:23 Jul 04 2013 <mprPlotter-MJSC> done (14 sec)
+15:18:23 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:18:24 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:18:29 Jul 04 2013 --- job 2 <inspect> exited abnormally: exit()
+15:18:31 Jul 04 2013 <mprPlotter-MJSC> failed
+15:19:46 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:19:47 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:20:02 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:20:04 Jul 04 2013 <mprPlotter-MJSC> done (18 sec)
+15:21:18 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:21:18 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:21:27 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:21:29 Jul 04 2013 <mprPlotter-MJSC> done (11 sec)
+15:21:44 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:21:45 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:21:49 Jul 04 2013 --- job 2 <inspect> exited abnormally: exit()
+15:21:51 Jul 04 2013 <mprPlotter-MJSC> failed
+15:22:36 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:22:36 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:22:40 Jul 04 2013 --- job 2 <inspect> exited abnormally: exit()
+15:22:42 Jul 04 2013 <mprPlotter-MJSC> failed
+15:23:08 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:23:09 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:23:57 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:23:59 Jul 04 2013 <mprPlotter-MJSC> done (51 sec)
+15:26:26 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:26:26 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:30:44 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:30:46 Jul 04 2013 <mprPlotter-MJSC> done (260 sec)
+15:32:01 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:32:02 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:32:10 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:32:12 Jul 04 2013 <mprPlotter-MJSC> done (11 sec)
+15:32:31 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:32:32 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:32:46 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:32:48 Jul 04 2013 <mprPlotter-MJSC> done (17 sec)
+15:33:06 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:33:06 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:33:19 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:33:22 Jul 04 2013 <mprPlotter-MJSC> done (16 sec)
+15:34:35 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:34:35 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:35:10 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:35:13 Jul 04 2013 <mprPlotter-MJSC> done (38 sec)
+15:37:17 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:37:18 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:37:24 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:37:26 Jul 04 2013 <mprPlotter-MJSC> done (9 sec)
+15:37:43 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:37:43 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:38:27 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:38:29 Jul 04 2013 <mprPlotter-MJSC> done (46 sec)
+15:39:41 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:39:42 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:39:49 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:39:51 Jul 04 2013 <mprPlotter-MJSC> done (10 sec)
+15:40:50 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:40:51 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:41:06 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:41:09 Jul 04 2013 <mprPlotter-MJSC> done (19 sec)
+15:41:21 Jul 04 2013 <mprPlotter-MJSC> submitted to the batch system
+15:41:22 Jul 04 2013     job 2 <inspect> started on host 'hinzer01.site.uottawa.ca': "inspect -f pp2_ins.cmd"
+15:41:35 Jul 04 2013 +++ job 2 <inspect> done: exit(0)
+15:41:37 Jul 04 2013 <mprPlotter-MJSC> done (16 sec)

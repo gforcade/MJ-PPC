@@ -1,0 +1,127 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 14 13:30:20 2022
+
+@author: pwilson3
+"""
+import numpy as np
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.tri as tri
+from matplotlib.lines import Line2D 
+import matplotlib.patches as patches
+import seaborn as sns
+
+#------------------------------------------------------------------------------
+def setup_simple_plot(fig_num):
+    p1 = plt.figure(fig_num)
+
+    gs1 = matplotlib.gridspec.GridSpec(15,12)
+    gs1.update(left=0.1, right=0.87, top=0.90, hspace=0.23, bottom=0.04)
+    ax2 = plt.subplot( gs1[0:12,0:11])
+    ax2.set_aspect('equal', 'box')
+    ax3 = plt.subplot( gs1[13,3:8])
+
+    ax2.set_ylabel(r'Emission location $\mathit{z_A}$ ($\mu$m)', labelpad=1)
+    ax2.set_xlabel(r'Re-absorption location $\mathit{z_B}$ ($\mu$m)', labelpad=1)
+    ax2.invert_yaxis()
+    return p1, ax2, ax3
+
+#------------------------------------------------------------------------------
+def simple_matrix_plot(p1, ax2, ax3, x, y, z, tick_points = []):
+    # generate a series of color levels for the contour plot.  Add a zero level to capture everything less than the range of interest.
+    zlim_min = -4 # base 10
+    zlim_max = 1 #base 10
+    
+    if len(tick_points) == 0:
+        cmap = plt.cm.get_cmap(name='YlGnBu_r', lut=None)
+        tick_points = [1e-4, 1e-3, 1e-2, 1e-1, 1, 10]
+        levels =  np.logspace(zlim_min, zlim_max, num=50)
+        levels = np.concatenate((np.array([0]), levels))
+        norm = matplotlib.colors.LogNorm(vmin=10**(zlim_min), vmax=10**(zlim_max), 
+                                         clip=True)
+        tri1 = tri.Triangulation(x, y)
+        #ax2.tricontour(tri1, zs, levels=levels, cmap=cmap) 
+        cs = ax2.tricontourf(tri1, np.maximum(np.array(z), np.zeros(np.array(z).shape)),
+                             cmap=cmap, levels=levels, linewidth=0.25, norm=norm)
+    else:
+        cmap = plt.cm.get_cmap(name='brg', lut=None)
+        tick_points = tick_points
+        levels = np.linspace(tick_points[0], tick_points[-1], 50)
+        tri1 = tri.Triangulation(x, y)
+        #ax2.tricontour(tri1, zs, levels=levels, cmap=cmap) 
+        cs = ax2.tricontourf(tri1, np.maximum(np.array(z), np.zeros(np.array(z).shape)),
+                             cmap=cmap, levels=levels, linewidth=0.25, extend = 'neither')
+    #insert(cs)
+    #ax2.triplot(tri1, linewidth=0.2)
+    cbar = p1.colorbar(cs, cax=ax3, orientation='horizontal', ticks=tick_points, 
+                       format=matplotlib.ticker.LogFormatterMathtext(10, labelOnlyBase=True))
+    cbar.solids.set_edgecolor("face")
+    cbar.solids.set_linewidth(0.25)
+    cbar.solids.set_antialiased(True)
+    ax3.set_xlabel(r'Re-absorbtion density ($\mu m^{-1}}$)')
+
+#------------------------------------------------------------------------------
+<<<<<<< HEAD
+def create_labels(ax, labels, materials, thicknesses, xbar = True, ybar = True,
+                  xbar_anchor = -0.15, ybar_anchor = 0.1, bar_thickness = 0.1):
+=======
+def create_labels(ax, labels, materials, thicknesses):
+>>>>>>> master
+    colours = sns.color_palette('Set1')
+    colours_list = {'InP': colours[0], 'InAlAs': colours[1], 
+                    'InGaAs': colours[2], 'GaInP': colours[3], 
+                    'GaAs': colours[4], 'TaO': colours[5], 'MgF': colours[6]}
+    
+    ybots = [sum(thicknesses[:i + 1]) for i in range(len(thicknesses))]
+    ytops = [0] + ybots[:-1]
+    ymids = [(ytops[i] + ybots[i])/2 for i in range(len(ytops))]
+    
+    for i in range(len(thicknesses)):
+<<<<<<< HEAD
+        if xbar == True:
+            ax.add_patch(patches.Rectangle((ytops[i], xbar_anchor), 
+                                           thicknesses[i], bar_thickness, 
+                                           linewidth=0.25, 
+                                           facecolor=colours_list[materials[i]], 
+                                           edgecolor = 'k', alpha=0.6,clip_on=False))
+            ax.annotate(labels[i], (ymids[i], xbar_anchor), 
+                        annotation_clip = False, rotation = 45).draggable()
+        if ybar == True:
+            ax.add_patch(patches.Rectangle((ybots[-1] + ybar_anchor, ytops[i]), 
+                                           bar_thickness, thicknesses[i], 
+                                           linewidth=0.25, 
+                                           facecolor=colours_list[materials[i]], 
+                                           edgecolor = 'k', alpha=0.6,clip_on=False))
+            ax.annotate(labels[i], (ybots[-1] + 0.3, ymids[i]), 
+                        annotation_clip = False).draggable()
+=======
+        ax.add_patch(patches.Rectangle((ytops[i], -0.15), 
+                                       thicknesses[i], 0.1, linewidth=0.25, 
+                                       facecolor=colours_list[materials[i]], 
+                                       edgecolor = 'k', alpha=0.6,clip_on=False))
+        ax.add_patch(patches.Rectangle((ybots[-1] + 0.1, ytops[i]), 
+                                       0.1, thicknesses[i], linewidth=0.25, 
+                                       facecolor=colours_list[materials[i]], 
+                                       edgecolor = 'k', alpha=0.6,clip_on=False))
+        ax.annotate(labels[i], (ymids[i], -0.15), 
+                    annotation_clip = False, rotation = 45).draggable()
+        ax.annotate(labels[i], (ybots[-1] + 0.3, ymids[i]), 
+                    annotation_clip = False).draggable()
+>>>>>>> master
+
+#------------------------------------------------------------------------------
+def create_legend(p1, materials):
+    colours = sns.color_palette('Set1')
+    colours_list = {'InP': colours[0], 'InAlAs': colours[1], 
+                    'InGaAs': colours[2],'GaInP': colours[3], 
+                    'GaAs': colours[4], 'TaO': colours[5], 'MgF': colours[6]}
+    
+    trimmed_list = []
+    for m in materials:
+        if m not in trimmed_list:
+            trimmed_list.append(m)                
+
+    legend_lines = [Line2D([0], [0], color = colours_list[m], lw = 4, alpha = 0.6) for m in trimmed_list]
+    p1.legend(legend_lines, trimmed_list, loc = 'lower right', frameon = False).set_draggable(True)
+    

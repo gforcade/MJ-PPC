@@ -1,0 +1,95 @@
+<html><head><title>MatPar Documentation GaAs/Permittivity/Epsilon</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for GaAs/Permittivity/Epsilon</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#GaAs/Permittivity/Epsilon/Blakemore.tcl"> Temperature dependent model from Blakemore (Blakemore.tcl)</a>
+  <li> <a href="#GaAs/Permittivity/Epsilon/Default.tcl"> Room temperature model from sdevice (Default.tcl)</a>
+  <li> <a href="#GaAs/Permittivity/Epsilon/EMIS.tcl"> Temperature dependent model from EMIS (EMIS.tcl)</a>
+  <li> <a href="#GaAs/Permittivity/Epsilon/Levinshtein.tcl"> Room temperature model from Levinshtein (Levinshtein.tcl)</a>
+  <li> <a href="#GaAs/Permittivity/Epsilon/Madelung.tcl"> Temperature dependent model from Madelung (Madelung.tcl)</a>
+  <li> <a href="#GaAs/Permittivity/Epsilon/Piprek.tcl"> Room temperature model from Piprek (Piprek.tcl)</a>
+  <li> <a href="#GaAs/Permittivity/Epsilon/Strzalkowski.tcl"> Temperature dependent model from Strzalkowski (Strzalkowski.tcl)</a>
+</ul>
+<hr><p><a name="GaAs/Permittivity/Epsilon/Blakemore.tcl" href="#top">[top]</a><b> Temperature dependent model from Blakemore</b>
+<p><b>FILE:</b> <tt><a href="Blakemore.tcl">Blakemore.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is calculated using
+epsilon(T) = epsilon(Tpar)*(1+lambda*T)/(1+lambda*Tpar)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid from 100 - 600 K
+<br><b>REFERENCE:</b><br> J.S.Blakemore, "Semiconducting and other major properties of GaAs", J. Appl. Phys., Vol. 53, No. 10,pp. R123-181, 1982
+<hr><p><a name="GaAs/Permittivity/Epsilon/Default.tcl" href="#top">[top]</a><b> Room temperature model from sdevice</b>
+<p><b>FILE:</b> <tt><a href="Default.tcl">Default.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is given by
+epsilon = constant
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> Sentaurus Device User Guide
+<hr><p><a name="GaAs/Permittivity/Epsilon/EMIS.tcl" href="#top">[top]</a><b> Temperature dependent model from EMIS</b>
+<p><b>FILE:</b> <tt><a href="EMIS.tcl">EMIS.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is calculated using
+epsilon(T) = epsilon(Tpar)*(1+lambda*T)/(1+lambda*Tpar)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid from 100 - 600 K
+<br><b>REFERENCE:</b><br> "Properties of GaAs: 3rd Edition", M R Brozel and G E Stillman (Eds.), IEE/Inspec EM-016, 1996
+<hr><p><a name="GaAs/Permittivity/Epsilon/Levinshtein.tcl" href="#top">[top]</a><b> Room temperature model from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is given by
+epsilon = 12.9
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol I"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1996
+<hr><p><a name="GaAs/Permittivity/Epsilon/Madelung.tcl" href="#top">[top]</a><b> Temperature dependent model from Madelung</b>
+<p><b>FILE:</b> <tt><a href="Madelung.tcl">Madelung.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is calculated using
+epsilon(T) = epsilon(Tpar)*(1+lambda*T)/(1+lambda*Tpar)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  
+<br><b>REFERENCE:</b><br> "Semiconductors: Data Handbook", O. Madelung, Springer-Verlag, 2004
+<hr><p><a name="GaAs/Permittivity/Epsilon/Piprek.tcl" href="#top">[top]</a><b> Room temperature model from Piprek</b>
+<p><b>FILE:</b> <tt><a href="Piprek.tcl">Piprek.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is given by
+epsilon = constant
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> 
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+<hr><p><a name="GaAs/Permittivity/Epsilon/Strzalkowski.tcl" href="#top">[top]</a><b> Temperature dependent model from Strzalkowski</b>
+<p><b>FILE:</b> <tt><a href="Strzalkowski.tcl">Strzalkowski.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Static dielectric permittivity is calculated using
+epsilon(T) = epsilon(Tpar)*(1+lambda*T)/(1+lambda*Tpar)
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+epsilon returns static dielectric permittivity
+<br><b>VALIDITY:</b>  This model is valid from 100 - 300 K
+<br><b>REFERENCE:</b><br> I.Strzalkowski, S.Joshi, C.R.Crowell, "Dielectric constant and its temperature dependence for GaAs,
+CdTe, and ZnSe", Appl. Phys. Lett., vol. 28, no. 6, pp. 350-352, 1976
+</body></html>

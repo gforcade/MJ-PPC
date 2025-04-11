@@ -1,0 +1,20 @@
+###########################################
+# Sentaurus Visual O-2018.06.
+# Tcl log file.
+#------------------------------------------
+# Date: Mar 06, 2019. 00:32:28.
+# Version: 28.0.1030 (1.1030)
+# Mode: Interactive (GUI).
+# Mesa: enabled.
+# Hostname: SUNLAB-SIM.site.uottawa.ca.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 3.10.0-327.36.2.el7.x86_64.
+###########################################
+
+load_script_file /home/mwilkins/STDB/tmp/06-MJSC-JV.vis.cmd
+cd /home/mwilkins/STDB/tmp
+#!-> Error: load_script_file: '/home/mwilkins/STDB/tmp/06-MJSC-JV.vis.cmd': Error: load_script_file: '/home/mwilkins/STDB/MQW_PT/06-MJSC-JV/pp119_vis.cmd': Error: Curve 'optgen' couldn't be created.. (line 26).. (line 16).
+create_curve -plot P1 -dataset {n115_des} -axisX {anode OuterVoltage} -axisY {IntegrMQW_eff OpticalGeneration}
+#-> Curve_1
+exit 0
+ 

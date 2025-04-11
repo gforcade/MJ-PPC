@@ -1,0 +1,104 @@
+#----------------------------------------------------------------------#
+# $Id: Levinshtein-RT.tcl,v 1.1 2008/07/14 13:17:28 sameers Exp $
+#----------------------------------------------------------------------#
+#! MODEL: room temperature model from Levinshtein
+#! MATERIAL: GaInP
+#! PROPERTY: Bandgap
+#! EXPRESSION: 
+#! Temperature and mole fraction dependent bandgap is calculated using
+#! Eg(x,T)  =  Eg0(x) + alpha*Tpar^2/(Tpar + beta) - alpha*T/(T + beta)
+#! Temperature dependent electron affinity is calculated using 
+#! Chi(x,T) = Chi(x,Tpar)- alpha*Tpar^2/(Tpar + beta) + alpha*T^2/(2*(T + beta)) + Bgn2Chi*Ebgn
+#! Ebgn   =  Bandgap narrowing [eV] depending on BGN model not set here!
+#! CALCULATED PARAMETER: 
+#! Eg returns Eg(x,T) [eV]
+#! Chi returns Chi(x,T) with Ebgn = 0 [eV]
+#! VALIDITY: This model is valid only for T=300K and for 0 < x < 0.63 and 0.77 < x < 1
+#! NOTES:
+#! The value of Ebgn depends on the BGN model chosen. It is not taken into account and set to 0 
+#! in the calculation of the parameter Bandgap::Chi.
+#! SDEVICE:
+#! REFERENCE: 
+#! "Handbook series on Semiconductor Parameters, Vol II"
+#! M. Levinshtein, S. Rumyantsev, M. Shur, World Scientific, 1999
+#! HISTORY:
+#! Created on 2008/07/14 by Sameer Shah
+
+namespace eval GaInP::Bandgap {
+    proc init {} {
+# Room temperature parameters from Levinshtein
+    	variable alpha 
+	variable beta 
+	variable Tpar 300.0
+	variable Eg0 
+	variable Chi0 
+	variable Eg
+	variable Chi
+	variable Bgn2Chi 0.5
+	variable Eg
+	variable Chi
+
+    	variable Egsubstrate 
+    	variable Chisubstrate 
+
+# Calculate Chi0, Eg0 and define alpha,beta
+        set Chi0 [expr {4.38-0.58*$::xMole}]
+        if {$::xMole == 0.5} {            
+#            set Eg0 1.852175 ;# Cyrium values
+	    set Eg0 [expr {$::Eg_GaInP/1000.}]
+	    puts stderr "Bandgap of GaInP is $Eg0"
+            set alpha 1.82e-4 ;# Cyrium values
+            set beta 81 ;# Cyrium values
+        } else {
+            puts stderr "GaInP/Bandgap/Walker model is valid only for x=0.5 ."
+            exit -1
+        }
+                    
+
+# Calculate Eg         
+	set Eg [expr $Eg0 + $alpha*$Tpar*$Tpar/($Tpar + $beta) - $alpha*$::temp*$::temp/($::temp + $beta)]
+    
+# Calculate Chi0 and Chi for heterostructure/bulk        
+	if {[info exists ::cbo] || [info exists ::VBO]} {
+            if {[info exists ::substrate]} {
+                if {[info exists ::cbo]} {  
+		# For heterostructures, substrate and cbo are defined. Calculate Chi and Chi0 for heterostructures                 
+	            set Egsubstrate [evalVar "${::substrate}::Bandgap::Eg"]
+	            set Chisubstrate [evalVar "${::substrate}::Bandgap::Chi"]
+	            puts "Egsubstrate: $Egsubstrate Chisubstrate: $Chisubstrate"
+	            set Chi [expr {$Chisubstrate - $::cbo*($Eg - $Egsubstrate)}]
+	            set Chi0 [expr {$Chi + $alpha*$Tpar*$Tpar/(2*($Tpar + $beta)) - $alpha*$::temp*$::temp/(2*($::temp + $beta))}]
+			puts stderr "The Chi0 for GaInP in this simulation is $Chi0 using cbo method"
+	        } elseif {[info exists ::VBO]} {
+		# For heterostructures, substrate and VBO are defined. Calculate Chi and Chi0 for heterostructures     
+		    set Egsubstrate [evalVar "${::substrate}::Bandgap::Eg"]
+		    set Chisubstrate [evalVar "${::substrate}::Bandgap::Chi"]
+		    puts "Egsubstrate: $Egsubstrate Chisubstrate: $Chisubstrate"
+		    set deltaEg [expr {$Eg-$Egsubstrate}]
+			puts stderr "Eg = $Eg and Egsubstrate = $Egsubstrate"
+		    set deltaEc [expr {$deltaEg + $::VBO}]
+		    set Chi [expr {$Chisubstrate-$deltaEc}]
+		    # Calculate Chi
+	    	    set Chi0 [expr {$Chi + $alpha*$Tpar*$Tpar/(2*($Tpar + $beta)) - $alpha*$::temp*$::temp/(2*($::temp + $beta))}]
+			puts stderr "The Chi0 for GaInP in this simulation is $Chi0 using VBO method: deltaEg= $deltaEg and deltaEc = $deltaEc giving Chi = $Chi"
+	        }    
+            } else {
+		puts stderr "Please specify the substrate material to calculate Chi according to cbo."
+                exit -1    
+            }
+        } else {       
+        # Calculate Chi for bulk              
+            # In Piprek, Chi is defined for T=300K. Let this value be Chi300. 
+            set Chi300 [expr {4.4-0.4*$::xMole}];   #linear interpolation between electron affinity values of GaP and InP is assumed
+            # Calculate Chi0 using Chi300
+   	    set Chi0 [expr {$Chi300 - $alpha*300.0*300.0/(2*(300.0 + $beta))} ]
+            # Calculate Chi
+	    set Chi [expr {$Chi0 - $alpha*$Tpar*$Tpar/(2*($Tpar + $beta)) + $alpha*$::temp*$::temp/(2*($::temp + $beta))}]
+        }
+        
+# Calculate Chi        
+	set Chi [expr {$Chi0 - $alpha*$Tpar*$Tpar/(2*($Tpar + $beta)) + $alpha*$::temp*$::temp/(2*($::temp + $beta))}]
+    }
+    proc print {} {printPar::BandgapSection}    
+}
+GaInP::Bandgap::init

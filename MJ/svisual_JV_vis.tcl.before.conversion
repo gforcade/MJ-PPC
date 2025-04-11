@@ -1,0 +1,122 @@
+
+#setdep @node|JV@
+
+# use maximum floating point precision
+set tcl_precision 17
+
+# make full Tcl library available
+###set tcl_library "${::env(SENTAURUS)}/../tcad/current/lib/tcl8.6"
+source [file join [info library] init.tcl]
+
+# load the interpolation package
+package require math::interpolate
+
+
+set filename n@node|JV@_des.plt
+
+# create a plot if it doesn't already exist.  if several svisual nodes are run together,
+# this section will only run for the first one, and curves from all nodes will be plotted together.
+if {[info exists JVplot] == 0 } {
+	set dark_plot 1
+	set max_j 0.0
+	set min_j 0.0
+
+	set JVplot [create_plot -name P1 -1d]
+	set_axis_prop -plot P1 -axis x -title "Bias Voltage (V)" -title_font_size 20 -scale_font_size 20
+	set_legend_prop -location bottom_left
+}
+
+
+
+# load dataset.
+set ds [load_file $filename]
+
+
+# create J-V curve
+create_curve -name J0 -plot P1 -dataset $ds -axisX "anode OuterVoltage" -axisY "anode TotalCurrent"
+create_curve -name V -plot P1 -dataset $ds -axisX "anode OuterVoltage" -axisY "anode OuterVoltage"
+
+create_curve -name J_n@node@ -function "-<J0>"
+
+set_curve_prop J_n@node@ -label "J(n@node@)" -show_markers -markers_type plus
+
+# create Power and dP/dV curves
+create_curve -name P -function "<J_n@node@>*<V>"
+create_curve -name dPdV -function "diff(<P>)"
+
+
+# Extract J-V metrics for display in Sentaurus Workbench tree view.  Not applicable to dark-current curves.
+# We use two different interpolation methods.  ::math::interpolate uses cubic spline interpolation, so is more accurate 
+# but requires x-values to be strictly increasing.  
+# ::ext::ExtractValue uses linear interpolation but does not require x values to be increasing.
+
+if { @concentration@ > 0 } {
+
+# 1. Get Jsc by cubic interpolation of J-V curve.
+set coeffs [::math::interpolate::prepare-cubic-splines [get_curve_data J_n@node@ -axisX] [get_curve_data J_n@node@ -axisY]]
+set Jsc    [::math::interpolate::interp-cubic-splines $coeffs 0.0]
+puts "DOE: Jsc [format %0.5f $Jsc]"
+
+set QE [expr $Jsc/(@concentration@/(1.24/1.31))]
+puts "DOE: QE [format %0.4f $QE]"
+
+# 2. Get Voc by interpolation at J=0.
+::ext::ExtractValue out= Voc name= noprint x= [get_curve_data J_n@node@ -axisY] y= [get_curve_data J_n@node@ -axisX] xo= 0.0
+puts "DOE: Voc [format %0.4f $Voc]"
+
+
+# 3. Find maximum power point voltage by interpolating point where dP/dV = 0
+::ext::ExtractValue out= MPPV name= noprint x= [get_curve_data dPdV -axisY] y= [get_curve_data dPdV -axisX] xo= 0.0
+puts "MPPV $MPPV"
+
+# 4. Get max power by cubic interpolation of power curve at V = MPPV
+set coeffs [::math::interpolate::prepare-cubic-splines [get_curve_data P -axisX] [get_curve_data P -axisY]]
+set Pm   [::math::interpolate::interp-cubic-splines $coeffs $MPPV]
+
+# 5. Get current density by cubic interpolation at V = MPPV
+set coeffs [::math::interpolate::prepare-cubic-splines [get_curve_data J_n@node@ -axisX] [get_curve_data J_n@node@ -axisY]]
+set MPPJ   [::math::interpolate::interp-cubic-splines $coeffs $MPPV]
+puts "MPPJ $MPPJ"
+
+set FF [expr $Pm*100.0/($Voc*$Jsc)]
+set Eff [expr $Pm*100.0/@concentration@]
+
+# output metrics for use by Sentaurus Workbench.
+
+puts "DOE: FF [format %0.4f $FF]"
+puts "DOE: Eff [format %0.5f $Eff]"
+
+
+# plot markers at Jsc, Voc and max power operating points.
+create_variable -name xpoints_n@node@ -dataset a  -values [list 0.0 $MPPV $Voc ]
+create_variable -name ypoints_n@node@ -dataset a  -values [list $Jsc $MPPJ 0.0 ]
+
+create_curve -name points_n@node@ -dataset a -axisX xpoints_n@node@ -axisY ypoints_n@node@
+set_curve_prop points_n@node@ -hide_line -markers_type circle -markers_size 10 -show_markers -color black -label ""
+
+}
+
+# get max and min of J-V curve
+ext::ExtractExtremum out= min name= noprint x= [get_curve_data J_n@node@ -axisX] y= [get_curve_data J_n@node@ -axisY] extremum= "min"
+ext::ExtractExtremum out= max name= noprint x= [get_curve_data J_n@node@ -axisX] y= [get_curve_data J_n@node@ -axisY] extremum= "max"
+
+# find max and min of all J-V curves
+if { $min < $min_j } {set min_j [expr floor($min) ]}
+if { $max > $max_j } {set max_j [expr ceil($max) ]}
+
+##remove_curves [list J0 V P dPdV optgen ]
+remove_curves [list J0 V P dPdV ]
+###if "@structure@" == "5J"
+## remove_curves [list optgen3 optgen4 optgen5 ]
+###endif
+##remove_curves [list optgen1 optgen2 ]
+
+if { @concentration@ > 0.0 } { set dark_plot 0 }
+if { $dark_plot == 1 } {
+ set_axis_prop -plot P1 -axis y -title "Current Density (A/cm<sup>2</sup>)" -type log -title_font_size 20 -scale_font_size 20
+} else {
+ set_axis_prop -plot P1 -axis y -title "Current Density (A/cm<sup>2</sup>)"  -min 0 -title_font_size 20 -scale_font_size 20
+}
+
+#export_curves -plot P1 -filename JV/JV_n@node@.csv -overwrite
+

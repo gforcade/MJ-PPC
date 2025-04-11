@@ -1,0 +1,26 @@
+###########################################
+# Sentaurus Visual K-2015.06-SP1.
+# Tcl log file.
+#------------------------------------------
+# Date: Dec 22, 2015. 16:23:59.
+# Version: 24.0.10 (1.10)
+# Mode: Interactive (GUI).
+# Hostname: hinzer-01.
+# Machine: Linux, x86_64, x86_64.
+# Kernel: 2.6.32-358.6.1.el6.x86_64.
+###########################################
+
+load_script_file /home/infofa/h/users/mwilkins/vis_tmp.cmd
+cd /home/infofa/h/users/mwilkins
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+# ext::ExtractExtremum> Extracting minima
+# ext::ExtractExtremum> Extracting maxima
+#-> 0
+exit 0

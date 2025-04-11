@@ -1,0 +1,19 @@
+
+##########################################################################
+#___________________
+# PT Subcell
+#___________________
+
+#layer,		mat,		params,			thick,		doping,	x_frac,	mesh
+
+sc@scn@_fsf,	InP,	InP.tcl,	@t_fsf@,	@dop_fsf@,	,	(mbox 0.05 5.0 both)
+sc@scn@_em,	InGaAs,	In53GaAs.tcl,	@t_em@,		@dop_em@,	0.53,	(mbox 0.001 1.01 both)
+#if @t_em2@ > 0.0
+sc@scn@_em2,	InGaAs,	In53GaAs.tcl,	@t_em2@,	@dop_em2@,	0.53,	(mbox 0.001 1.01 both)
+#endif
+#if "@Mat_base@" == "InAlAs"
+sc@scn@_base,	InAlAs,	In52AlAs.tcl,	@t_base@,	@dop_base@,	0.52,	(mbox 0.05 5.0 both)
+#elseif "@Mat_base@" == "InP"
+sc@scn@_base,	InP,	InP.tcl,	@t_base@,	@dop_base@,	,	(mbox 0.05 5.0 both)
+#endif
+##########################################################################

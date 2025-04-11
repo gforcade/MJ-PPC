@@ -1,0 +1,92 @@
+#setdep @node|epi@ 
+
+;;----------------------------------------------------------------------
+(display "Creating  structure") (newline)
+(sde:clear)
+;;----------------------------------------------------------------------
+(display "  Reading in epi layer system") (newline)
+(load "n@node|epi@_epi.scm")
+
+
+;----------------------------------------------------------------------
+; general structure parameters
+;; wtot - width of the device [um]
+(define wtot @wtot@)
+(define wfrontc @wfrontc@)
+(define node "@node@")
+(define dcap 0.1)
+
+#if "@cap@" == "yes"
+ (define Ytopcell Y0_cap2)
+#else
+ (define Ytopcell Y0_etchstop)
+#endif
+
+#if [string compare @dimension@ "2d"] == 0
+(display "Removing ARC layers at location of front contact") (newline)
+(define removeMe (sdegeo:create-rectangle (position 0 Ytop 0) 
+				(position wfrontc Ytopcell 0) 
+				"Gold" "temp"))
+(entity:delete removeMe)
+
+(sdegeo:create-rectangle (position 0 Ytopcell 0) 
+			 (position wfrontc (- Ytopcell dcap) 0) 
+			"In53GaAs" "cap")
+(sdepe:doping-constant-placement "cap_doping" "ArsenicActiveConcentration" 5e18 "cap")
+#endif		
+
+
+;;----------------------------------------------------------------------
+;;Define doping gradient in base
+#if [string compare @gradient@ "yes"] == 0
+(define dgrad 0.1)
+(define dBorLength 0.1)
+(define gradDoping 1e18)
+
+;; bsf doping
+(sdedr:define-refinement-window "base_grad" "Line" 
+     (position 0 Y1_sc1_base 0)  (position wtot Y1_sc1_base 0) )
+(sdedr:define-erf-profile "grad_doping" "BoronActiveConcentration" "SymPos" dgrad
+      "MaxVal" gradDoping  "Length" dBorLength "Erf" "Factor" 0.0)
+(sdedr:define-analytical-profile-placement "grad_placement" "grad_doping" "base_grad" 
+      "Both" "NoReplace" "region-name" "sc1_base")
+#endif
+
+;;----------------------------------------------------------------------
+(display "  cathode") (newline)
+(sdegeo:define-contact-set "cathode" 4  (color:rgb 0 1 0 ) "##" )
+(sdegeo:set-current-contact-set "cathode")
+#if "@dimension@" == "2d"
+(sdegeo:define-2d-contact (find-edge-id (position (/ wfrontc 2) (- Ytopcell dcap) 0)) "cathode")
+#else
+(sdegeo:define-2d-contact (find-edge-id (position (/ wtot 2) Ytopcell 0)) "cathode")
+#endif
+
+;;----------------------------------------------------------------------
+(display "  anode") (newline)
+(sdegeo:define-contact-set "anode" 4  (color:rgb 1 0 0 ) "##" )
+(sdegeo:set-current-contact-set "anode")
+(sdegeo:define-2d-contact (find-edge-id (position (/ wtot 2) Ybot 0)) "anode")
+
+;; ----------------------------------------
+(display "add refinements ... \n")
+
+#if [string compare @dimension@ "2d"] == 0
+
+(display "  front contact refinement") (newline)
+
+;; Mesh refinement under the front contact
+(sdedr:define-refinement-window "frontContact1" "Rectangle" (position  (- wfrontc 0.01 0) Ytop 0) (position  (+ wfrontc 0.01) Ybot 0) )
+(sdedr:define-refinement-size "frontContact1" 0.01 9999 0 0.01 9999 0 )
+(sdedr:define-refinement-placement "frontContact" "frontContact1" "frontContact1" )
+
+#endif
+;;----------------------------------------------------------------------
+(display "Saving BND and meshing electrical structure") (newline)
+(sde:build-mesh "snmesh" "" (string-append "n" node "_msh") )
+
+(display "... done.") (newline)
+
+
+
+

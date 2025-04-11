@@ -1,0 +1,17 @@
+#--------------------------------------
+# Global section
+#--------------------------------------
+$global Ytop 0.0
+$global Xmin=0.0, Xmax=@wtot@
+$global Zmin=0.0, Zmax=@3D@
+$global wtot=@wtot@
+
+
+$global dXmin=0.01, dXmax=500.0
+$global dZmin=1.0, dZmax=500.0
+$global dYmin=0.001, dYmax=10.0
+
+$global generate=tdr
+$global parFileMask=./npar/n(node)_(material)_(thickness)_(xMole)_(doping).par
+
+

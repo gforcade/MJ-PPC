@@ -1,0 +1,22 @@
+<html><head><title>MatPar Documentation Ge/Recombination/RadiativeRecombination</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for Ge/Recombination/RadiativeRecombination</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#Ge/Recombination/RadiativeRecombination/Levinshtein.tcl"> Room temperature Radiative Recombination model parameters from Levinshtein (Levinshtein.tcl)</a>
+</ul>
+<hr><p><a name="Ge/Recombination/RadiativeRecombination/Levinshtein.tcl" href="#top">[top]</a><b> Room temperature Radiative Recombination model parameters from Levinshtein</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+Radiative recombination rate is calculated using
+R_Radiative = C * (T/Tpar)^alpha * (n p - ni_eff^2)
+Temperature dependence is suppressed by setting alpha=0
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> 
+C and alpha
+<br><b>VALIDITY:</b>  This model is valid only for T=300K
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol I"
+M. Levenshtein, S. Rumyantsev, M. Shur, World Scientific, 1996
+<br><b>NOTES:</b>  

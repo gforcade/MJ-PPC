@@ -1,0 +1,27 @@
+#----------------------------------------------------------------------#
+# $Id: Default.tcl,v 1.1 2020/01/03 M Beattie $ 
+#----------------------------------------------------------------------#
+#! MODEL: Room temperature Radiative Recombination model parameters from Levinshtein
+#! MATERIAL: InAlGaAs_InP
+#! PROPERTY: Radiative Recombination
+#! EXPRESSION: 
+#! Radiative recombination rate is calculated using
+#! R_Radiative = C * (T/Tpar)^alpha * (n p - ni_eff^2)   
+#! Temperature dependence is suppressed by setting alpha=0
+#! CALCULATED PARAMETER: 
+#! C and alpha 
+#! VALIDITY: This model is valid only for T=300K
+#! NOTES: 
+#! SDEVICE: Recombination(Radiative)
+#! REFERENCE: 
+#! Tuley, Nicholas, "Material parameters and device optimization: supplementary information for bandgap dependent...."
+#! created by M. Beattie 2020
+
+namespace eval InAlGaAs_InP::RadiativeRecombination {
+    proc init {} {
+	variable C $::C_rad;    
+    	variable alpha 0.0		
+   }
+    proc print {} {printPar::RadiativeRecombinationSection}    
+}
+InAlGaAs_InP::RadiativeRecombination::init

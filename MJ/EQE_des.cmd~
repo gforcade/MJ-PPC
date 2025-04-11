@@ -1,0 +1,358 @@
+*------------------------------------------------------------
+* Simulate EQE of GaAs/GaAs p-n junction solar cell
+* ------------------------------------------------------------
+
+#setdep @node|MatPar@
+
+File{
+*-Input
+   PMIpath = "../pmi"
+   Grid    = "@tdr@"
+   Parameters ="@mprpar@"
+*-Output
+   Plot    = "@tdrdat@"
+   Current = "@plot@"
+   Output  = "@log@"
+}
+
+Electrode{
+  { Name="cathode"  Voltage=0 }
+  { Name="anode"  Voltage=0 }
+}
+
+Physics {
+  Temperature = @temp@
+  AreaFactor = @< 1e8/wtot >@ * to get current in A/cm^2
+
+  * Use Fermi-Dirac (rather than Maxwell-Boltzmann) statistics
+  Fermi
+
+  * Allow thermionic emission across (and tunneling through) small potential barriers, and
+  * create double mesh vertices at material interfaces to model abrupt band offsets.
+  ThermionicEmission
+  HeteroInterface
+
+  EffectiveIntrinsicDensity(NoFermi NoBandgapNarrowing)  
+
+  Recombination(
+    SRH(DopingDep)
+    Auger
+    Radiative
+    #if @LC@ == "on"
+       OpticalCoupling_Recombination(MatrixFile="n@node|LCMatrix@_LC.csv")
+    #endif
+  ) *end of Recombination
+
+  Mobility(DopingDependence)
+
+#if @segments@ >= 10
+  eBarrierTunneling "TD9_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD9_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 9
+  eBarrierTunneling "TD8_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD8_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 8
+  eBarrierTunneling "TD7_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD7_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 7
+  eBarrierTunneling "TD6_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD6_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 6
+  eBarrierTunneling "TD5_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD5_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 5
+  eBarrierTunneling "TD4_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD4_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 4
+  eBarrierTunneling "TD3_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD3_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 3
+  eBarrierTunneling "TD2_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD2_NLM" ( Band2Band   TwoBand )
+#endif
+
+#if @segments@ >= 2
+  eBarrierTunneling "TD1_NLM" ( Band2Band   TwoBand ) 
+  hBarrierTunneling "TD1_NLM" ( Band2Band   TwoBand )
+#endif
+
+  Optics (
+    OpticalGeneration(
+      QuantumYield = 1 * generated carriers/photon, default: 1, for lambda < 450, > 1
+      ComputeFromMonochromaticSource
+    )
+
+    Excitation (
+      Theta = 0
+      Polarization = 0.5
+      Wavelength = @wstart@
+      Intensity = @intensity@  *[W/cm2]
+
+      Window("W1") (
+	#if [string compare @dimension@ "2d"] == 0          
+	  Origin = (@<wcont/2.0>@, -1.0)
+	  Line (Dx = @<wtot-wcont/2.0>@)
+	#elseif [string compare @dimension@ "1d"] == 0
+	  Origin = (0.0, -1.0)
+	  Line (Dx = @wtot@)
+	#endif
+	OriginAnchor=West                       
+      )
+    ) *end of Excitation
+
+    ComplexRefractiveIndex (
+      WavelengthDep
+    ) *end of ComplexRefractiveIndex
+
+    OpticalSolver (
+      TMM (
+        NodesPerWavelength = 20
+	LayerStackExtraction (
+	  WindowName="W1"
+	  WindowPosition = Center
+	  Medium (Location = bottom Material = @back_mat@ )
+        ) *end LayerStackExtraction
+      ) *end TMM
+    ) *end OpticalSolver
+  ) *end Optics
+
+}  
+
+Physics (Material = "InAlGaAs_InP") {EffectiveIntrinsicDensity(BandGapNarrowing (BennettWilson))}
+Physics (Material = "InP") {EffectiveIntrinsicDensity(BandGapNarrowing (TableBGN))}
+*****Physics (RegionInterface = "sc1_base/sc1_bsf") {Recombination(SurfaceSRH)}
+Physics (RegionInterface = "sc1_fsf/sc1_em") {Recombination(SurfaceSRH)}
+
+*----------------------------------------------------
+    
+Plot {
+  *Mole Fractions and Doping Concentrations
+  xMoleFraction Doping DonorConcentration AcceptorConcentration
+
+  *Band Structure
+  eQuasiFermiPotential hQuasiFermiPotential eQuasiFermiEnergy hQuasiFermiEnergy EffectiveBandGap ConductionBandEnergy ValenceBandEnergy ElectronAffinity
+      
+  *Densities of States  
+  eEffectiveStateDensity hEffectiveStateDensity
+  
+  *Carrier Densities
+  EffectiveIntrinsicDensity IntrinsicDensity eDensity hDensity
+  
+  *Space Charge
+  SpaceCharge
+  
+  *Carrier Mobility and Velocity
+  eMobility hMobility eVelocity hVelocity
+  
+  *Recombination
+  SRH Auger TotalRecombination RadiativeRecombination eLifetime hLifetime
+
+  *Electric Field
+  ElectricField ElectricField/vector ElectrostaticPotential
+
+  *Currents
+  eCurrent/Vector hCurrent/Vector current/vector
+
+  OpticalGeneration
+
+  ComplexRefractiveIndex
+}
+
+CurrentPlot {
+  ModelParameter = "Optics/Excitation/Wavelength"   * includes reflectance, transmittance and wavelength data		
+  OpticalGeneration(Integrate(Semiconductor)) *Calculates Integrated Optical generation rate for each wavelength
+  SRH(Integrate( Semiconductor))
+  RadiativeRecombination(Integrate(Semiconductor))
+  AugerRecombination(Integrate(Semiconductor))
+  OpticalGeneration(Integrate(Material="InAlGaAs_InP"))
+  OpticalGeneration(Integrate(Region="sc1_em" Region="sc1_base"))
+  OpticalGeneration(Integrate(Region="sc2_em" Region="sc2_base"))
+  OpticalGeneration(Integrate(Region="sc3_em" Region="sc3_base"))
+  OpticalGeneration(Integrate(Region="sc4_em" Region="sc4_base"))
+  OpticalGeneration(Integrate(Region="sc5_em" Region="sc5_base"))
+  OpticalGeneration(Integrate(Region="sc6_em" Region="sc6_base"))
+  OpticalGeneration(Integrate(Region="sc7_em" Region="sc7_base"))
+  OpticalGeneration(Integrate(Region="sc8_em" Region="sc8_base"))
+  OpticalGeneration(Integrate(Region="sc9_em" Region="sc9_base"))
+  OpticalGeneration(Integrate(Region="sc10_em" Region="sc10_base"))
+
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc10_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc9_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc8_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc7_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc6_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc5_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc4_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc3_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc2_fsf"))
+  eQuasiFermiPotential(Average(RegionInterface="arc2/sc1_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc10_bsf/td9_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td9_nbar/sc9_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc9_bsf/td8_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td8_nbar/sc8_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc8_bsf/td7_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td7_nbar/sc7_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc7_bsf/td6_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td6_nbar/sc6_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc6_bsf/td5_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td5_nbar/sc5_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc5_bsf/td4_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td4_nbar/sc4_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc4_bsf/td3_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td3_nbar/sc3_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc3_bsf/td2_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td2_nbar/sc2_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc2_bsf/td1_pbar"))
+  eQuasiFermiPotential(Average(RegionInterface="td1_nbar/sc1_fsf"))
+
+  hQuasiFermiPotential(Average(RegionInterface="sc1_bsf/cap1"))
+
+  SurfaceRecombination(Integrate(RegionInterface = "sc1_base/sc1_bsf")
+		       Integrate(RegionInterface = "sc1_fsf/sc1_em")
+		       Integrate(MaterialInterface="InAlGaAs_InP/InGaAs")
+                       Integrate(MaterialInterface="InAlGaAs_InP/InP"))
+
+}
+
+
+Math{
+  Transient=BE
+  Extrapolate 
+  Derivatives   
+  RelErrControl 
+  Iterations=25
+  Notdamped=1000 
+  Method=ParDiSo
+  ExtendedPrecision(128)
+  Digits=10     
+  ErrRef(electron) = 1E0
+  ErrRef(hole) = 1E0
+  TransientDigits=7            
+  TransientErrRef(electron) = 1E0
+  TransientErrRef(hole) = 1E0
+  -MetalConductivity
+  ExitOnFailure
+*  CNormPrint
+  BreakCriteria {
+    Current (Contact = "cathode" minval = -1)
+   
+  }
+  Number_of_Threads = maximum 
+
+#if @segments@ >= 10
+  NonLocal "TD9_NLM" (
+    RegionInterface = "td9_pplus/td9_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif
+
+#if @segments@ >= 9
+  NonLocal "TD8_NLM" (
+    RegionInterface = "td8_pplus/td8_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif
+
+#if @segments@ >= 8
+  NonLocal "TD7_NLM" (
+    RegionInterface = "td7_pplus/td7_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif
+
+#if @segments@ >= 7
+  NonLocal "TD6_NLM" (
+    RegionInterface = "td6_pplus/td6_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+
+#endif 
+#if @segments@ >= 6
+  NonLocal "TD5_NLM" (
+    RegionInterface = "td5_pplus/td5_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif 
+ 
+#if @segments@ >= 5
+  NonLocal "TD4_NLM" (
+    RegionInterface = "td4_pplus/td4_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif 
+ 
+#if @segments@ >= 4
+  NonLocal "TD3_NLM" (
+    RegionInterface = "td3_pplus/td3_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif 
+ 
+#if @segments@ >= 3
+  NonLocal "TD2_NLM" (
+    RegionInterface = "td2_pplus/td2_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif 
+ 
+#if @segments@ >= 2
+  NonLocal "TD1_NLM" (
+    RegionInterface = "td1_pplus/td1_nplus"
+    Length=15e-7           # [cm] distance to anchor point
+    Permeation = 15e-7
+  )  
+#endif 
+
+}
+
+Solve {
+  # solve Poisson equation to a high precision
+  Coupled(Digits = 7) {Poisson} 
+  # solve Poisson electron-hole equations
+  Transient (
+    InitialStep = 1e-2 MinStep = 1e-8 MaxStep = 0.2 Increment = 2 Decrement = 1.5
+    InitialTime = 0 FinalTime = 1
+  )
+  {Coupled (Iterations=50) {Poisson Electron Hole}}
+  # perform wavelength ramp
+  Quasistationary (
+    InitialStep = @<1./wsteps>@ MaxStep = @<1./wsteps>@ MinStep = 1e-8
+    Goal{ModelParameter = "Optics/Excitation/Wavelength" Value = @wend@}
+  )
+  {Coupled {Poisson Electron Hole}}
+
+  System("rm -f tmp*") *remove the plot we dont need anymore. 
+
+}
+

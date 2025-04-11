@@ -1,0 +1,9 @@
+# title     = Sopra (Al(x)Ga(1-x))(50)In(50)P
+# reference = Sopra database (H.KATO et al., Japan J. Appl. Phys. Vol 33 (1994) pp. 186-192)
+# note      = Al-Concentration x = 0.1
+# unit      = micro-m,1,1
+# columns   = wavelength, n, k
+# xtitle    = wavelength [micro-m]
+# ytitle    = n, k
+# dataType  = list
+0.2250 1.52667 2.720966

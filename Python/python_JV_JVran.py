@@ -1,0 +1,120 @@
+"""
+## Python postprocessing file
+
+# Created by : Gavin Forcade, 19/09/2022
+
+## include this when you simulate with current (Jsc or IV)
+
+"""
+
+#create an instance of class dfise from the given file.
+d = dfise.dfise("../"+"@node|JV@"+'/n@node|JV@_des.plt')
+# print 'Available datasets:'
+#for i in d.data.keys():
+#	print( i)
+
+## post-process series resistance
+if vString in d.data.keys() and jString in d.data.keys():
+	d.data[vString] = d.data[vString] - d.data[jString]*@Rseries@
+
+## post-process shunt resistance
+if vString in d.data.keys() and jString in d.data.keys():
+	d.data[jString] = d.data[jString] - d.data[vString]/@Rshunt@
+
+
+if "@eSim_type@" == "Jsc":
+	### put Jsc of each subcell on workbench starting from bottom
+	Jsc = []
+	for i in range(0,@numSegments@):
+		if i != 0:
+			Jsc_name = 'td'+str(i)+'_VContact2'+' TotalCurrent'
+		else:
+			#bottom cell current
+			Jsc_name = jString
+		Jsc.append(d.data[Jsc_name][0] * wtoeV / @spectrum@ * @numSegments@ / @Pin@ )
+		print("DOE: Jsc" + str(i+1) +"_norm " + str(Jsc[-1]))
+	##print the limiting current	
+	print("DOE: Jsc_norm " + str(min(Jsc)))
+	print("DOE: Jsc_norm_min " + str((1-min(Jsc))))
+	##Calc and print the Jsc_match FoM
+	sumSquareDiffs = 0
+	sumJsc_norm = 0
+	for i in range(len(Jsc)):
+		sumJsc_norm += Jsc[i]
+		j_st=i+1
+		for j in range(j_st, len(Jsc)):
+			sumSquareDiffs += (Jsc[i] - Jsc[j]) ** 2
+
+	avgJsc_norm = sumJsc_norm / len(Jsc)
+	sumSquareDiffs += (avgJsc_norm - 1) ** 2
+	print("DOE: Jsc_norm_match " + str(sumSquareDiffs))
+	sumSquareDiffs -= (avgJsc_norm - 1) ** 2
+	sumSquareDiffs += 20 * (avgJsc_norm - 1) ** 2
+	print("DOE: Jsc_norm_match_20 " + str(sumSquareDiffs))
+	sumSquareDiffs -= 20 * (avgJsc_norm - 1) ** 2
+	sumSquareDiffs += 45 * (avgJsc_norm - 1) ** 2
+	print("DOE: Jsc_norm_match_45 " + str(sumSquareDiffs))
+	sumSquareDiffs -= 45 * (avgJsc_norm - 1) ** 2
+	sumSquareDiffs += (Jsc[0] - 1) ** 2
+	print("DOE: Jsc1_norm_match " + str(sumSquareDiffs))
+
+
+
+elif "@eSim_type@" == "IV"  and @Pin@ > 0.0:
+	### run only if we do an IV sweep
+
+
+	#calculate Jsc
+	IV_func = interpolate.interp1d(d.data[vString],d.data[jString],kind='cubic')
+
+	Jsc = IV_func(0.0)
+	print("\n\n**** Jsc in A/cm2   *****")
+	print("DOE: Jsc " + str(Jsc))
+
+	#calculate Voc 
+	res = optimize.root_scalar(IV_func,bracket=[0.0,d.data[vString][-1]])
+
+	Voc = res.root
+	print("\n\n**** Voc in V   *****")
+	print("DOE: Voc " + str(Voc))
+
+	#calculate maximum power output
+	P_func = interpolate.interp1d(d.data[vString],-(d.data[jString]*d.data[vString]),kind='cubic')
+	res = optimize.minimize_scalar(P_func,bounds=[0.0,d.data[vString][-1]],method='bounded')
+
+	Vmpp = res.x
+	Jmpp = IV_func(Vmpp)
+
+	Pm = -res.fun
+	FF = Pm * 100.0 / (Voc * Jsc)
+
+
+	print("\n\n**** FF in %   *****")
+	print("DOE: FF " + str(FF))
+
+	print("\n\n**** Max power output in W/cm2   *****")
+	print("DOE: Pm " + str(Pm))
+
+	print("\n\n**** Voltage at max power output in V   *****")
+	print("DOE: Vmpp " + str(Vmpp))
+
+	print("\n\n**** Current density at max power output in A/cm2   *****")
+	print("DOE: Jmpp " + str(Jmpp))
+
+	print("\n\n**** Efficiency in %   *****")
+	print("DOE: Eff " +str(Pm/@Pin@*100.0) )
+else:
+	Jsc =  0.0
+	Voc = 0.0
+	FF = 0.0
+	Eff =  0.0
+	Pm = 0.0
+	QE =  0.0
+
+
+
+
+with open('data.csv','w') as file:
+	writer = csv.writer(file,delimiter='\t')
+	writer.writerow(['V(V)', 'J(A/cm2)'])
+	writer.writerows(zip(d.data[vString],d.data[jString]))

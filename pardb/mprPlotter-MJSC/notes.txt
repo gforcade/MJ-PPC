@@ -1,0 +1,12 @@
+Project Log:
+1.2.2: Add linspace function and use it to generate Xdata. Create a function which returns Ydata. E
+1.2.3:  min = max allowed, functionality of lin and log space in octave
+	Replace for loop with foreach loop for linspace
+	Add logspace
+	Changed scope of min, max and N to be global variables. Removed ::
+	
+todos:
+Change x to xMole, y to yMole
+tabular data, mix tabular data and equations
+
+Check gnuplot functionality

@@ -1,0 +1,46 @@
+<html><head><title>MatPar Documentation GaInP/BandStructure/TableBGN</title></head>
+<body>
+<a name="top" href="../index.html">[up]</a>
+<h1>Material Parameter Database Documentation for GaInP/BandStructure/TableBGN</h1>
+<h2>List of Models</h2>
+<ul>
+  <li> <a href="#GaInP/BandStructure/TableBGN/Piprek.tcl"> Doping dependent model (Piprek.tcl)</a>
+  <li> <a href="#GaInP/BandStructure/TableBGN/Levinshtein.tcl"> Doping dependent model (Levinshtein.tcl)</a>
+</ul>
+<hr><p><a name="GaInP/BandStructure/TableBGN/Piprek.tcl" href="#top">[top]</a><b> Doping dependent model</b>
+<p><b>FILE:</b> <tt><a href="Piprek.tcl">Piprek.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+The BGN is specified for acceptors and donors seperately in tabular format. For both n and p-type semiconductors,
+the bandgap reduction is calculated using the following universal fit formula
+deltaEg = -C*((epsilon^5/N)*(m0*(mc+mv)/(mc*mv) + B*T^2*epsilon/N))^(-1/4)
+where C and B are fit parameters, epsilon is the static dielectric constant, N is the doping concentration, m0 is
+the free electron mass, mc and mv are conduction and valence band density of states effective mass and T is the
+temperature
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> deltaEg_n returns BGN for donors in [eV]
+deltaEg_p return BGN for acceptors in [eV]
+<br><b>VALIDITY:</b> 
+This model is valid for both n-GaInP and p-GaInP
+<br><b>REFERENCE:</b><br> 
+"Semiconductor Optoelectronic Devices: Introduction to Physics and Simulation", J. Piprek, Elsevier Science(USA), 2003
+<br><b>NOTES:</b> The model from Piprek is implemented here in the form of TableBGN model.
+Use this model for regions with non-uniform doping profiles.
+<hr><p><a name="GaInP/BandStructure/TableBGN/Levinshtein.tcl" href="#top">[top]</a><b> Doping dependent model</b>
+<p><b>FILE:</b> <tt><a href="Levinshtein.tcl">Levinshtein.tcl<a></tt>
+<br><b>EXPRESSION:</b>
+<PRE>
+
+The BGN is specified for acceptors and donors seperately in tabular format
+</PRE>
+<br><b>CALCULATED PARAMETER:</b> deltaEg_n returns BGN for donors in [eV]
+deltaEg_p return BGN for acceptors in [eV]
+<br><b>VALIDITY:</b> 
+This model is valid for both n-GaInP and p-GaInP
+<br><b>REFERENCE:</b><br> "Handbook series on Semiconductor Parameters, Vol II"
+M. Levinshtein, S. Rumyantsev, M. Shur, World Scientific, 1999
+<br><b>NOTES:</b> The JainRoulston model from Levinshtein is implemented here in the form of TableBGN model.
+Also, this model uses three parameters, A, B and C,
+whereas the sdevice implementation uses four parameters, A, B, C and D
+Use this model for regions with non-uniform doping profiles
+</body></html>

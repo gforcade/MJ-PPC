@@ -1,0 +1,86 @@
+#setdep @node|EQE@
+
+# use maximum floating point precision
+set tcl_precision 17
+
+# make full Tcl library available
+###set tcl_library "${::env(SENTAURUS)}/../tcad/current/lib/tcl8.6"
+source [file join [info library] init.tcl]
+source ../lib/PhysicalConstants.tcl
+
+# load the interpolation package
+package require math::interpolate
+package require math::calculus
+
+set eqedataset n@node|EQE@_des
+
+
+if { [info exists QEplot ] == 0 } {
+
+set QEplot [create_plot -name P1 -1d]
+set_axis_prop -plot P1 -axis x -title "Wavelength (<greek>m</greek>m)" -range {@wstart@ @wend@} -title_font_size 20 -scale_font_size 20
+set_axis_prop -plot P1 -axis y -title "Quantum Efficiency"  -range [list 0.0 1.0] -title_font_size 20 -scale_font_size 20
+set_axis_prop -plot P1 -axis y2 -title "Intensity"  -range [list 0.0 1.6] -title_font_size 20 -scale_font_size 20
+set_legend_prop -location bottom_left -label_font_size 20
+
+}
+
+proc getColor {} {
+	if { [info exists ::colorindex] == 0} { set ::colorindex -1 }
+	set plot_colors [list "#348abd" "#a60628" "#7a68a6" "#467821" "#000080"]
+
+
+	if { $::colorindex < [expr [ llength $plot_colors] -1] } {
+		incr ::colorindex
+	} else {
+		set ::colorindex -1 
+	}
+	return [lindex $plot_colors $::colorindex]
+}
+
+
+# load dataset
+set ds [load_file ${eqedataset}.plt]
+
+# create J-V curve
+set wlname "Device=,File=CommandFile/Physics,DefaultRegionPhysics,ModelParameter=Optics/Excitation/Wavelength"
+set iname "Device=,File=CommandFile/Physics,DefaultRegionPhysics,ModelParameter=Optics/Excitation/Intensity"
+create_curve -name wl -dataset $ds -axisX $wlname -axisY $wlname
+
+create_curve -name R1_@node@  -dataset $ds -axisX $wlname -axisY "LayerStack(W1) R_Total"
+create_curve -name T_@node@  -dataset $ds -axisX $wlname -axisY "LayerStack(W1) T_Total"
+
+create_curve -name J_cathode  -dataset $ds -axisX $wlname -axisY "cathode TotalCurrent"
+
+
+create_curve -name J1 -function "<J_cathode>"
+
+# Assume front contacts are perfectly reflective
+set FT @<(wtot-wfrontc)/wtot>@
+
+create_curve -name R_@node@ -function "$FT*<R1_@node@>+(1-$FT)"
+create_curve -name EQE_@node@ -function "($::h*$::c/$::q)*<J1>*$FT/(<wl>*1e-6)"
+create_curve -name IQE_@node@ -function "<EQE_@node@>/(1-<R_@node@>)"
+
+set color [getColor]
+set_curve_prop EQE_@node@ -label "EQE" -show_markers -markers_type circle -color $color
+set_curve_prop IQE_@node@ -label "IQE" -show_markers -markers_type cross -color $color -line_style dash
+
+set_curve_prop R_@node@ -label "Reflectivity" -show_markers -markers_type plus -color darkMagenta
+#set_curve_prop T_@node@ -label "Transmissivity" -show_markers -markers_type plus -color olive
+
+
+#export_curves -plot P1 -filename EQE/EQE_@_n@node@.csv {EQE_@node@ IQE_@node@ R_@node@ T_@node@} -overwrite
+
+remove_curves [ list J1 wl J_cathode R1_@node@ T_@node@]
+
+set_axis_prop -plot P1 -axis y -range [list 0.0 1.0]
+set_axis_prop -plot P1 -axis x -range [list @wstart@ @wend@]
+
+
+
+
+
+
+
+

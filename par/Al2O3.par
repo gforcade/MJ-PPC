@@ -1,0 +1,172 @@
+
+**************************************************
+* Material parameter file for Al2O3
+* Temperature                 : 300 [K]
+* Substrate                   : --
+* conduction band offset ratio: -- [1]
+* Doping concentration        : -- [cm-3]
+* Mole fraction x             : -- [1]
+* Mole fraction y             : -- [1]
+*************************************************
+
+
+*************************************************
+* Material Parameter sections
+*************************************************
+
+
+* Static dielectric permittivity
+
+Epsilon 
+{ 
+  * Ratio of the permittivities of material and vacuum
+  * epsilon() = epsilon
+  * epsilon(300.0) = 6.000 
+        epsilon = 6.0000     # [1]
+}
+
+
+ComplexRefractiveIndex
+{ *  Complex refractive index model: n_complex = n + i*k (unitless)
+  *  
+  *  with n = n_0 + delta_n_lambda + delta_n_T + delta_n_carr + delta_n_gain 
+  *       k = k_0 + delta_k_lambda             + delta_k_carr                
+  
+  * Base refractive index and extinction coefficient: 
+  *    n_0, k_0 
+	n_0	= 3.33	# [1]
+	k_0	= 0.0000e+00	# [1]
+  
+  * Wavelength dependence (real and imag): 
+  *    Formula 0: delta_n_lambda = Cn_lambda * lambda + Dn_lambda * lambda^2 
+  *               delta_k_lambda = Ck_lambda * lambda + Dk_lambda * lambda^2 
+  *    Formula 1: Read tabulated values 
+  *               NumericalTable (...)  
+  *    Formula 2: Read tabulated values from file 
+  *               NumericalTable = <string> 
+  *    Formula 3: Read tabulated values from ODB Table 
+       Formula = 3
+	Cn_lambda	= 0.0000e+00	# [um^-1]
+	Dn_lambda	= 0.0000e+00	# [um^-2]
+	Ck_lambda	= 0.0000e+00	# [um^-1]
+	Dk_lambda	= 0.0000e+00	# [um^-2]
+  
+  * Temperature dependence (real): 
+  *    delta_n_T = n_0 * ( Cn_temp * (T-Tpar)) 
+	Cn_temp	= 2.0000e-04	# [K^-1]
+	Tpar	= 3.0000e+02	# [K]
+  
+  * Carrier dependence (real) 
+  *    delta_n_carr = - Cn_carr * (const.) * (n/m_e + p/m_h) 
+	Cn_carr	= 1	# [1]
+  
+  * Carrier dependence (imag) 
+  *    delta_k_carr = wavelength / (4*PI) * (Ck_carr_n*n + Ck_carr_p*p) 
+	Ck_carr	= 0.0000e+00 ,	0.0000e+00	# [cm^2]
+  
+  * Gain dependence (real) 
+  *    lin: delta_n_gain = Cn_gain * ( (n+p)/2 - Npar ) 
+  *    log: delta_n_gain = Cn_gain * log ( (n+p)/(2 - Npar ) )
+	Cn_gain	= 0.0000e+00	# [cm^3]
+	Npar	= 1.0000e+18	# [cm^-3]
+} 
+
+TableODB {
+* Each entry of the table consists of three values:
+* complex refractive index n + i*k (unitless)
+* refractive index = n,  absorption coefficient = 4*pi*k/wavelength
+* WAVELEN[um]	n	k
+* Reference: SOPRA database
+
+0.206641969	1.83400000	0.00000000;
+0.210144375	1.83366400	0.00000000;
+0.213767554	1.83355200	0.00000000;
+0.217517862	1.83360800	0.00000000;
+0.221402109	1.83377600	0.00000000;
+0.225427602	1.83400000	0.00000000;
+0.229602188	1.83422400	0.00000000;
+0.233934304	1.83439200	0.00000000;
+0.238433041	1.83444800	0.00000000;
+0.243108199	1.83433600	0.00000000;
+0.247970363	1.83400000	0.00000000;
+0.253030982	1.83325600	0.00000000;
+0.258302461	1.83220800	0.00000000;
+0.263798258	1.83083200	0.00000000;
+0.269533003	1.82910400	0.00000000;
+0.275522625	1.82700000	0.00000000;
+0.281784503	1.82398400	0.00000000;
+0.288337631	1.82067200	0.00000000;
+0.295202813	1.81716800	0.00000000;
+0.302402881	1.81357600	0.00000000;
+0.309962953	1.81000000	0.00000000;
+0.317910721	1.80699200	0.00000000;
+0.326276793	1.80409600	0.00000000;
+0.335095085	1.80130400	0.00000000;
+0.344403281	1.79860800	0.00000000;
+0.354243375	1.79600000	0.00000000;
+0.364662298	1.79340800	0.00000000;
+0.375712671	1.79090400	0.00000000;
+0.387453692	1.78849600	0.00000000;
+0.399952198	1.78619200	0.00000000;
+0.413283938	1.78400000	0.00000000;
+0.427535108	1.78202400	0.00000000;
+0.442804219	1.78015200	0.00000000;
+0.459204375	1.77836800	0.00000000;
+0.476866082	1.77665600	0.00000000;
+0.495940725	1.77500000	0.00000000;
+0.516604922	1.77335200	0.00000000;
+0.539066006	1.77173600	0.00000000;
+0.563569006	1.77014400	0.00000000;
+0.590405625	1.76856800	0.00000000;
+0.619925906	1.76700000	0.00000000;
+0.652553586	1.76540000	0.00000000;
+0.688806563	1.76380000	0.00000000;
+0.729324596	1.76220000	0.00000000;
+0.774907383	1.76060000	0.00000000;
+0.826567875	1.75900000	0.00000000;
+0.885608438	1.75740000	0.00000000;
+0.953732164	1.75580000	0.00000000;
+1.03320984	1.75420000	0.00000000;
+1.12713801	1.75260000	0.00000000;
+1.23985181	1.75100000	0.00000000;
+1.37761313	1.74900000	0.00000000;
+1.54981477	1.74600000	0.00000000;
+1.77121688	1.74200000	0.00000000;
+2.06641969	1.73600000	0.00000000;
+2.47970363	1.72600000	0.00000000;
+}
+
+eDOSMass
+{
+  * For effective mass specificatition Formula1 (me approximation):
+  * or Formula2 (Nc300) can be used :
+	Formula	= 1	# [1]
+  * Formula1:
+  * me/m0 = [ (6 * mt)^2 *  ml ]^(1/3) + mm
+  * mt = a[Eg(0)/Eg(T)] 
+  * Nc(T) = 2(2pi*kB/h_Planck^2*me*T)^3/2 = 2.540e19 ((me/m0)*(T/300))^3/2 
+	a	= 0.0000e+00	# [1]
+	ml	= 0.0000e+00	# [1]
+	mm	= 0.42	# [1]
+}
+
+hDOSMass
+{
+  * For effective mass specificatition Formula1 (mh approximation):
+  * or Formula2 (Nv300) can be used :
+	Formula	= 1	# [1]
+  * Formula1:
+  * mh =  m0*{[(a+bT+cT^2+dT^3+eT^4)/(1+fT+gT^2+hT^3+iT^4)]^(2/3) + mm}
+  * Nv(T) = 2(2pi*kB/h_Planck^2*mh*T)^3/2 = 2.540e19 ((mh/m0)*(T/300))^3/2 
+	a	= 0	# [1]
+	b	= 0	# [K^-1]
+	c	= 0	# [K^-2]
+	d	= 0	# [K^-3]
+	e	= 0	# [K^-4]
+	f	= 0	# [K^-1]
+	g	= 0	# [K^-2]
+	h	= 0	# [K^-3]
+	i	= 0	# [K^-4]
+	mm	= 1	# [1]
+}
+

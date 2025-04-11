@@ -1,0 +1,4 @@
+SurfaceRecombination {
+    S0 = @sideS@, @sideS@ * [cm/s]
+    Sref = 0 * [1]
+}

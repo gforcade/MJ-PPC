@@ -1,0 +1,100 @@
+
+****************************************************************************
+***                       Sentaurus Workbench gsub                       ***
+***                          Version S-2021.06                           ***
+***                      (2.7041644, x86_64, Linux)                      ***
+***                                                                      ***
+***                Copyright (c) 1994-2021 Synopsys, Inc.                ***
+***                                                                      ***
+***  This software and the associated documentation are confidential     ***
+***  and proprietary to Synopsys, Inc.  Your use or disclosure of this   ***
+***  software is subject to the terms and conditions of a written        ***
+***  license agreement between you, or your company, and Synopsys, Inc.  ***
+****************************************************************************
+
+gsub is running on host 'dyson.rdc.uolocal' by user 'gforc034'
+Binary '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/linux64/bin/../lib/gsub0'
+Command line options '-verbose -swb_pid 61095 -q local:default -e {3 + 7 + 6} /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter'
+Current directory '/home/gforc034'
+Project organization 'Traditional'
+Some relevant environment variables:
+	STROOT=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/..
+	STRELEASE=current
+	STROOT_LIB=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib
+	STDB=/raidB/gforc034/STDB
+	DATEX=/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib/datexcodes.txt
+	DISPLAY=localhost:10.0
+
+Starting swblm daemon...OK
+Loading global tool database '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../tcad/current/lib/glib2/tooldb.tcl'
+Loading user's tool database '/raidB/gforc034/STDB/tooldb_gforc034'
+Project '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter'
+Application mode: traditional
+12:36:21 Apr 19 2022 <mprPlotter> submitted to the batch system
+Loading global queue configuration file '/CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../queues/gqueues.dat'...ok
+Loading user queue configuration file '/raidB/gforc034/STDB/gqueues_gforc034.dat'...ok
+Loading project tree '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/gtree.dat'
+>>>>> Preprocessing the project to run in normal mode
+Loading jobs and dependence graph '"/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/gexec.cmd"'
+INITIALIZING PREPROCESSOR:
+Loading project tree '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/gtree.dat'
+Loading project variables '/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/gvars.dat'
+--Get files to preprocess...
+--Create file handlers...
+--Read the toolflow...
+--Analyze tool-file dependencies...
+--Read all nodes to preprocess...
+--Group nodes into experiments...
+--Get all variables...
+--Get all parameters...
+PREPROCESSOR SUCCESSFULLY INITIALIZED.
+PREPROCESSING STEP 1:
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/EgVsxMole_ins.cmd
+Reading file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/svisual_vis.tcl
+PREPROCESSING STEP 2:
+---------------------------------------
+Preprocessing file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/EgVsxMole_ins.cmd for node 3
++++Node successfully preprocessed+++
+---------------------------------------
+Preprocessing file /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/svisual_vis.tcl for node 6
++++Node successfully preprocessed+++
+The node '6' has dependencies to the node(s) '3'
+Writing 'gexec.cmd'
+saving variables
+Loading jobs and dependence graph '"/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/gexec.cmd"'
+>>>>>>>>>> job '3' status changed from 'none' to 'queued'
+Warning: node '7' not queued: node is virtual
+>>>>>>>>>> job '6' status changed from 'none' to 'queued'
+-----------------------------------------------------------------
+queue "local:default" - 3 6
+-----------------------------------------------------------------
+>>>>>>>>>> Initializing back-end schedulers...
+>>>>>>>> Loaded Schedulers are ... local
+local% initialize 'local' scheduler data
+>>>>> List of Active Schedulers : local
+<<<<<<<<<<
+>>>>>>>>>> job '3' status changed from 'queued' to 'ready'
+>>>>>>>>>> os_rm /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/n3_ins.job
+local% submit job 3 for local execution
+>>>>>>>>>> job '3' status changed from 'ready' to 'pending'
+local% exec /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../bin/gjob -verbose -nice 19   -job 3 -swb_pid 61095 -gsub_pid 182960 -gsub_host dyson.rdc.uolocal -gsub_port 34316  "/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter"
+>>>>>>>>>> job '3' status changed from 'pending' to 'running'
+12:36:21 Apr 19 2022     job 3 <inspect> started on host 'dyson.rdc.uolocal': "inspect -batch -f pp3_ins.cmd"
+>>>>>>>>>> job '3' status changed from 'running' to 'done'
+12:36:44 Apr 19 2022 +++ job 3 <inspect> done: exit(0)
+>>>>>>>>>> job '6' status changed from 'queued' to 'ready'
+>>>>>>>>>> os_rm /raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter/n6_vis.job
+local% submit job 6 for local execution
+>>>>>>>>>> job '6' status changed from 'ready' to 'pending'
+local% exec /CMC/tools/synopsys/sentaurus_vS_2021.06/bin/../bin/gjob -verbose -nice 19   -job 6 -swb_pid 61095 -gsub_pid 182960 -gsub_host dyson.rdc.uolocal -gsub_port 34316  "/raidB/gforc034/STDB/AirPower/1550_PPC/pardb/mprPlotter"
+>>>>>>>>>> job '6' status changed from 'pending' to 'running'
+12:36:46 Apr 19 2022     job 6 <svisual> started on host 'dyson.rdc.uolocal': "svisual -b n6_vis.tcl"
+>>>>>>>>>> job '6' status changed from 'running' to 'done'
+12:36:50 Apr 19 2022 +++ job 6 <svisual> done: exit(0)
+
+SCHEDULING REPORT
++++ done     : 3 6
+
+12:36:53 Apr 19 2022 <mprPlotter> done (32 sec)
+>>>>>> Writing to status file 32
+gsub exits with status 0

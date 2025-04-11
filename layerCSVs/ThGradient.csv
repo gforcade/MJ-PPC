@@ -1,0 +1,42 @@
+
+##########################################################################
+#___________________
+# Prepping for linear change versus junction
+#___________________
+
+
+
+
+
+## gradient for InGaAsP. delx ~ 2*delEg . Eg in eV.
+#if "@delEg" == "linear"
+	#seth em_xMole_i [expr {@em_xMole@ + 2.0*@delEgMax@*(@scn@ - 1.0)/(@numSegments@ - 1.0)} ] 
+	#if @em_xMole_i@ < 0.0
+		## below InGaAs endpoint, use InGaAs material for the rest. make (-) for later on. delx ~ -delEg.
+		#seth em_xMole_i [expr {-(0.53 - @em_xMole_i@/2.0)}]
+	#endif
+#else
+	#seth em_xMole_i [expr {@em_xMole@ + 2.0*@delEgMax@*(@scn@ - 1.0)/(@numSegments@ - 1.0)} ] 
+	#if @em_xMole_i@ < 0.0
+		## below InGaAs endpoint, use InGaAs material for the rest. make (-) for later on. delx ~ -delEg.
+		#seth em_xMole_i 0.0
+	#endif
+#endif
+
+
+## Linear change in thickness vs junction
+#if @numSegments@ > 1
+	#if "@delThick@" == "linear"
+		#seth t_fsf [format "%.4f" [expr {@t_fsf@ *(1.0  + @delThickMax@ * (@scn@ - 1.0)/(@numSegments@ - 1.0)) }]]
+		#seth t_em [format "%.4f" [expr {@t_em@ *(1.0  + @delThickMax@ * (@scn@ - 1.0)/(@numSegments@ - 1.0)) }]]
+		#seth t_em2 [format "%.4f" [expr {@t_em2@ *(1.0  + @delThickMax@ * (@scn@ - 1.0)/(@numSegments@ - 1.0)) }]]
+		#seth t_base [format "%.4f" [expr {@t_base@ *(1.0  + @delThickMax@ * (@scn@ - 1.0)/(@numSegments@ - 1.0)) }]]
+	#else
+		#seth t_fsf [format "%.4f" [expr {@t_fsf@ *(1.0 + @delThickMax@) }]]
+		#seth t_em [format "%.4f" [expr {@t_em@ *(1.0  + @delThickMax@) }]]
+		#seth t_em2 [format "%.4f" [expr {@t_em2@ *(1.0  + @delThickMax@) }]]
+		#seth t_base [format "%.4f" [expr {@t_base@ *(1.0  + @delThickMax@) }]]
+	#endif
+#endif
+
+

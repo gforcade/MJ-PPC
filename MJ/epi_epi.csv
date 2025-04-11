@@ -1,0 +1,223 @@
+#***************************************************************
+# Epi command file for
+# multilayered structure generation
+#***************************************************************
+
+#--------------------------------------
+# Global section
+#--------------------------------------
+
+
+
+#include "../layerCSVs/epi_GlobalSection.csv"
+
+
+###########################################################################
+
+#--------------------------------------
+# Layer structure
+#--------------------------------------
+
+#if @ARC2_t@ != 0.0
+ ARC2,  		MgF, 	MgF.par,		@ARC2_t@,	,	,	(mbox 0.02 2.0 both) 
+#endif
+
+#if @ARC1_t@ != 0.0
+ ARC1,  		TaO, 	ta2o5_semiabs.par,		@ARC1_t@,	,	,	(mbox 0.02 2.0 both) 
+#endif
+
+#if @cap_t@ != 0.0
+ cap,  	   InP,   		InP.tcl,		@cap_t@,		@cap_dop@,	,	(mbox 0.02 2.0 both)
+#endif
+
+
+
+
+### setting general material parameters
+## t_em2: 0 for all layers. Change it within layer sequence if you want a homojunction. 
+## Mat_base: Material of the BSF/Base layer (InP or InAlAs).
+## em_xMole: emitter xMole fraction for all emitter layers
+#seth t_em2 0.0
+#seth Mat_base "@Mat9_Base@"
+#seth em_xMole @em_xMole@
+#seth delEgMax @delEgMax@
+#seth delThick "linear"
+#seth delEg "constant"
+## constant means all subcells change by same, linear means linearly increasing/decreasing change vs subcell number.
+
+
+### Buffer, buffer_mat "InP" == use InP buffer. all else makes no buffer layer
+#seth buffer_mat "InP"
+#seth buffer_t 0.12
+#seth buffer_dop -1e18
+
+
+
+### specific subcell settings.
+
+#if @numSegments@ >= 10
+ #seth scn 10
+  #seth t_fsf @seg10_fsf_t@
+  #seth dop_fsf @seg10_fsf_dop@
+  #seth t_em @seg10_em_t@
+  #seth dop_em @seg10_em_dop@
+  #seth t_base @seg10_ba_t@
+  #seth dop_base @seg10_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+
+#if @numSegments@ >= 9
+ #seth scn 9
+  #seth t_fsf @seg9_fsf_t@
+  #seth dop_fsf @seg9_fsf_dop@
+  #seth t_em @seg9_em_t@
+  #seth dop_em @seg9_em_dop@
+  #seth t_base @seg9_ba_t@
+  #seth dop_base @seg9_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+
+#if @numSegments@ >= 8
+ #set scn 8
+  #seth t_fsf @seg8_fsf_t@
+  #seth dop_fsf @seg8_fsf_dop@
+  #seth t_em @seg8_em_t@
+  #seth dop_em @seg8_em_dop@
+  #seth t_base @seg8_ba_t@
+  #seth dop_base @seg8_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+
+#if @numSegments@ >= 7
+ #set scn 7
+  #seth t_fsf @seg7_fsf_t@
+  #seth dop_fsf @seg7_fsf_dop@
+  #seth t_em @seg7_em_t@
+  #seth dop_em @seg7_em_dop@
+  #seth t_base @seg7_ba_t@
+  #seth dop_base @seg7_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+#if @numSegments@ >= 6
+ #set scn 6
+  #seth t_fsf @seg6_fsf_t@
+  #seth dop_fsf @seg6_fsf_dop@
+  #seth t_em @seg6_em_t@
+  #seth dop_em @seg6_em_dop@
+  #seth t_base @seg6_ba_t@
+  #seth dop_base @seg6_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+#if @numSegments@ >= 5
+ #seth scn 5
+  #seth t_fsf @seg5_fsf_t@
+  #seth dop_fsf @seg5_fsf_dop@
+  #seth t_em @seg5_em_t@
+  #seth dop_em @seg5_em_dop@
+  #seth t_base @seg5_ba_t@
+  #seth dop_base @seg5_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+#if @numSegments@ >= 4
+ #seth scn 4
+  #seth t_fsf @seg4_fsf_t@
+  #seth dop_fsf @seg4_fsf_dop@
+  #seth t_em @seg4_em_t@
+  #seth dop_em @seg4_em_dop@
+  #seth t_base @seg4_ba_t@
+  #seth dop_base @seg4_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+
+#if @numSegments@ >= 3
+ #seth scn 3
+  #seth t_fsf @seg3_fsf_t@
+  #seth dop_fsf @seg3_fsf_dop@
+  #seth t_em @seg3_em_t@
+  #seth dop_em @seg3_em_dop@
+  #seth t_base @seg3_ba_t@
+  #seth dop_base @seg3_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+
+#if @numSegments@ >= 2
+ #seth scn 2
+  #seth t_fsf @seg2_fsf_t@
+  #seth dop_fsf @seg2_fsf_dop@
+  #seth t_em @seg2_em_t@
+  #seth dop_em @seg2_em_dop@
+  #seth t_em2 @seg2_em2_t@
+  #seth dop_em2 @seg2_em2_dop@
+  #seth t_base @seg2_ba_t@
+  #seth dop_base @seg2_ba_dop@
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+ #include "../layerCSVs/TD.csv"
+#endif
+
+
+
+ #seth scn 1
+  #seth t_fsf @seg1_fsf_t@
+  #seth dop_fsf @seg1_fsf_dop@
+  #seth t_em @seg1_em_t@
+  #seth dop_em @seg1_em_dop@
+  #seth t_em2 @seg1_em2_t@
+  #seth dop_em2 @seg1_em2_dop@
+  #seth t_base @seg1_ba_t@
+  #seth dop_base @seg1_ba_dop@
+  #seth Mat_base "InAlAs"
+ #include "../layerCSVs/Subcell_homo_grad.csv"
+
+
+
+
+##buffer,    InP,   		InP.tcl,		0.5,		-2e18,	,	(mbox 0.01 2.0 both)
+
+## for no substrate make substrate_t = 0.0
+#if @substrate_t@ != 0.0
+ substrate, InP,     InP.tcl,		@substrate_t@, 	-2e18,	,	(mbox 0.01 2.0 both)
+#endif
+
+
+###########################################################################
+
+#----------------------------------,,,,,,
+# Material and Interface section,,,,,,
+#----------------------------------,,,,,,
+# materialwise parameter file definition,,,,,,
+#,InGaAs/InAlAs,InGaAs_InAlAs.par,,,,	
+,Gas/InGaAs,air%In53GaAs.par,,,,
+#,InAlAs,In52AlAs.tcl,,-1e18,0.52,
+,InP,InP.tcl,,-5e18,,
+#,TiOx,TiOx.par,,,,
+#,MgF,MgF.par,,,,
+,Gold,Gold.par,,,,
+#,Indium,Indium.par,,,,
+#,Al2O3,Al2O3.par,,,
+#,InAlGaAs_InP/InAlGaAs_InP, InAlGaAs_InAlGaAs.par,,,,
+#,InAlAs/InP, InAlAs_InP.par,,,,
+

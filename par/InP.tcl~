@@ -1,0 +1,66 @@
+!(
+#-------------------------------
+# Variable Definition section
+#-------------------------------
+set material InP         ; # Specify material name
+
+#-----------------------------------------------------
+# Input Validation and Header Printing section
+#-----------------------------------------------------
+# Validate variables and print header section in par file
+
+source ../lib/printPar.tcl
+printPar::header
+
+#---------------------------------
+# Parameter Initialization section
+#---------------------------------
+# Initialize parameters
+
+initProperty $material Permittivity Epsilon Levinshtein-RT
+initProperty $material BandStructure Bandgap Levinshtein-RT
+#initProperty $material BandStructure JainRoulston Default
+initProperty $material BandStructure TableBGN Piprek
+initProperty $material BandStructure eDOSMass Piprek-RT
+initProperty $material BandStructure hDOSMass Piprek
+#initProperty $material Quantization SchroedingerParameters Default
+
+initProperty $material Mobility ConstantMobility Sotoodeh
+
+initProperty $material Mobility DopingDependence Sotoodeh
+
+#initProperty $material Mobility HighFieldDependence Default-TEM2
+
+initProperty $material Optics ComplexRefractiveIndex Palik-Aspnes
+
+initProperty $material Recombination RadiativeRecombination Piprek
+initProperty $material Recombination Scharfetter Levinshtein
+initProperty $material Recombination Auger Levinshtein
+
+#---------------------------
+# Parameter Printing section
+#---------------------------
+# print parameter sections in par file
+
+${material}::Epsilon::print
+${material}::Bandgap::print
+#${material}::JainRoulston::print
+${material}::TableBGN::print
+${material}::eDOSMass::print
+${material}::hDOSMass::print
+#${material}::SchroedingerParameters::print
+
+${material}::ConstantMobility::print
+${material}::DopingDependence::print
+#${material}::HighFieldDependence::print
+
+${material}::ComplexRefractiveIndex::print
+
+${material}::RadiativeRecombination::print
+${material}::Scharfetter::print
+${material}::Auger::print
+
+
+)!
+
+
